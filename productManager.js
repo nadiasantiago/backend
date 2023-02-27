@@ -1,55 +1,62 @@
-class ProductManager {
+import fs from 'fs'
+
+export default class ProductManager {
     constructor(){
-        this.products = [];
+        this.path = './files/Products.json';
     }
 
-    getProducts = () => {
-        console.log(this.products);
-        return;
-    }
-
-    getProductById = (prodId) =>{
-        const productId = this.products.findIndex((prod)=>prod.id === prodId);
-        if (productId === -1){
-            console.error(`No se ha encontrado ningun producto con el id: ${prodId}`)
+    getProducts = async () => {
+        if(fs.existsSync(this.path)) {
+            const prod = await fs.promises.readFile(this.path, 'utf-8');
+            const result = JSON.parse(prod);
+            console.log(result);
+            return result;
         }else{
-            const productSearch = this.products.find((prod)=>prod.id == prodId)
-            console.log(productSearch)
+            return [];
         }
     }
 
-    addProduct = (title, description, price, thumbnail, code, stock) =>{
-        const product = {
-            title,
-            description,
-            price,
-            thumbnail,
-            code,
-            stock,
-            id: this.products.length + 1
-        }
+    // getProductById = (prodId) =>{ JSON.PARSE
+    //     const productSearch = this.products.find((prod)=>prod.id == prodId)
+    //     if (productSearch){
+    //         console.log(productSearch) JSON.PARSE
+    //     }else{
+    //         console.error(`No se ha encontrado ningun producto con el id: ${prodId}`)
+    //     }
+    // }
 
-        const productCode = this.products.findIndex((prod)=>prod.code === code);
-
-        if(productCode !== -1){
-            console.log(`Ya existe un producto con el code: ${code}`);
-            return;
-        }
-        if(!title || !description || !price || !thumbnail || !code || !stock){
+    addProduct = async (product) =>{
+        const products = await this.getProducts();
+        if(!product.title || !product.description || !product.price || !product.thumbnail || !product.code || !product.stock){
             console.error('Todos los campos son obligatorios');
             return;
         }
+
+        const productCode = products.findIndex((prod)=>prod.code === product.code);
+        if(productCode !== -1){
+            console.log(`Ya existe un producto con el code: ${product.code}`);
+            return;
+        }
+
+        if(products.length === 0){
+            product.id = 1;
+        }else{
+            product.id = products[products.length -1].id +1
+        }
+
+        products.push(product);
+        await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'));
+        return product;
         
-        this.products.push(product);
+        
+
+        // 
+
+        // this.products.push(product);
     }
 
 }
 
-const productManager = new ProductManager()
-productManager.getProducts();
-productManager.addProduct('producto prueba','Este es un producto prueba',200,'Sin imagen','abc123',25);
-productManager.addProduct('producto prueba','Este es un producto prueba',200,'Sin imagen','abc123',25);
-productManager.getProducts();
-productManager.getProductById(1);
-productManager.getProductById(12);
+// const productManager = new ProductManager()
+
 
