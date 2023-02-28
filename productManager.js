@@ -9,21 +9,21 @@ export default class ProductManager {
         if(fs.existsSync(this.path)) {
             const prod = await fs.promises.readFile(this.path, 'utf-8');
             const result = JSON.parse(prod);
-            console.log(result);
             return result;
         }else{
             return [];
         }
     }
 
-    // getProductById = (prodId) =>{ JSON.PARSE
-    //     const productSearch = this.products.find((prod)=>prod.id == prodId)
-    //     if (productSearch){
-    //         console.log(productSearch) JSON.PARSE
-    //     }else{
-    //         console.error(`No se ha encontrado ningun producto con el id: ${prodId}`)
-    //     }
-    // }
+    getProductById = async (prodId) =>{
+        const products = await this.getProducts();
+        const productSearch = products.find((prod)=>prod.id == prodId)
+        if (productSearch){
+            return productSearch;
+        }else{
+            console.error(`No se ha encontrado ningun producto con el id: ${prodId}`)
+        }
+    }
 
     addProduct = async (product) =>{
         const products = await this.getProducts();
@@ -49,8 +49,40 @@ export default class ProductManager {
         return product;
     }
 
+    deleteProduct = async (id)=>{
+        const product = await this.getProductById(id);
+        if(product === undefined){
+            return
+        }
+
+        const products = await this.getProducts();
+        const newProducts = products.filter(prod => prod.id != id)
+
+        await fs.promises.writeFile(this.path, JSON.stringify(newProducts, null, '\t'));
+        return newProducts;
+    }
+
+    updateProduct = async (id, productChanged)=>{
+        const product = await this.getProductById(id);
+        const products = await this.getProducts();
+        const productIndex = products.findIndex((prod)=>prod.id === id);
+        if(productIndex != -1){
+            const newProduct = {
+                title: productChanged.title?? product.title,
+                description: productChanged.description?? product.description,
+                price: productChanged.price?? product.price,
+                thumbnail: productChanged.thumbnail?? product.thumbnail,
+                code: productChanged.code?? product.code,
+                stock: productChanged.stock?? product.stock,
+                id: id
+            }
+            
+            products[productIndex] = newProduct;
+            await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'));
+            return newProduct;
+        }
+    }
 }
 
-// const productManager = new ProductManager()
 
 
