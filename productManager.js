@@ -51,15 +51,13 @@ export default class ProductManager {
 
     deleteProduct = async (id)=>{
         const product = await this.getProductById(id);
-        if(product === undefined){
-            return
+        if(product != undefined){
+            const products = await this.getProducts();
+            const newProducts = products.filter(prod => prod.id != id)
+    
+            await fs.promises.writeFile(this.path, JSON.stringify(newProducts, null, '\t'));
+            return newProducts;    
         }
-
-        const products = await this.getProducts();
-        const newProducts = products.filter(prod => prod.id != id)
-
-        await fs.promises.writeFile(this.path, JSON.stringify(newProducts, null, '\t'));
-        return newProducts;
     }
 
     updateProduct = async (id, productChanged)=>{
