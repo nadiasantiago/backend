@@ -5,6 +5,7 @@
   "main": "ProductManager.js",
   "type": "module",
   "scripts": {
+    "start:dev": "nodemon ./src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/nadiasantiago/backend/issues"
   },
-  "homepage": "https://github.com/nadiasantiago/backend#readme"
+  "homepage": "https://github.com/nadiasantiago/backend#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
