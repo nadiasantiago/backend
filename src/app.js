@@ -19,28 +19,20 @@ const env = async () =>{
         const limitedProducts = await products.slice(0,limit);
         res.send({Produdcts: limitedProducts})
     })
+
     app.get('/products/:id', async (req, res)=>{
         const prodId = req.params.id;
-        res.send(await productManager.getProductById(prodId))
+        const productSearch = await productManager.getProductById(prodId)
+        if (productSearch) {
+            res.send(productSearch)
+        }else{
+            res.send({Error: `No se han encontrado productos con el id:${prodId}`})
+        }
     })
 
     app.listen(8080, ()=>{
         console.log('servidor arriba en el puerto 8080')
     })
-
-    // let primerConsulta = await productManager.getProducts()
-    // console.log(primerConsulta);
-
-
-
-
-    let consultaId = await productManager.getProductById(1)
-    console.log(consultaId);
-
-    // let productsDepurados = await productManager.deleteProduct(5)
-    // console.log(productsDepurados)
-
-
 
 };
 
