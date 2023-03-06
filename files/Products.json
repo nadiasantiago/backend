@@ -1,20 +1,92 @@
 [
 	{
-		"title": "producto cambiado",
-		"description": "Este es un producto prueba",
-		"price": 200,
-		"thumbnail": "Sin imagen",
-		"code": "abc123",
-		"stock": 100,
-		"id": 1
-	},
-	{
-		"title": "producto prueba",
-		"description": "Este es un producto prueba",
+		"title": "Coca Cola x1.5",
+		"description": "Gaseosa Coca Cola x1.5lts",
 		"price": 200,
 		"thumbnail": "Sin imagen",
 		"code": "abc124",
-		"stock": 200,
+		"stock": 25,
+		"id": 1
+	},
+	{
+		"title": "Coca Cola x2.5",
+		"description": "Gaseosa Coca Cola x2.5lts",
+		"price": 250,
+		"thumbnail": "Sin imagen",
+		"code": "abc125",
+		"stock": 30,
 		"id": 2
+	},
+	{
+		"title": "Shampoo Pantene x190 acido hialuronico",
+		"description": "Shampoo Pantene x190 acido hialuronico",
+		"price": 350,
+		"thumbnail": "Sin imagen",
+		"code": "abc126",
+		"stock": 30,
+		"id": 3
+	},
+	{
+		"title": "Sprite x1.5",
+		"description": "Gaseosa Sprite x1.5lts",
+		"price": 200,
+		"thumbnail": "Sin imagen",
+		"code": "abc127",
+		"stock": 55,
+		"id": 4
+	},
+	{
+		"title": "Acondicionador Pantene x190 acido hialuronico",
+		"description": "Acondicionador Pantene x190 acido hialuronico",
+		"price": 350,
+		"thumbnail": "Sin imagen",
+		"code": "abc128",
+		"stock": 30,
+		"id": 5
+	},
+	{
+		"title": "Shampoo Sedal x190 acido hialuronico",
+		"description": "Shampoo Sedal x190 acido hialuronico",
+		"price": 300,
+		"thumbnail": "Sin imagen",
+		"code": "abc129",
+		"stock": 30,
+		"id": 6
+	},
+	{
+		"title": "Jabon Rexona active men",
+		"description": "Jabon Rexona active men",
+		"price": 200,
+		"thumbnail": "Sin imagen",
+		"code": "abc130",
+		"stock": 25,
+		"id": 7
+	},
+	{
+		"title": "Jabon Rexona orchid",
+		"description": "Jabon Rexona orchid",
+		"price": 200,
+		"thumbnail": "Sin imagen",
+		"code": "abc131",
+		"stock": 30,
+		"id": 8
+	},
+	{
+		"title": "Aceite Cocinero x1.5lts",
+		"description": "Aceite Cocinero x1.5lts",
+		"price": 950,
+		"thumbnail": "Sin imagen",
+		"code": "abc132",
+		"stock": 25,
+		"id": 9
+	},
+	{
+		"title": "Aceite cocinero x900ml",
+		"description": "Aceite cocinero x900ml",
+		"price": 450,
+		"thumbnail": "Sin imagen",
+		"code": "abc133",
+		"stock": 30,
+		"id": 10
 	}
 ]
