@@ -28,26 +28,15 @@ export default class ProductManager {
 
     addProduct = async (product) =>{
         const products = await this.getProducts();
-        if(!product.title || !product.description || !product.price || !product.thumbnail || !product.code || !product.stock){
-            console.error('Todos los campos son obligatorios');
-            return;
-        }
-
-        const productCode = products.findIndex((prod)=>prod.code === product.code);
-        if(productCode !== -1){
-            console.log(`Ya existe un producto con el code: ${product.code}`);
-            return;
-        }
-
         if(products.length === 0){
             product.id = 1;
         }else{
             product.id = products[products.length -1].id +1
         }
-
+        product.satus = true;
         products.push(product);
         await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'));
-        return product;
+        return products
     }
 
     deleteProduct = async (id)=>{
@@ -61,19 +50,14 @@ export default class ProductManager {
         }
     }
 
-    updateProduct = async (id, productChanged)=>{
+    updateProduct = async (id, changes)=>{
         const product = await this.getProductById(id);
         const products = await this.getProducts();
-        const productIndex = products.findIndex((prod)=>prod.id === id);
+        const productIndex = products.findIndex((prod)=>prod.id === product.id);
         if(productIndex != -1){
             const newProduct = {
-                title: productChanged.title?? product.title,
-                description: productChanged.description?? product.description,
-                price: productChanged.price?? product.price,
-                thumbnail: productChanged.thumbnail?? product.thumbnail,
-                code: productChanged.code?? product.code,
-                stock: productChanged.stock?? product.stock,
-                id: id
+                ...products[productIndex],
+                ...changes
             }
             
             products[productIndex] = newProduct;

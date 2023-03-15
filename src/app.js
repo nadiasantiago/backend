@@ -1,39 +1,19 @@
-import ProductManager from "./ProductManager.js";
 import express from "express";
-
+import productRouter from "./routes/products.router.js";
+import cartRouter from './routes/cart.router.js'
 
 // const express = require ("express")
 
 const app = express();
-const productManager = new ProductManager();
+app.use(express.json()); //leer en formato json
+app.use('/api/products', productRouter)
+app.use('/api/carts', cartRouter)
 
 
-const env = async () =>{
-    
-    let products = await productManager.getProducts()
+const server = app.listen(8080, ()=>{
+    console.log('servidor arriba en el puerto 8080')
+})
 
-    app.get('/products', async (req, res)=>{
-        const limit = req.query.limit;
-        if(!limit || limit < 0) return res.send(products);
 
-        const limitedProducts = await products.slice(0,limit);
-        res.send({Produdcts: limitedProducts})
-    })
 
-    app.get('/products/:id', async (req, res)=>{
-        const prodId = req.params.id;
-        const productSearch = await productManager.getProductById(prodId)
-        if (productSearch) {
-            res.send(productSearch)
-        }else{
-            res.send({Error: `No se han encontrado productos con el id:${prodId}`})
-        }
-    })
 
-    app.listen(8080, ()=>{
-        console.log('servidor arriba en el puerto 8080')
-    })
-
-};
-
-env();

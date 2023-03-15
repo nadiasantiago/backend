@@ -2,20 +2,20 @@
 	{
 		"title": "Coca Cola x1.5",
 		"description": "Gaseosa Coca Cola x1.5lts",
-		"price": 200,
+		"price": 300,
 		"thumbnail": "Sin imagen",
 		"code": "abc124",
 		"stock": 25,
-		"id": 1
+		"id": "1"
 	},
 	{
 		"title": "Coca Cola x2.5",
 		"description": "Gaseosa Coca Cola x2.5lts",
-		"price": 250,
+		"price": 500,
 		"thumbnail": "Sin imagen",
 		"code": "abc125",
 		"stock": 30,
-		"id": 2
+		"id": "2"
 	},
 	{
 		"title": "Shampoo Pantene x190 acido hialuronico",
@@ -88,5 +88,14 @@
 		"code": "abc133",
 		"stock": 30,
 		"id": 10
+	},
+	{
+		"title": "Sprite x2.5",
+		"description": "Gaseosa Sprite x2.5lts",
+		"price": 350,
+		"thumbnail": "Sin imagen",
+		"code": "abc134",
+		"stock": 25,
+		"id": 11
 	}
 ]
