@@ -1,29 +1,5 @@
 [
 	{
-		"title": "Shampoo Pantene x200 hidratacion",
-		"description": "Shampoo Pantene x200 hidratacion",
-		"price": "300",
-		"code": "abc126",
-		"stock": 30,
-		"thumbnails": [
-			"http://localhost:8080/img/1679448871032-2175.jpg",
-			"http://localhost:8080/img/1679448871035-coca.jpg"
-		],
-		"id": 3
-	},
-	{
-		"title": "Sprite x1.5",
-		"description": "Gaseosa Sprite x1.5lts",
-		"price": 200,
-		"thumbnails": [
-			"http://localhost:8080/img/1679448871032-2175.jpg",
-			"http://localhost:8080/img/1679448871035-coca.jpg"
-		],
-		"code": "abc127",
-		"stock": 55,
-		"id": 4
-	},
-	{
 		"title": "Acondicionador Pantene x190 acido hialuronico",
 		"description": "Acondicionador Pantene x190 acido hialuronico",
 		"price": 350,
@@ -119,31 +95,6 @@
 		"stock": 25,
 		"category": "Gaseosas",
 		"id": 12,
-		"satus": true
-	},
-	{
-		"title": "coca cola 1.5lts",
-		"description": "gaseosa coca cola 1.5lts",
-		"price": "500",
-		"code": "abc1564",
-		"stock": "100",
-		"category": "Gaseosas",
-		"thumbnails": [
-			"http://localhost:8080/img/1679448871032-2175.jpg",
-			"http://localhost:8080/img/1679448871035-coca.jpg"
-		],
-		"id": 13,
-		"satus": true
-	},
-	{
-		"title": "coca cola 1.5lts sin azucar",
-		"description": "gaseosa coca cola 1.5lts sin azucar",
-		"price": "500",
-		"code": "abc1565",
-		"stock": "100",
-		"category": "Gaseosas",
-		"thumbnails": [],
-		"id": 14,
 		"satus": true
 	}
 ]

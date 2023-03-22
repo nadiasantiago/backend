@@ -1,6 +1,7 @@
-import e, { Router } from "express";
+import { Router } from "express";
 import ProductManager from "../ProductManager.js";
 import { uploader } from "../utils.js";
+import __dirname from "../utils.js";
 
 const router = Router();
 
@@ -50,7 +51,7 @@ router.post('/', uploader.array('thumbnails'), async (req, res)=>{
 
     await productManager.addProduct(product);
 
-    res.status(201).send({status:'OK', message: product});
+    res.status(201).render("realTimeProducts", {products});
 })
 
 router.put('/:pid', uploader.array('thumbnail'), async (req, res)=>{

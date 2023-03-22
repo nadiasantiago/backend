@@ -1,5 +1,48 @@
 <div>
-    <h1>Productos utilizando websocket</h1>
+    <h1>Agregar un producto</h1>
+    <div>
+        <form action="/api/products" id='addProductForm' method="post" enctype="multipart/form-data">
+            <label for="title">Nombre del producto</label>
+            <input type="text" name="title" id="title" required />
+            <br/>
+            <label for="description">Descripción</label>
+            <input type="text" name="description" id="description" required />
+            <br/>
+            <label for="price">Precio</label>
+            <input type="number" name="price" id="price" required />
+            <br/>
+            <label for="code">Código</label>
+            <input type="text" name="code" id="code" required />
+            <br/>
+            <label for="stock">stock</label>
+            <input type="number" name="stock" id="stock" required />
+            <br/>
+            <label for="category">Categoría</label>
+            <input type="text" name="category" id="category" required />
+            <br/>
+            <label for="thumbnails">Imagen</label>
+            <input type="file" name="thumbnails" id="thumbnails" accept="file/*" multiple/>
+            <br/>
+            <button type="submit">Cargar </button>
+            <button type="reset">Reset</button>
+        </form>
+    </div>
+
+    <h2>Eliminar un producto</h2>
+    <div>
+        <form id='deleteProductForm'>
+            <label for="pid">id del producto</label>
+            <input type="number" name="pid" id="pid" required />
+            <br/>
+            <button type="submit">Cargar </button>
+            <button type="reset">Reset</button>
+
+        </form>
+    </div>
+
+
+    <br/>
+    <h2>Lista de Productos</h2>
     <div id="productsList"></div>
 </div>
 <script src="/socket.io/socket.io.js"></script>

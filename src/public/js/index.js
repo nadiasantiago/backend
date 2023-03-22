@@ -1,9 +1,20 @@
 const socket = io();
 
 const productsList = document.getElementById('productsList');
+const productDelete = document.getElementById('deleteProductForm');
+
+
+productDelete.addEventListener('submit', (e)=>{
+    const prodId = document.getElementById('pid').value;
+    fetch(`/api/products/${prodId}`,{
+        method:'delete',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+})
 
 socket.on('products', (products)=>{
-    console.log(products)
     let productsVisible = '';
     products.forEach(e => {
         productsVisible += `
