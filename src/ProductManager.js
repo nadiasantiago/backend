@@ -1,4 +1,5 @@
 import fs from 'fs'
+import socket from './socket.js'
 
 
 export default class ProductManager {
@@ -36,6 +37,7 @@ export default class ProductManager {
         product.satus = true;
         products.push(product);
         await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'));
+
         return products
     }
 
@@ -51,9 +53,9 @@ export default class ProductManager {
     }
 
     updateProduct = async (id, changes)=>{
-        const product = await this.getProductById(id);
         const products = await this.getProducts();
-        const productIndex = products.findIndex((prod)=>prod.id === product.id);
+        const productIndex = products.findIndex((prod)=>prod.id == id);
+        console.log(productIndex);
         if(productIndex != -1){
             const newProduct = {
                 ...products[productIndex],

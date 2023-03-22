@@ -1,5 +1,6 @@
-import { Router } from "express";
+import e, { Router } from "express";
 import ProductManager from "../ProductManager.js";
+import { uploader } from "../utils.js";
 
 const router = Router();
 
@@ -32,8 +33,9 @@ router.get('/:pid', async (req, res)=>{
     }
 })
 
-router.post('/', async (req, res)=>{
+router.post('/', uploader.array('thumbnails'), async (req, res)=>{
     let product = req.body;
+    const thumbnails = req.files;
     if(!product.title || !product.description || !product.price || !product.code || !product.stock || !product.category){
         return res.status(400).send({status: 'Error', message:'Campos incompletos'});
     }
@@ -42,21 +44,30 @@ router.post('/', async (req, res)=>{
     if(productCode !== -1){
         return res.status(400).send({status:'Error', message:`Ya existe un producto con el code: ${product.code}`})
     }
+    product.thumbnails = []
+
+    if(thumbnails){thumbnails.forEach(e=>product.thumbnails.push(`http://localhost:8080/img/${e.filename}`))}
+
     await productManager.addProduct(product);
 
     res.status(201).send({status:'OK', message: product});
 })
 
-router.put('/:pid', async (req, res)=>{
+router.put('/:pid', uploader.array('thumbnail'), async (req, res)=>{
     const prodId = req.params.pid;
     let changes = req.body;
-    const productIndex = products.findIndex((prod)=>prod.id === prodId);
+    const filename = req.files.filename;
+    const productIndex = products.findIndex((prod)=>prod.id == prodId);
     if (productIndex === -1){
         return res.status(404).send({status:'Error', message: `No se han encontrado productos con el id:${prodId}`})
     }
 
     if(changes.id){
         return res.status(400).send({status:'Error', message:'No se puede modificar el id del producto'})
+    }
+
+    if(filename) {
+        changes.thumbnail = `http://localhost:8080/img/${filename}`
     }
     const productChanged = await productManager.updateProduct(prodId, changes)
     res.status(200).send({status:'OK', message:productChanged})
