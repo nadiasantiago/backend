@@ -5,8 +5,9 @@ const productDelete = document.getElementById('deleteProductForm');
 
 
 productDelete.addEventListener('submit', (e)=>{
-    // e.preventDefault();
+    e.preventDefault();
     const prodId = document.getElementById('pid').value;
+    productDelete.querySelector('input').value = ""
     fetch(`/api/products/${prodId}`,{
         method:'delete',
         headers: {
