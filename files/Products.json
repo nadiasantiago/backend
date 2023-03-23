@@ -1,17 +1,5 @@
 [
 	{
-		"title": "Acondicionador Pantene x190 acido hialuronico",
-		"description": "Acondicionador Pantene x190 acido hialuronico",
-		"price": 350,
-		"thumbnails": [
-			"http://localhost:8080/img/1679448871032-2175.jpg",
-			"http://localhost:8080/img/1679448871035-coca.jpg"
-		],
-		"code": "abc128",
-		"stock": 30,
-		"id": 5
-	},
-	{
 		"title": "Shampoo Sedal x190 acido hialuronico",
 		"description": "Shampoo Sedal x190 acido hialuronico",
 		"price": 300,
@@ -72,29 +60,14 @@
 		"id": 10
 	},
 	{
-		"title": "Sprite x2.5",
-		"description": "Gaseosa Sprite x2.5lts",
-		"price": 350,
-		"thumbnails": [
-			"http://localhost:8080/img/1679448871032-2175.jpg",
-			"http://localhost:8080/img/1679448871035-coca.jpg"
-		],
-		"code": "abc134",
-		"stock": 25,
-		"id": 11
-	},
-	{
-		"title": "Sprite x2.5",
-		"description": "Gaseosa Sprite x2.5lts",
-		"price": 350,
-		"thumbnails": [
-			"http://localhost:8080/img/1679448871032-2175.jpg",
-			"http://localhost:8080/img/1679448871035-coca.jpg"
-		],
-		"code": "abc154",
-		"stock": 25,
-		"category": "Gaseosas",
-		"id": 12,
+		"title": "Coca Cola",
+		"description": "coca cola",
+		"price": "250",
+		"code": "coca1",
+		"stock": "10",
+		"category": "gaseosas",
+		"thumbnails": [],
+		"id": 11,
 		"satus": true
 	}
 ]

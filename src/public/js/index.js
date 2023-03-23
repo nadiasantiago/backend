@@ -5,6 +5,7 @@ const productDelete = document.getElementById('deleteProductForm');
 
 
 productDelete.addEventListener('submit', (e)=>{
+    // e.preventDefault();
     const prodId = document.getElementById('pid').value;
     fetch(`/api/products/${prodId}`,{
         method:'delete',

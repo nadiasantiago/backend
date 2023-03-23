@@ -21,7 +21,7 @@ router.get('/', async (req, res)=>{
         .send({status:'Error', message:'No se han encontrado productos'})
     }
 
-    res.status(200).send({status:'OK', message:products})
+    res.status(200).send({status:'OK', message:products});
 })
 
 router.get('/:pid', async (req, res)=>{
@@ -50,7 +50,6 @@ router.post('/', uploader.array('thumbnails'), async (req, res)=>{
     if(thumbnails){thumbnails.forEach(e=>product.thumbnails.push(`http://localhost:8080/img/${e.filename}`))}
 
     await productManager.addProduct(product);
-
     res.status(201).render("realTimeProducts", {products});
 })
 
