@@ -12,6 +12,10 @@ socket.connect = (server)=>{
     socket.io.on('connection', async (socket)=>{
         console.log(`client connected`);
         const products = await productManager.getProducts();
+        
+        socket.on('addProduct', async (data) => {
+            await productManager.addProduct(data)
+        })
 
         socket.emit('products', products)
     })

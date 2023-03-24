@@ -34,10 +34,17 @@ export default class ProductManager {
         }else{
             product.id = products[products.length -1].id +1
         }
+        const productCode = products.findIndex((prod)=>prod.code === product.code);
+    
+        if(productCode !== -1){
+            return {status:'Error', message:`Ya existe un producto con el code: ${product.code}`}
+        }
+        // product.thumbnails = []
+    
+        // if(product.thumbnails){product.thumbnails.forEach(e=>product.thumbnails.push(`http://localhost:8080/img/${e.filename}`))}    
         product.satus = true;
         products.push(product);
         await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'));
-        socket.io.emit("products", products);
         return products
     }
 

@@ -1,7 +1,7 @@
 <div>
     <h1>Agregar un producto</h1>
     <div>
-        <form action="/api/products" id='addProductForm' method="POST" enctype="multipart/form-data">
+        <form id='addProductForm' enctype="multipart/form-data">
             <label for="title">Nombre del producto</label>
             <input type="text" name="title" id="title" required />
             <br/>
@@ -21,7 +21,7 @@
             <input type="text" name="category" id="category" required />
             <br/>
             <label for="thumbnails">Imagen</label>
-            <input type="file" name="thumbnails" id="thumbnails" accept="file/*" multiple/>
+            <input type="file" name="thumbnails" id="thumbnails" accept="image/*" multiple/>
             <br/>
             <button type="submit">Cargar </button>
             <button type="reset">Reset</button>
