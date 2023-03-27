@@ -1,7 +1,7 @@
 <div>
     <h1>Agregar un producto</h1>
     <div>
-        <form id='addProductForm' enctype="multipart/form-data">
+        <form id='addProductForm' action="/api/products" method="post" enctype="multipart/form-data">
             <label for="title">Nombre del producto</label>
             <input type="text" name="title" id="title" required />
             <br/>

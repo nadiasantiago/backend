@@ -5,25 +5,47 @@ const productsList = document.getElementById('productsList');
 const productDelete = document.getElementById('deleteProductForm');
 const thumbnailsName = document.getElementById('thumbnails').files[0]
 
-addProd.addEventListener('submit', (e) => {
-    e.preventDefault()
 
-    // if(product.thumbnails){product.thumbnails.forEach(e=>product.thumbnails.push(`http://localhost:8080/img/${e.filename}`))}    
+// addProd.addEventListener('submit', async(e) => {
+//     e.preventDefault()
+    
 
-    const newProd = { 
-        title: title.value,
-        description: description.value,
-        price: parseInt(price.value),
-        code: code.value,
-        stock: parseInt(stock.value),
-        category: category.value,
-        thumbnails: thumbnails.value
-    }
+//     const files = document.getElementById('thumbnails').files
+    
+//     const thumbnailsTotal = [];
+//     for (let i=0; i < files.length; i++){
+//         thumbnailsTotal.push(`http://localhost:8080/img/${files[i].name}`)
+//     }
 
-    // .forEach(e=>thumbnails.push(`http://localhost:8080/img/${e.filename}`))
-    socket.emit('addProduct', newProd);
-    addProd.reset();
-})
+//     const newProd = { 
+//         title: title.value,
+//         description: description.value,
+//         price: parseInt(price.value),
+//         code: code.value,
+//         stock: parseInt(stock.value),
+//         category: category.value,
+//         thumbnails: thumbnailsTotal
+//     }
+
+//     const fileData = [];
+//     for(let i=0; i<files.length; i++){
+//         fileData.push({
+//             name: files[i].name,
+//             data:files[i]
+//         })
+//     }
+
+//     await fetch('/api/products', {
+//         method:'POST', 
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(newProd)
+//     })
+
+//     socket.emit('upload', fileData)
+//     addProd.reset();
+// })
 
 
 productDelete.addEventListener('submit', (e)=>{
@@ -46,4 +68,5 @@ socket.on('products', (products)=>{
         <p>precio:$${e.price}</p>`
     });
     productsList.innerHTML = productsVisible
+    
 })

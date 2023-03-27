@@ -60,14 +60,29 @@
 		"id": 10
 	},
 	{
-		"title": "Coca Cola",
-		"description": "coca cola",
-		"price": "250",
-		"code": "coca1",
-		"stock": "10",
-		"category": "gaseosas",
-		"thumbnails": [],
+		"title": "dnskal",
+		"description": "jdsk",
+		"price": "615",
+		"code": "fnsdjk",
+		"stock": "156",
+		"category": "nfsdk",
+		"thumbnails": [
+			"http://localhost:8080/img/1679878568142-aceiteCocinero.jpg"
+		],
 		"id": 11,
+		"satus": true
+	},
+	{
+		"title": "djska",
+		"description": "fjdsk",
+		"price": "156",
+		"code": "fnjk",
+		"stock": "156",
+		"category": "sfdjk",
+		"thumbnails": [
+			"http://localhost:8080/img/1679878660592-yerbaPlayadito.jpg"
+		],
+		"id": 12,
 		"satus": true
 	}
 ]
