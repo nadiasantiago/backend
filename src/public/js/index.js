@@ -5,47 +5,59 @@ const productsList = document.getElementById('productsList');
 const productDelete = document.getElementById('deleteProductForm');
 const thumbnailsName = document.getElementById('thumbnails').files[0]
 
+// addProd.addEventListener('submit', (e) => {
 
-// addProd.addEventListener('submit', async(e) => {
-//     e.preventDefault()
-    
-
-//     const files = document.getElementById('thumbnails').files
-    
-//     const thumbnailsTotal = [];
-//     for (let i=0; i < files.length; i++){
-//         thumbnailsTotal.push(`http://localhost:8080/img/${files[i].name}`)
-//     }
-
-//     const newProd = { 
-//         title: title.value,
-//         description: description.value,
-//         price: parseInt(price.value),
-//         code: code.value,
-//         stock: parseInt(stock.value),
-//         category: category.value,
-//         thumbnails: thumbnailsTotal
-//     }
-
-//     const fileData = [];
-//     for(let i=0; i<files.length; i++){
-//         fileData.push({
-//             name: files[i].name,
-//             data:files[i]
-//         })
-//     }
-
-//     await fetch('/api/products', {
-//         method:'POST', 
+//     fetch('/api/products',{
+//         method:'post',
 //         headers: {
 //             'Content-Type': 'application/json'
 //         },
-//         body: JSON.stringify(newProd)
+//         body: new FormData()
 //     })
-
-//     socket.emit('upload', fileData)
-//     addProd.reset();
 // })
+
+
+
+addProd.addEventListener('submit', async(e) => {
+    e.preventDefault()
+    
+
+    const files = document.getElementById('thumbnails').files
+    const thumbnailsTotal = [];
+    for (let i=0; i < files.length; i++){
+        thumbnailsTotal.push(`http://localhost:8080/img/${files[i].name}`)
+    }
+    console.log(thumbnailsTotal)
+
+    const newProd = { 
+        title: title.value,
+        description: description.value,
+        price: parseInt(price.value),
+        code: code.value,
+        stock: parseInt(stock.value),
+        category: category.value,
+        thumbnails: thumbnailsTotal
+    }
+
+    const fileData = [];
+    for(let i=0; i<files.length; i++){
+        fileData.push({
+            name: files[i].name,
+            data:files[i]
+        })
+    }
+
+    await fetch('/api/products', {
+        method:'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newProd)
+    })
+
+    socket.emit('upload', fileData)
+    addProd.reset();
+})
 
 
 productDelete.addEventListener('submit', (e)=>{

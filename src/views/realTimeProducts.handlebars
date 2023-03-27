@@ -1,24 +1,24 @@
 <div>
     <h1>Agregar un producto</h1>
     <div>
-        <form id='addProductForm' action="/api/products" method="post" enctype="multipart/form-data">
+        <form id='addProductForm' {{!--action="/api/products" method="post" --}} enctype="multipart/form-data">
             <label for="title">Nombre del producto</label>
-            <input type="text" name="title" id="title" required />
+            <input type="text" name="title" id="title" />
             <br/>
             <label for="description">Descripción</label>
-            <input type="text" name="description" id="description" required />
+            <input type="text" name="description" id="description" />
             <br/>
             <label for="price">Precio</label>
-            <input type="number" name="price" id="price" required />
+            <input type="number" name="price" id="price" />
             <br/>
             <label for="code">Código</label>
-            <input type="text" name="code" id="code" required />
+            <input type="text" name="code" id="code" />
             <br/>
             <label for="stock">stock</label>
-            <input type="number" name="stock" id="stock" required />
+            <input type="number" name="stock" id="stock" />
             <br/>
             <label for="category">Categoría</label>
-            <input type="text" name="category" id="category" required />
+            <input type="text" name="category" id="category" />
             <br/>
             <label for="thumbnails">Imagen</label>
             <input type="file" name="thumbnails" id="thumbnails" accept="image/*" multiple/>

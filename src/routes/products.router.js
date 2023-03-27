@@ -45,9 +45,8 @@ router.post('/', uploader.array('thumbnails'), async (req, res)=>{
     if(productCode !== -1){
         return res.status(400).send({status:'Error', message:`Ya existe un producto con el code: ${product.code}`})
     }
-    product.thumbnails = []
-
-    if(thumbnails){thumbnails.forEach(e=>product.thumbnails.push(`http://localhost:8080/img/${e.filename}`))}
+    // product.thumbnails = []
+    // if(thumbnails){thumbnails.forEach(e=>product.thumbnails.push(`http://localhost:8080/img/${e.filename}`))}
     await productManager.addProduct(product);
     res.status(201).render("realTimeProducts", {products});
 })

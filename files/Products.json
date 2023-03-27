@@ -60,29 +60,49 @@
 		"id": 10
 	},
 	{
-		"title": "dnskal",
-		"description": "jdsk",
-		"price": "615",
-		"code": "fnsdjk",
-		"stock": "156",
-		"category": "nfsdk",
-		"thumbnails": [
-			"http://localhost:8080/img/1679878568142-aceiteCocinero.jpg"
-		],
+		"title": "fdjsk",
+		"description": "jfdsk",
+		"price": 456,
+		"code": "fs",
+		"stock": 456,
+		"category": "fdssd",
+		"thumbnails": [],
 		"id": 11,
 		"satus": true
 	},
 	{
-		"title": "djska",
-		"description": "fjdsk",
-		"price": "156",
-		"code": "fnjk",
-		"stock": "156",
-		"category": "sfdjk",
-		"thumbnails": [
-			"http://localhost:8080/img/1679878660592-yerbaPlayadito.jpg"
-		],
+		"title": "dasjk",
+		"description": "ankd",
+		"price": 156,
+		"code": "djskf",
+		"stock": 16,
+		"category": "bhsd",
+		"thumbnails": [],
 		"id": 12,
+		"satus": true
+	},
+	{
+		"title": "fsjkd",
+		"description": "njf",
+		"price": 56,
+		"code": "dnjk",
+		"stock": 156,
+		"category": "sjdkv",
+		"thumbnails": [],
+		"id": 13,
+		"satus": true
+	},
+	{
+		"title": "arveja vigente",
+		"description": "arveja vigente",
+		"price": 56,
+		"code": "ar526",
+		"stock": 56,
+		"category": "comestibles",
+		"thumbnails": [
+			"http://localhost:8080/img/arvejaVigente.jpg"
+		],
+		"id": 14,
 		"satus": true
 	}
 ]
