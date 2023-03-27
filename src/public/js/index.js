@@ -5,18 +5,6 @@ const productsList = document.getElementById('productsList');
 const productDelete = document.getElementById('deleteProductForm');
 const thumbnailsName = document.getElementById('thumbnails').files[0]
 
-// addProd.addEventListener('submit', (e) => {
-
-//     fetch('/api/products',{
-//         method:'post',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: new FormData()
-//     })
-// })
-
-
 
 addProd.addEventListener('submit', async(e) => {
     e.preventDefault()
