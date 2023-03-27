@@ -4,8 +4,8 @@
 		"description": "Shampoo Sedal x190 acido hialuronico",
 		"price": 300,
 		"thumbnails": [
-			"http://localhost:8080/img/1679448871032-2175.jpg",
-			"http://localhost:8080/img/1679448871035-coca.jpg"
+			"./img/1679448871032-2175.jpg",
+			"./img/1679448871035-coca.jpg"
 		],
 		"code": "abc129",
 		"stock": 30,
