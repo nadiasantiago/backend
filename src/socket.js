@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import ProductManager from "./ProductManager.js";
+import ProductManager from "./dao/fileManagers/ProductManager.js";
 import __dirname from "./utils.js";
 import { writeFileSync } from 'fs'
 import path from "path";
