@@ -15,8 +15,6 @@ addProd.addEventListener('submit', async(e) => {
     for (let i=0; i < files.length; i++){
         thumbnailsTotal.push(`http://localhost:8080/img/${files[i].name}`)
     }
-    console.log(thumbnailsTotal)
-
     const newProd = { 
         title: title.value,
         description: description.value,
@@ -68,5 +66,4 @@ socket.on('products', (products)=>{
         <p>precio:$${e.price}</p>`
     });
     productsList.innerHTML = productsVisible
-    
 })

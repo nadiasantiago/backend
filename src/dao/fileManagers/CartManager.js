@@ -11,6 +11,7 @@ export default class CartManager {
             const result = JSON.parse(carts);
             return result;
         }else{
+            
             return [];
         }
     }

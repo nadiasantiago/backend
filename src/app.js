@@ -34,7 +34,7 @@ const httpServer = app.listen(8080, ()=>{
 
 mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@ecommerce.vgv42kx.mongodb.net/${dbName}?retryWrites=true&w=majority`)
 
-// socket.connect(httpServer)
+socket.connect(httpServer)
 
 
 

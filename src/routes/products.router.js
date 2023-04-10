@@ -18,7 +18,7 @@ router.post('/', async (req, res)=>{
     const product = req.body;
     const productCreated = await productManager.create(product);
     if(!productCreated){
-        return res.satatus(400).send({status:'error', error:'Error al cargar el producto'})
+        return res.status(400).send({status:'error', error:'Error al cargar el producto'})
     }
     return res.send({status:'success', payload:productCreated})
 });

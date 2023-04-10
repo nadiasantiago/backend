@@ -1,5 +1,6 @@
 import { Server } from "socket.io";
-import ProductManager from "./dao/fileManagers/ProductManager.js";
+// import ProductManager from "./dao/fileManagers/ProductManager.js";
+import ProductManager from "./dao/dbManagers/ProductManager.js";
 import __dirname from "./utils.js";
 import { writeFileSync } from 'fs'
 import path from "path";
@@ -14,7 +15,7 @@ socket.connect = (server)=>{
 
     socket.io.on('connection', async (socket)=>{
         console.log(`client connected`);
-        const products = await productManager.getProducts();
+        const products = await productManager.findAll();
         
 
         socket.on('upload', async(file)=>{
