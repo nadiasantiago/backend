@@ -5,10 +5,10 @@ export default class CartManager {
     constructor (){
     }
 
-    getCarts= async()=>{
+    getCarts = async()=>{
         try {
-            const carts = await cartModel.find();
-            return carts
+            // const cartsFound = await cartModel.find();
+            // return cartsFound
         } catch (error) {
             console.log(error)
         }
@@ -26,7 +26,7 @@ export default class CartManager {
     addCart = async ()=>{
         try {
             const cart = await cartModel.create({products:[]});
-            console.log(cart)
+            return cart
         } catch (error) {
             console.log(error);
         }
@@ -34,13 +34,23 @@ export default class CartManager {
 
     addToCart = async (cartId, prodId)=>{
         try {
-            const cart = this.getCartById(cartId)
-            const searchProduct = cart.find({})
-            const product = await productModel.find({_id:prodId},{_id:1});
+            const cart = await cartModel.findOne({_id:cartId});
+            const productSearched = cart.products.findIndex((prod)=>prod.pid == prodId);
+            if(productSearched == -1){
+                const product = {
+                    pid: prodId, 
+                    quantity:1,
+                }
+                const cartUpdated = await cartModel.updateOne({_id:cartId}, {$push:{products:product}} );
+                return cartUpdated
+            } else{
+                const cartUpdate = await cartModel.updateOne({_id:cartId,products:{$elemMatch:{pid: prodId}}},{$inc:{'products.$.quantity':1}});
+                return cartUpdate
+            }
 
         } catch (error) {
             console.log(error);
         }
     }
-
+    
 }
