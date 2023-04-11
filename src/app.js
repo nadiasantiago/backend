@@ -2,6 +2,7 @@ import express from "express";
 import productRouter from "./routes/products.router.js";
 import cartRouter from './routes/cart.router.js';
 import viewsRouter from './routes/views.router.js';
+import messagesRouter from './routes/messages.router.js';
 import __dirname from "./utils.js";
 import handlebars from "express-handlebars"
 import socket from './socket.js'
@@ -20,6 +21,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static(`${__dirname}/public`));
 app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
+app.use('/api/messages', messagesRouter);
+
 
 //configuracion handlebars
 

@@ -14,6 +14,10 @@ router.get("/realtimeproducts", async (req, res) => {
     res.render("realTimeProducts", {products});
 });
 
+router.get("/messages", async (req, res) => {
+    let messages = await messagesManager.getMessages();
+    res.render("messages", {messages});
+});
 
 //DESDE FILES
 // router.get("/", async (req, res) => {

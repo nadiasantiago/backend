@@ -1,5 +1,4 @@
 import { cartModel } from "../models/cart.model.js"
-import { productModel } from "../models/product.model.js";
 
 export default class CartManager {
     constructor (){
@@ -7,8 +6,8 @@ export default class CartManager {
 
     getCarts = async()=>{
         try {
-            // const cartsFound = await cartModel.find();
-            // return cartsFound
+            const cartsFound = await cartModel.find();
+            return cartsFound
         } catch (error) {
             console.log(error)
         }
