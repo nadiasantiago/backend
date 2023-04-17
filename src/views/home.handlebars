@@ -1,15 +1,31 @@
 <div>
     <h1>Productos</h1>
+    <div class="products-conteiner">
     {{#each products}}
-    <div>
-        {{#each this.thumbnails}}
-        <img src={{this}} alt={{this.title}}>
-        {{/each}}
-
-        <p>{{this.title}}</p>
-        <p>{{this.code}}</p>
-        <p>Precio:{{this.price}}</p>
-        <p>stock:{{this.stock}}</p>
+    <div class="product-conteiner">
+        <div class="product">
+            {{#each this.thumbnails}}
+            <img src={{this}} alt={{this.title}}>
+            {{/each}}
+            <p>{{this.category}}</p>
+            <p>{{this.title}}</p>
+            <p>{{this.code}}</p>
+            <p>Precio:${{this.price}}</p>
+            <p>stock:{{this.stock}}</p>
+        </div>
+        <button class="product-button" id="{{_id}}">Agregar al carrito</button>
     </div>
     {{/each}}
+    </div>
+    <div class="pages-conteiner">
+    {{#if hasPrevPage}}
+        <a href='/products?page={{prevPage}}'><button>Anterior</button></a>
+    {{/if}}
+    <p class="pageNumber">{{page}}</p>
+    {{#if hasNextPage}}
+        <a href="/products?page={{nextPage}}"><button>Siguiente</button></a>
+    {{/if}}
+    </div>
 </div>
+
+<script src="/js/products.js"></script>

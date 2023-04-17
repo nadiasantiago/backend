@@ -4,13 +4,30 @@ import ProductManager from "../dao/dbManagers/ProductManager.js";
 const router = Router();
 const productManager = new ProductManager();
 
-router.get("/", async (req, res) => {
-    let products = await productManager.findAll()
-    res.render("home", {products});
+router.get("/products", async (req, res) => {
+    const {limit =10, page=1, category=null, status=null, sort=null} =req.query
+    const {
+        docs: 
+        products,
+        hasPrevPage,
+        hasNextPage,
+        nextPage,
+        prevPage,
+    } = await productManager.getProducts(limit, page, category, status, sort);
+    res.render("home", {
+        products,
+        page,
+        hasPrevPage,
+        hasNextPage,
+        prevPage,
+        nextPage,
+        title:'Productos',
+        style:"/css/style.css",
+    });
 });
 
 router.get("/realtimeproducts", async (req, res) => {
-    let products = await productManager.findAll()
+    let products = await productManager.getProducts()
     res.render("realTimeProducts", {products});
 });
 

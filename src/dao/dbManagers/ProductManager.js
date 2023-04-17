@@ -3,9 +3,17 @@ import { productModel } from "../models/product.model.js";
 export default class ProductManager {
     constructor (){
     }
-    findAll = async()=>{
+    getProducts = async(limit, page, category, status, sort)=>{
         try {
-            const products = await productModel.find();
+            let queries = {};
+            category? (queries.category = category.toLowerCase()):null;
+            status? (queries.status = status.toLowerCase()):null;
+            parseInt(sort)==1?(sort={price:1}):null;
+            parseInt(sort)==-1?(sort={price:-1}):null;
+            const products = await productModel.paginate(queries, {limit, page, sort, lean: true});
+
+            products.hasPrevPage? (products.prevLink=`/products?page=${products.prevPage}`):null;
+            products.hasNextPage? (products.nextLink=`/products?page=${products.nextPage}`):null;
             return products
         } catch (error) {
             console.log(error);

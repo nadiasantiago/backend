@@ -1,0 +1,42 @@
+.products-conteiner{
+    display: flex;
+    flex-wrap: wrap;
+}
+.product-conteiner{
+    display: flex;
+    flex-direction: column;
+}
+.product{
+    display: inline-block;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    overflow: hidden;
+}
+
+.product-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #0d3969;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.product-button:hover {
+    background-color: #0d3969;
+}
+
+.pages-conteiner{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pageNumber{
+    font-weight: bold;
+    padding: 5px;
+}

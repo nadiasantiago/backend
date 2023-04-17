@@ -35,6 +35,31 @@ router.post('/:cid/products/:pid', async (req, res)=>{
     res.status(201).send({status:'OK', payload: cartUpdate})
 })
 
+router.delete('/:cid/products/:pid', async(req,res)=>{
+    const cartId = req.params.cid;
+    const prodId = req.params.pid;
+    const cartUpdate = await cartManager.deleteFromCart(cartId, prodId);
+    res.status(201).send({status:'OK', payload: cartUpdate})
+})
+
+router.delete('/:cid',async(req,res)=>{
+    const cartId = req.params.cid;
+    const cartUpdate = await cartManager.deleteAllFromCart(cartId);
+    res.status(201).send({status:'OK', payload: cartUpdate})
+
+})
+
+router.put('/:cid', async(req, res)=>{
+    const cartId = req.params.cid;
+    const products = req.body;
+    const cartUpdate = await cartManager.updateCart(cartId, products);
+    res.status(201).send({status:'OK', payload: cartUpdate});
+})
+
+router.put('/:cid/products/:pid', async(req, res)=>{
+
+})
+
 
 //MODELO DE PERSISTENCIA CON FILES
 // router.post('/', async (req, res)=>{

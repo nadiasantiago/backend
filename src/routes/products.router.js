@@ -10,7 +10,8 @@ const router = Router();
 //MODELO DE PERSISTENCIA CON DB
 const productManager = new ProductManager();
 router.get('/', async (req, res)=>{
-    const products = await productManager.findAll();
+    const {limit =10, page=1, category=null, status=null, sort=null} =req.query
+    const products = await productManager.getProducts(limit, page, category, status, sort);
     return res.send({status:'success', payload:products})
 });
 

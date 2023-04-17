@@ -8,7 +8,6 @@ const thumbnailsName = document.getElementById('thumbnails').files[0]
 
 addProd.addEventListener('submit', async(e) => {
     e.preventDefault()
-    
 
     const files = document.getElementById('thumbnails').files
     const thumbnailsTotal = [];

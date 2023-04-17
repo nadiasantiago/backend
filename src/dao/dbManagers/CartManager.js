@@ -51,5 +51,32 @@ export default class CartManager {
             console.log(error);
         }
     }
+
+    deleteFromCart = async(cartId, prodId)=>{
+        try {
+            const cartUpdated = await cartModel.updateOne({_id:cartId}, {$pull:{products:{pid:prodId}}});
+            return cartUpdated
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    deleteAllFromCart = async(cartId)=>{
+        try {
+            const cartUpdated = await cartModel.updateOne({_id:cartId}, {products:[]});
+            return cartUpdated
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    updateCart = async (cartId, products)=>{
+        try {
+            const cartUpdated = await cartModel.updateOne({_id:cartId}, {products:products});
+            return cartUpdated;
+        } catch (error) {
+            console.log(error)
+        }
+    }
     
 }

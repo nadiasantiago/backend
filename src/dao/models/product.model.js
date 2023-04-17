@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import mongoosePaginate from 'mongoose-paginate-v2';
 const productsCollection = 'products';
 
 const productSchema = new mongoose.Schema({
@@ -27,12 +27,19 @@ const productSchema = new mongoose.Schema({
         type:Number,
         require:true
     },
+    category: {
+        type: String,
+        enum: ["comestibles", "bebidas","perfumeria","bazar"],
+        default: "comestibles",
+    },
     thumbnails:{
         type:Array,
         default:[]
     }
 
 });
+
+productSchema.plugin(mongoosePaginate);
 
 const productModel = mongoose.model(productsCollection, productSchema);
 
