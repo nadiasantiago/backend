@@ -6,7 +6,39 @@ const router = Router();
 const productManager = new ProductManager();
 const cartManager = new CartManager();
 
+router.get("/", async (req, res) => {
+    const {limit =10, page=1, category=null, status=null, sort=null} =req.query
 
+    const {
+        docs: 
+        products,
+        totalPages,
+        hasPrevPage,
+        hasNextPage,
+        nextPage,
+        prevPage,
+    } = await productManager.getProducts(limit, page, category, status, sort);
+    
+    if (isNaN(page) || page>totalPages) {
+        return res.status(400).send({status: "error", error: `Page ${page} is not a valid value`});
+    }
+
+    const carts = await cartManager.getCarts()
+    const cart_obj = carts.map(c => ({
+        id: c._id.toString(),
+    }))
+    res.render("home", {
+        products,
+        page,
+        hasPrevPage,
+        hasNextPage,
+        prevPage,
+        nextPage,
+        cart_obj,
+        title:'Productos',
+        style:"/css/style.css",
+    });
+});
 router.get("/products", async (req, res) => {
     const {limit =10, page=1, category=null, status=null, sort=null} =req.query
 
@@ -53,7 +85,6 @@ router.get('/products/:pid', async(req,res)=>{
 router.get('/carts/:cid', async(req,res)=>{
     const {cid}=req.params;
     const cart = await cartManager.getCartById(cid)
-    console.log(cart);
     res.render('cart', cart)
 })
 router.get("/realtimeproducts", async (req, res) => {

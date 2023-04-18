@@ -1,7 +1,8 @@
-
+<p>Carrito Id:
 {{#each cart_obj}}
-<input class='cart-id' type="radio" name="option" value={{this.id}}>{{this.id}}</input>
+    <input class='cart-id' type="radio" name="option" value={{this.id}}>{{this.id}}</input>
 {{/each}}
+</p>
 
 <div class="product-conteiner">
     <div class="product">
@@ -12,7 +13,7 @@
         <p>stock:{{product.stock}}</p>
     </div>
     <button class="product-button" id="{{product._id}}">Agregar al carrito</button>
-    <a href="/products"><button class="detalle-button">Home</button></a>
+    <a href="/products"><button class="home-button">Home</button></a>
     <button class="cart-button">Ver carrito</button>
 </div>
 

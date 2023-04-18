@@ -1,8 +1,10 @@
 <div>
     <h1>Productos</h1>
+    <p>Carrito Id:
     {{#each cart_obj}}
-    <input class='cart-id' type="radio" name="option" value={{this.id}}>{{this.id}}</input>
+        <input class='cart-id' type="radio" name="option" value={{this.id}}>{{this.id}}</input>
     {{/each}}
+    </p>    
     <button class="cart-button">Ver carrito</button>
 
 
