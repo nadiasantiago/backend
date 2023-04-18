@@ -15,7 +15,8 @@ export default class CartManager {
 
     getCartById = async (cartId)=>{
         try {
-            const cart = await cartModel.find({_id:cartId});
+            const cart = await cartModel.find({_id:cartId}).lean().populate('products.pid');
+            console.log(cart);
             return cart
         } catch (error) {
             console.log(error)
@@ -74,6 +75,14 @@ export default class CartManager {
         try {
             const cartUpdated = await cartModel.updateOne({_id:cartId}, {products:products});
             return cartUpdated;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    updateProductFromCart = async(cid,pid,quantity)=>{
+        try {
+            const cartUpdated = await cartModel.updateOne({_id:cid, "products.pid":pid}, {"products.$.quantity": quantity});
+            return cartUpdated
         } catch (error) {
             console.log(error)
         }

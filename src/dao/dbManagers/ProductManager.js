@@ -19,6 +19,14 @@ export default class ProductManager {
             console.log(error);
         }
     }
+    getProductById = async(pid)=>{
+        try {
+            const product = await productModel.findOne({_id:pid}).lean();
+            return product
+        } catch (error) {
+            console.log(error)
+        }
+    }
     create = async(product)=>{
         try {
             const productCreated = await productModel.create(product);

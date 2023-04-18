@@ -31,6 +31,10 @@ router.get('/:cid', async (req, res)=>{
 router.post('/:cid/products/:pid', async (req, res)=>{
     const cartId = req.params.cid;
     const prodId = req.params.pid;
+    if(!cartId){
+        res.status(400).send({status:'Error', message: 'Error al cargar los datos'});
+        return
+    }
     const cartUpdate = await cartManager.addToCart(cartId, prodId);
     res.status(201).send({status:'OK', payload: cartUpdate})
 })
@@ -57,7 +61,20 @@ router.put('/:cid', async(req, res)=>{
 })
 
 router.put('/:cid/products/:pid', async(req, res)=>{
+    try {
+        const { cid, pid } = req.params;
+        const { quantity = 1 } = req.body;
+    
+        if (!cid || !pid)
+        return res.status(400).send({status: 'error', payload: {error: 'campos icompletos' },
+        });
+    
+        const cartUpdated = await cartManager.updateProductFromCart(cid,pid,quantity);
+        res.status(201).send({status:'OK', payload: cartUpdated});
 
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 

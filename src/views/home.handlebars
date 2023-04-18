@@ -1,5 +1,11 @@
 <div>
     <h1>Productos</h1>
+    {{#each cart_obj}}
+    <input class='cart-id' type="radio" name="option" value={{this.id}}>{{this.id}}</input>
+    {{/each}}
+    <button class="cart-button">Ver carrito</button>
+
+
     <div class="products-conteiner">
     {{#each products}}
     <div class="product-conteiner">
@@ -14,6 +20,7 @@
             <p>stock:{{this.stock}}</p>
         </div>
         <button class="product-button" id="{{_id}}">Agregar al carrito</button>
+        <a href="/products/{{_id}}"><button class="detalle-button">Ver detalle</button></a>
     </div>
     {{/each}}
     </div>
@@ -27,5 +34,5 @@
     {{/if}}
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/products.js"></script>

@@ -1,0 +1,20 @@
+<div>
+    <h1>Carrito id: {{_id}}</h1>
+    {{#each product}}
+        <div class="product-conteiner">
+        <div class="product">
+            {{!-- {{#each this.thumbnails}}
+            <img src={{this}} alt={{this.title}}>
+            {{/each}} --}}
+            <p>{{cart.product.category}}</p>
+            <p>{{cart.product.title}}</p>
+            <p>{{cart.product.code}}</p>
+            <p>Precio:${{cart.product.price}}</p>
+            <p>stock:{{cart.product.stock}}</p>
+        </div>
+    </div>
+    {{/each}}
+    <a href="/products/{{_id}}"><button class="detalle-button">Ver detalle</button></a>
+
+
+</div>

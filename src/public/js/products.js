@@ -1,4 +1,6 @@
 const btnAddToCart = document.querySelectorAll('.product-button');
+const cartsId = document.getElementsByName('option');
+const btnCart = document.querySelector('.cart-button')
 
 
 btnAddToCart.forEach(boton =>{
@@ -6,13 +8,50 @@ btnAddToCart.forEach(boton =>{
         e.preventDefault();
         const prodId = e.target.id;
         console.log(prodId)
-        // const cid='643ca4ed9bc1ad74c25270c5'
+        let cid = '';
 
-        // fetch(`/api/${cid}/products/${prodId}`, {
-        //     method: 'POST',
-        //     headers: {
-        //     'Content-Type': 'application/json'
-        //     }
-        // })
+        for (const cartId of cartsId) {
+            if (cartId.checked) {
+            cid = cartId.value;
+            break;
+            }
+        }
+        fetch(`/api/carts/${cid}/products/${prodId}`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        }).then(()=>{
+            if(!cid || !prodId){
+                Swal.fire({
+                    icon: 'error',
+                    text: 'No se pudo añadir el producto! por favor verificar los campos',
+                })
+            }else{
+                Swal.fire({
+                    icon: 'success',
+                    text: 'se añadio un producto con exito',
+                })    
+            }
+        })
 })})
+
+btnCart.addEventListener('click', async(e)=>{
+    for (const cartId of cartsId) {
+        if (cartId.checked) {
+        cid = cartId.value;
+        break;
+        }
+    }
+    if(!cid){
+        Swal.fire({
+            icon: 'error',
+            text: 'Debe seleccionar el carrito',
+        });
+    return
+    }
+    window.location.href = `/carts/${cid}`
+})    
+
+
 

@@ -15,6 +15,17 @@ router.get('/', async (req, res)=>{
     return res.send({status:'success', payload:products})
 });
 
+router.get('/:pid', async (req, res)=>{
+    const prodId = req.params.pid;
+    const productSearch = await productManager.getProductById(prodId)
+    if (productSearch) {
+        res.status(200).send({status:'OK', message:productSearch})
+    }else{
+        res.status(404).send({status:'Error', message: `No se han encontrado productos con el id:${prodId}`})
+    }
+})
+
+
 router.post('/', async (req, res)=>{
     const product = req.body;
     const productCreated = await productManager.create(product);

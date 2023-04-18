@@ -1,0 +1,21 @@
+
+{{#each cart_obj}}
+<input class='cart-id' type="radio" name="option" value={{this.id}}>{{this.id}}</input>
+{{/each}}
+
+<div class="product-conteiner">
+    <div class="product">
+        <p>{{product.title}}</p>
+        <p>{{product.category}}</p>
+        <p>{{product.code}}</p>
+        <p>Precio:${{product.price}}</p>
+        <p>stock:{{product.stock}}</p>
+    </div>
+    <button class="product-button" id="{{product._id}}">Agregar al carrito</button>
+    <a href="/products"><button class="detalle-button">Home</button></a>
+    <button class="cart-button">Ver carrito</button>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/product.js"></script>
