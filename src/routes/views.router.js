@@ -97,6 +97,11 @@ router.get("/messages", async (req, res) => {
     res.render("messages", {messages});
 });
 
+router.get('/register', (req,res)=>{
+    res.render('register');
+});
+
+
 //DESDE FILES
 // router.get("/", async (req, res) => {
 //     let products = await productManager.getProducts()

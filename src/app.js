@@ -1,27 +1,33 @@
 import express from "express";
+import handlebars from "express-handlebars"
+import cookieParser from "cookie-parser";
+import session from "express-session";
 import productRouter from "./routes/products.router.js";
 import cartRouter from './routes/cart.router.js';
 import viewsRouter from './routes/views.router.js';
 import messagesRouter from './routes/messages.router.js';
+import sessionsRouter from './routes/session.router.js'
 import __dirname from "./utils.js";
-import handlebars from "express-handlebars"
 import socket from './socket.js'
-import mongoose from "mongoose";
-import dotenv from 'dotenv';
-dotenv.config()
+import database from "./db.js";
+import morgan from "morgan";
 
 const app = express();
 
-const dbUser = process.env.DB_USER;
-const dbPassword = process.env.DB_PASSWORD;
-const dbName = process.env.DB_NAME;
 
+//middlewares
 app.use(express.json()); //leer en formato json
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(`${__dirname}/public`));
+app.use(cookieParser());
+app.use(morgan('dev'));
+
+
 app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/messages', messagesRouter);
+app.use('/api/sessions', sessionsRouter)
+
 
 
 //configuracion handlebars
@@ -35,8 +41,7 @@ const httpServer = app.listen(8080, ()=>{
     console.log('servidor arriba en el puerto 8080')
 });
 
-mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@ecommerce.vgv42kx.mongodb.net/${dbName}?retryWrites=true&w=majority`)
-
+database.connect();
 // socket.connect(httpServer)
 
 
