@@ -4,7 +4,7 @@ const checkLogin = (req, res, next) => {
 }
 
 const checkLogged = (req, res, next) => {
-    if (req.session.user) return res.redirect("/home");
+    if (req.session.user) return res.redirect("/products");
     next();
 }
 
