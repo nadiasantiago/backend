@@ -1,6 +1,7 @@
 const btnAddToCart = document.querySelectorAll('.product-button');
 const cartsId = document.getElementsByName('option');
-const btnCart = document.querySelector('.cart-button')
+const btnCart = document.querySelector('.cart-button');
+const btnLogout = document.querySelector('.logout-button');
 
 
 btnAddToCart.forEach(boton =>{
@@ -41,6 +42,8 @@ btnCart.addEventListener('click', async(e)=>{
         if (cartId.checked) {
         cid = cartId.value;
         break;
+        }else{
+            cid=null
         }
     }
     if(!cid){
@@ -49,9 +52,26 @@ btnCart.addEventListener('click', async(e)=>{
             text: 'Debe seleccionar el carrito',
         });
     return
-    }
+    }    
     window.location.href = `/carts/${cid}`
-})    
+})
+
+btnLogout.addEventListener('click', ()=>{
+    fetch('/api/sessions/logout', {
+        method:'get',
+    }).then(
+        Swal.fire({
+            icon: 'info',
+            text: 'Cerrando sesion',
+            allowOutsideClick: false,
+            confirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            willClose: () => {
+            window.location.href = "/";
+            }
+    }));
+});
 
 
 

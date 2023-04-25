@@ -1,5 +1,11 @@
 <div>
-    <h1>Productos</h1>
+    <h1>Bienvenido {{user.name}}</h1>
+    <p>correo: {{user.email}}</p>
+    <p>edad: {{user.age}}</p>
+    <p>rol:{{user.rol}}</p>
+
+    <button class="logout-button">Cerrar Session</button>
+    <h2>Productos</h2>
     <p>Carrito Id:
     {{#each cart_obj}}
         <input class='cart-id' type="radio" name="option" value={{this.id}}>{{this.id}}</input>

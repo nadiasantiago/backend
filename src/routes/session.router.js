@@ -2,8 +2,29 @@ import { Router } from "express";
 import userModel from "../dao/models/user.model.js";
 const router = Router();
 
-router.post('/login', (req, res)=>{
+router.post('/login', async(req, res)=>{
+    try {
+        const {email, password} = req.body;
+        const user = await userModel.findOne({email, password});
+        if(!user){
+            return res.status(400).send({status:'error', message:'credenciales incorrectas'});
+        };
+        
+        user.email == 'adminCoder@coder.com'
+            ?(user.rol= 'admin')
+            :(user.rol='user');
 
+        req.session.user={
+            name: `${user.first_name} ${user.last_name}`,
+            email: user.email,
+            age: user.age,
+            rol:user.rol
+        };
+
+        return res.send({status:'success', message:'Logged in', payload: req.session.user});
+    } catch (error) {
+        console.log(error);
+    }
 });
 router.post('/register', async (req, res)=>{
     try {
@@ -19,7 +40,9 @@ router.post('/register', async (req, res)=>{
             email,
             age,
             password,
-        }
+        };
+
+        console.log(user)
 
         await userModel.create(user);
         return res.send({status:'success', message:'usuario registrado con éxito'})
@@ -28,5 +51,14 @@ router.post('/register', async (req, res)=>{
         console.log(error);
     }
 });
+
+router.get('/logout', async(req, res)=>{
+    req.session.destroy((err) => {
+        if (!err) return res.send("logout ok!");
+    
+        return res.send({ status: "error", message: "logout error", body: err });
+    });
+});
+
 
 export default router

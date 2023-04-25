@@ -2,6 +2,7 @@ import express from "express";
 import handlebars from "express-handlebars"
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import productRouter from "./routes/products.router.js";
 import cartRouter from './routes/cart.router.js';
 import viewsRouter from './routes/views.router.js';
@@ -11,6 +12,7 @@ import __dirname from "./utils.js";
 import socket from './socket.js'
 import database from "./db.js";
 import morgan from "morgan";
+import config from "./config.js";
 
 const app = express();
 
@@ -21,6 +23,14 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
 app.use(morgan('dev'));
+app.use(session({
+    store: MongoStore.create({
+        mongoUrl: config.dbUrl,
+    }),
+    resave:false,
+    saveUninitialized:false,
+    secret: 'asbdajs',
+}))
 
 
 app.use('/api/products', productRouter);
