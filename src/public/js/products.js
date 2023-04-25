@@ -3,6 +3,23 @@ const cartsId = document.getElementsByName('option');
 const btnCart = document.querySelector('.cart-button');
 const btnLogout = document.querySelector('.logout-button');
 
+const nextLink = document.getElementById('nextLink');
+const prevLink = document.getElementById('prevLink');
+
+const prevPage = prevLink?.getAttribute('prevPage');
+const nextPage = nextLink?.getAttribute('nextPage');
+
+const currentURL = new URL(window.location.href);
+const searchParams = new URLSearchParams(currentURL.search);
+
+searchParams.set('page', nextPage);
+const nextURL = '/products?' + searchParams.toString();
+
+searchParams.set('page',prevPage);
+const prevURL = '/products?' + searchParams.toString();
+
+nextLink.setAttribute('href', nextURL);
+prevLink.setAttribute('href', prevURL);
 
 btnAddToCart.forEach(boton =>{
     boton.addEventListener('click', async(e)=>{

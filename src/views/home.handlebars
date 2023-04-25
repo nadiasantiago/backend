@@ -35,11 +35,11 @@
     <div class="pages-conteiner">
     {{#if hasPrevPage}}
         
-        <a href='/products?page={{prevPage}}'><button>Anterior</button></a>
+        <a prevPage='{{prevPage}}' id="prevLink"><button>Anterior</button></a>
     {{/if}}
     <p class="pageNumber">{{page}}</p>
     {{#if hasNextPage}}
-        <a href="/products?page={{nextPage}}"><button>Siguiente</button></a>
+        <a nextPage="{{nextPage}}" id="nextLink"><button>Siguiente</button></a>
     {{/if}}
     </div>
 </div>
