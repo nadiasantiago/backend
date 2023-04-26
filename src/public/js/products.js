@@ -18,8 +18,8 @@ const nextURL = '/products?' + searchParams.toString();
 searchParams.set('page',prevPage);
 const prevURL = '/products?' + searchParams.toString();
 
-nextLink.setAttribute('href', nextURL);
-prevLink.setAttribute('href', prevURL);
+nextLink?.setAttribute('href', nextURL);
+prevLink?.setAttribute('href', prevURL);
 
 btnAddToCart.forEach(boton =>{
     boton.addEventListener('click', async(e)=>{
