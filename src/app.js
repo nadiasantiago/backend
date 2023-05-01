@@ -13,6 +13,8 @@ import socket from './socket.js'
 import database from "./db.js";
 import morgan from "morgan";
 import config from "./config.js";
+import passport from "passport";
+import initializePassport from "./auth/passport.js";
 
 const app = express();
 
@@ -31,6 +33,9 @@ app.use(session({
     saveUninitialized:false,
     secret: 'asbdajs',
 }))
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 app.use('/api/products', productRouter);
