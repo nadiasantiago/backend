@@ -8,11 +8,11 @@ const productManager = new ProductManager();
 const cartManager = new CartManager();
 
 router.get('/register', checkLogged, (req,res)=>{
-    res.render('register');
+    res.render('register',{title: 'Registro'});
 });
 
 router.get('/', checkLogged, (req,res)=>{
-    res.render('login');
+    res.render('login', {title:'Iniciar sesion'});
 });
 
 router.get("/products", checkLogin, async (req, res) => {

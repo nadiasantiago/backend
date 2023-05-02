@@ -18,7 +18,7 @@ router.post('/login',
             ?(req.session.user.rol= 'admin')
             :(req.session.user.rol='user');
 
-        return res.send({status:'success', payload: req.user});
+        return res.send({status:'success', payload: req.session.user});
 });
 
 router.get('/failLogin', (req, res)=>{
@@ -34,6 +34,12 @@ router.get('/githubcallback',
     passport.authenticate('githublogin', {failureRedirect:'/'}), 
     (req, res)=>{
         req.session.user = req.user;
+        req.session.user.email == 'adminCoder@coder.com'
+        ?(req.session.user.rol= 'admin')
+        :(req.session.user.rol='user');
+        console.log(req.session.user.email)
+        console.log(req.session.user.rol)
+        
         res.redirect('/products')
 })
 
