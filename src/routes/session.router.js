@@ -6,13 +6,14 @@ import passport from "passport";
 const router = Router();
 
 router.post('/login', 
-    passport.authenticate('login', {failureRedirect: '/failLogin'}), 
+    passport.authenticate('login', {failureRedirect: '/api/sessions/failLogin'}), 
     async(req, res)=>{
+        const user = req.user;
         req.session.user = {
-            first_name: req.user.first_name,
-            last_name: req.user.last_name,
-            age: req.user.age,
-            email: req.user.email,
+            name: `${user.first_name} ${user.last_name}`,
+            age: user.age,
+            email: user.email,
+            cart: user.cart,
         };
         req.session.user.email == 'adminCoder@coder.com'
             ?(req.session.user.rol= 'admin')
@@ -44,13 +45,17 @@ router.get('/githubcallback',
 })
 
 router.post('/register', 
-    passport.authenticate('register', {failureRedirect:'/failRegister'}), 
+    passport.authenticate('register', {failureRedirect:'/api/sessions/failRegister'}), 
     async (req, res)=>{
         return res.send({status:'success', message:'Usuario registrado'})
 });
 
 router.get('/failRegister', (req, res)=>{
     return res.send({status:'status', error:'error de autenticacion'})
+})
+
+router.get('/current', (req, res)=>{
+    return res.send({payload: req.session.user});
 })
 
 router.get('/logout', async(req, res)=>{

@@ -25,7 +25,6 @@ btnAddToCart.forEach(boton =>{
     boton.addEventListener('click', async(e)=>{
         e.preventDefault();
         const prodId = e.target.id;
-        console.log(prodId)
         let cid = '';
 
         for (const cartId of cartsId) {

@@ -1,13 +1,11 @@
 <div>
-    <h1>Bienvenido {{user.first_name}} {{user.last_name}}</h1>
+    <h1>Bienvenido {{user.name}}</h1>
     <p>rol:{{user.rol}}</p>
 
     <button class="logout-button">Cerrar Session</button>
     <h2>Productos</h2>
     <p>Carrito Id:
-    {{#each cart_obj}}
-        <input class='cart-id' type="radio" name="option" value={{this.id}}>{{this.id}}</input>
-    {{/each}}
+        <input class='cart-id' type="radio" name="option" value={{user.cart}}>{{user.cart}}</input>
     </p>    
     <button class="cart-button">Ver carrito</button>
 

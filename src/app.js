@@ -31,7 +31,7 @@ app.use(session({
     }),
     resave:false,
     saveUninitialized:false,
-    secret: 'asbdajs',
+    secret: config.sessionSecret,
 }))
 initializePassport();
 app.use(passport.initialize());
