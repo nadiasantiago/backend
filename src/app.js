@@ -25,17 +25,10 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
 app.use(morgan('dev'));
-app.use(session({
-    store: MongoStore.create({
-        mongoUrl: config.dbUrl,
-    }),
-    resave:false,
-    saveUninitialized:false,
-    secret: config.sessionSecret,
-}))
+
 initializePassport();
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 
 app.use('/api/products', productRouter);

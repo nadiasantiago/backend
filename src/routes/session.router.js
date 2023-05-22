@@ -1,30 +1,43 @@
 import { Router } from "express";
-import userModel from "../dao/models/user.model.js";
+import SessionManager from "../dao/dbManagers/sessionsManager.js";
 import { isValidPassword, creatHash } from "../utils.js";
+import config from "../config.js";
 import passport from "passport";
+import jwt from "jsonwebtoken";
 
 const router = Router();
 
+const sessionManager = new SessionManager();
+
+
 router.post('/login', 
-    passport.authenticate('login', {failureRedirect: '/api/sessions/failLogin'}), 
     async(req, res)=>{
-        const user = req.user;
-        req.session.user = {
+        const {email, password} = req.body;
+        const user = await sessionManager.getUser({email});
+        if(!user) 
+            return res
+                .status(401)
+                .send({status:'error', error:'Usuario inexistente'});
+
+        if(!isValidPassword(user,password))
+            return res.status(401).send({status:'error', error:'credenciales erroneass'})
+
+        const jwtUser = {
             name: `${user.first_name} ${user.last_name}`,
-            age: user.age,
             email: user.email,
+            rol: user.rol,
             cart: user.cart,
         };
-        req.session.user.email == 'adminCoder@coder.com'
-            ?(req.session.user.rol= 'admin')
-            :(req.session.user.rol='user');
-
-        return res.send({status:'success', payload: req.session.user});
+        const token = jwt.sign(jwtUser, config.jwtSecret, {expiresIn: '24h'})
+        
+        return res
+            .cookie('jwtCookie', token, {httpOnly:true})
+            .send({
+                status:'success', 
+                payload: req.user
+            });
 });
 
-router.get('/failLogin', (req, res)=>{
-    res.send({status:'error', error:'error de autenticacion'})
-})
 
 router.get('/github', 
     passport.authenticate('githublogin', {scope:['user:email']}),
@@ -32,21 +45,15 @@ router.get('/github',
 )
 
 router.get('/githubcallback', 
-    passport.authenticate('githublogin', {failureRedirect:'/'}), 
+    passport.authenticate('githublogin', {session:false, failureRedirect:'/'}), 
     (req, res)=>{
-        req.session.user = req.user;
-        req.session.user.email == 'adminCoder@coder.com'
-        ?(req.session.user.rol= 'admin')
-        :(req.session.user.rol='user');
-        console.log(req.session.user.email)
-        console.log(req.session.user.rol)
-        
         res.redirect('/products')
 })
 
 router.post('/register', 
-    passport.authenticate('register', {failureRedirect:'/api/sessions/failRegister'}), 
+    passport.authenticate('register', {session:false, failureRedirect:'/api/sessions/failRegister'}), 
     async (req, res)=>{
+        if(req.user.email == 'adminCoder@coder.com') user.rol = 'admin'
         return res.send({status:'success', message:'Usuario registrado'})
 });
 
@@ -55,15 +62,13 @@ router.get('/failRegister', (req, res)=>{
 })
 
 router.get('/current', (req, res)=>{
-    return res.send({payload: req.session.user});
+    return res.send({payload: req.user});
 })
 
 router.get('/logout', async(req, res)=>{
-    req.session.destroy((err) => {
-        if (!err) return res.send("logout ok!");
-    
-        return res.send({ status: "error", message: "logout error", body: err });
-    });
+    return res
+        .clearCookie('jwtCookie')
+        .send({status:'success', message:'log out successful'})
 });
 
 

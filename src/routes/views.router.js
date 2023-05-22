@@ -2,20 +2,21 @@ import { Router } from "express";
 // import ProductManager from "../dao/fileManagers/ProductManager.js";
 import ProductManager from "../dao/dbManagers/ProductManager.js";
 import CartManager from "../dao/dbManagers/CartManager.js";
-import { checkLogged, checkLogin } from "../middlewares/auth.js";
+import passport from "passport";
+// import { checkLogged, checkLogin } from "../middlewares/auth.js";
 const router = Router();
 const productManager = new ProductManager();
 const cartManager = new CartManager();
 
-router.get('/register', checkLogged, (req,res)=>{
+router.get('/register', (req,res)=>{
     res.render('register',{title: 'Registro'});
 });
 
-router.get('/', checkLogged, (req,res)=>{
+router.get('/', (req,res)=>{
     res.render('login', {title:'Iniciar sesion'});
 });
 
-router.get("/products", checkLogin, async (req, res) => {
+router.get("/products", passport.authenticate('jwt', {session:false}), async (req, res) => {
     const {limit=10, page=1, category=null, status=null, sort=null} =req.query;
 
     const {
@@ -45,13 +46,13 @@ router.get("/products", checkLogin, async (req, res) => {
         prevPage,
         nextPage,
         cart_obj,
-        user: req.session.user,
+        user: req.user,
         title:'Productos',
         style:"/css/style.css",
     });
 });
 
-router.get('/products/:pid', checkLogin, async(req,res)=>{
+router.get('/products/:pid', async(req,res)=>{
     const {pid}= req.params;
     const product = await productManager.getProductById(pid);
     const carts = await cartManager.getCarts()
@@ -60,12 +61,12 @@ router.get('/products/:pid', checkLogin, async(req,res)=>{
     }));
     res.render('product', {product, cart_obj})
 })
-router.get('/carts/:cid', checkLogin, async(req,res)=>{
+router.get('/carts/:cid', async(req,res)=>{
     const {cid}=req.params;
     const cart = await cartManager.getCartById(cid)
     res.render('cart', cart)
 })
-router.get("/realtimeproducts", checkLogin, async (req, res) => {
+router.get("/realtimeproducts", async (req, res) => {
     let products = await productManager.getProducts()
     res.render("realTimeProducts", {products});
 });
