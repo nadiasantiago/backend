@@ -6,7 +6,6 @@ import MongoStore from "connect-mongo";
 import productRouter from "./routes/products.router.js";
 import cartRouter from './routes/cart.router.js';
 import viewsRouter from './routes/views.router.js';
-import messagesRouter from './routes/messages.router.js';
 import sessionsRouter from './routes/session.router.js'
 import __dirname from "./utils.js";
 import socket from './socket.js'
@@ -33,7 +32,6 @@ app.use(passport.initialize());
 
 app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
-app.use('/api/messages', messagesRouter);
 app.use('/api/sessions', sessionsRouter)
 
 

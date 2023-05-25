@@ -32,7 +32,7 @@ const initializePassport = () => {
       { passReqToCallback: true, usernameField: "email" },
       async (req, username, password, done) => {
         try {
-          const { first_name, last_name, email, age, rol } = req.body;
+          let { first_name, last_name, email, age, rol } = req.body;
           let user = await userModel.findOne({ email: username });
           if (user) {
             return done(null, false);
@@ -44,7 +44,9 @@ const initializePassport = () => {
             last_name,
             email,
             age,
-            rol: rol ?? "user",
+            rol: email === `${config.adminEmail}`
+            ? (rol ='admin')
+            : (rol= 'user'),
             password: creatHash(password),
             cart: cart._id,
           };

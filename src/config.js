@@ -7,6 +7,7 @@ const config={
     clientSecret: process.env.CLIENT_SECRET,
     callbackurl: process.env.CALLBACK_URL,
     jwtSecret : process.env.JWT_SECRET,
+    adminEmail: process.env.ADMIN_EMAIL,
 };
 
 export default config;
