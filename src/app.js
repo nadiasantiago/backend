@@ -6,7 +6,9 @@ import MongoStore from "connect-mongo";
 import productRouter from "./routes/products.router.js";
 import cartRouter from './routes/cart.router.js';
 import viewsRouter from './routes/views.router.js';
-import sessionsRouter from './routes/session.router.js'
+import sessionsRouter from './routes/session.router.js';
+import messageRouter from './routes/messages.router.js';
+import { compare } from "./views/helper.js";
 import __dirname from "./utils.js";
 import socket from './socket.js'
 import database from "./db.js";
@@ -33,12 +35,18 @@ app.use(passport.initialize());
 app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/sessions', sessionsRouter)
+app.use('/api/messages', messageRouter)
 
 
 
 //configuracion handlebars
 
-app.engine('handlebars', handlebars.engine());
+app.engine('handlebars', handlebars.engine({
+    helpers: {
+        compare: compare,
+    },
+    defaultLayout: "main",
+}));
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'handlebars' );
 app.use('/', viewsRouter);
@@ -48,7 +56,7 @@ const httpServer = app.listen(8080, ()=>{
 });
 
 database.connect();
-// socket.connect(httpServer)
+socket.connect(httpServer)
 
 
 

@@ -1,4 +1,5 @@
 import { cartService } from "../services/carts.service.js";
+import { ticketService } from "../services/tickets.service.js";
 
 export const addCart = async (req, res)=>{
     let cart = await cartService.addCart();
@@ -68,3 +69,19 @@ export const updateProductFromCart = async(req, res)=>{
     }
 }
 
+export const createTicket = async (req, res)=>{
+    try {
+        const {cid} = req.params
+        if (!cid)
+        return res.status(400).send({status: 'error', payload: {error: 'no existe el carrito' },
+        });
+        const ticketCreated = await ticketService.createTicket(cid);
+
+        if(!ticketCreated) res.status(404).send({status:'error', error:'No se pudo crear el ticket'})
+
+        res.status(201).send({status:'succes', payload: ticketCreated})
+
+    } catch (error) {
+        console.log(error);
+    }
+}

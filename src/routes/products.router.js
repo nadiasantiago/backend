@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createProduct, deleteProduct, getProductById, getProducts, updateProduct } from "../controllers/products.controller.js";
+import { checkAuthorization } from "../middlewares/auth.js";
 
 const router = Router();
 
@@ -9,10 +10,10 @@ router.get('/', getProducts);
 
 router.get('/:pid', getProductById);
 
-router.post('/', createProduct);
+router.post('/', (req, res, next)=>checkAuthorization(req, res, next, 'ADMIN'), createProduct);
 
-router.delete('/:pid', deleteProduct);
+router.delete('/:pid', (req, res, next)=>checkAuthorization(req, res, next, 'ADMIN'), deleteProduct);
 
-router.put('/:pid', updateProduct);
+router.put('/:pid', (req, res, next)=>checkAuthorization(req, res, next, 'ADMIN'), updateProduct);
 
 export default router

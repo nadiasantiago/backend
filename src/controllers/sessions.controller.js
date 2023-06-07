@@ -2,6 +2,7 @@ import { isValidPassword, creatHash } from "../utils.js";
 import config from "../config.js";
 import jwt from "jsonwebtoken";
 import { sessionService } from "../services/sessions.service.js";
+import outputUserDto from "../dao/dto/outputUser.dto.js";
 
 
 export const login = async(req, res)=>{
@@ -15,12 +16,9 @@ export const login = async(req, res)=>{
     if(!isValidPassword(user,password))
         return res.status(401).send({status:'error', error:'credenciales erroneass'})
 
-    const jwtUser = {
-        name: `${user.first_name} ${user.last_name}`,
-        email: user.email,
-        rol: user.rol,
-        cart: user.cart,
-    };
+    const userDto = new outputUserDto(user);
+    const jwtUser = JSON.parse(JSON.stringify(userDto))
+    console.log(jwtUser);
     const token = jwt.sign(jwtUser, config.jwtSecret, {expiresIn: '24h'})
     
     return res

@@ -1,4 +1,5 @@
 import { cartService } from "../services/carts.service.js";
+import { messageService } from "../services/messages.service.js";
 import { productService } from "../services/products.service.js";
 
 export const register = (req,res)=>{
@@ -27,10 +28,6 @@ export const products = async (req, res) => {
         return res.status(400).send({status: "error", error: `Page ${page} is not a valid value`});
     }
 
-    const carts = await cartService.getCarts()
-    const cart_obj = carts.map(c => ({
-        id: c._id.toString(),
-    }))
     res.render("home", {
         products,
         page,
@@ -38,7 +35,6 @@ export const products = async (req, res) => {
         hasNextPage,
         prevPage,
         nextPage,
-        cart_obj,
         user: req.user,
         title:'Productos',
         style:"/css/style.css",
@@ -48,15 +44,25 @@ export const products = async (req, res) => {
 export const product = async(req,res)=>{
     const {pid}= req.params;
     const product = await productService.getProductById(pid);
-    const carts = await cartService.getCarts()
-    const cart_obj = carts.map(c => ({
-        id: c._id.toString(),
-    }));
-    res.render('product', {product, cart_obj})
+    console.log(req.user)
+    res.render('product', {
+        product, 
+        user: req.user,
+    })
 }
 
 export const cart = async(req,res)=>{
     const {cid}=req.params;
     const cart = await cartService.getCartById(cid)
     res.render('cart', cart)
+}
+
+export const message = async (req, res) => {
+    let messages = await messageService.getMessages();
+    res.render("messages", {messages});
+};
+
+export const realTimeProducts = async (req, res) => {
+    let products = await productService.getProducts()
+    res.render("realTimeProducts", {products});
 }

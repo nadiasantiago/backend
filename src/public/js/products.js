@@ -25,14 +25,8 @@ btnAddToCart.forEach(boton =>{
     boton.addEventListener('click', async(e)=>{
         e.preventDefault();
         const prodId = e.target.id;
-        let cid = '';
-
-        for (const cartId of cartsId) {
-            if (cartId.checked) {
-            cid = cartId.value;
-            break;
-            }
-        }
+        let cid = btnCart.id;
+        
         fetch(`/api/carts/${cid}/products/${prodId}`, {
             method: 'POST',
             headers: {
@@ -54,21 +48,7 @@ btnAddToCart.forEach(boton =>{
 })})
 
 btnCart.addEventListener('click', async(e)=>{
-    for (const cartId of cartsId) {
-        if (cartId.checked) {
-        cid = cartId.value;
-        break;
-        }else{
-            cid=null
-        }
-    }
-    if(!cid){
-        Swal.fire({
-            icon: 'error',
-            text: 'Debe seleccionar el carrito',
-        });
-    return
-    }    
+    const cid = e.target.id;
     window.location.href = `/carts/${cid}`
 })
 

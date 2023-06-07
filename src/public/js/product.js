@@ -1,21 +1,11 @@
 const btnAddToCart = document.querySelector('.product-button');
-const cartsId = document.getElementsByName('option')
 const btnCart = document.querySelector('.cart-button')
-
-let cid = '';
-
-for (const cartId of cartsId) {
-    if (cartId.checked) {
-    cid = cartId.value;
-    break;
-    }
-}
 
 
 btnAddToCart.addEventListener('click', async(e)=>{
     e.preventDefault();
     const prodId = e.target.id;
-    console.log(prodId)
+    let cid = btnCart.id;
     fetch(`/api/carts/${cid}/products/${prodId}`, {
         method: 'POST',
         headers: {
@@ -37,12 +27,7 @@ btnAddToCart.addEventListener('click', async(e)=>{
 })
 
 btnCart.addEventListener('click', async(e)=>{
-    for (const cartId of cartsId) {
-        if (cartId.checked) {
-        cid = cartId.value;
-        break;
-        }
-    }
+    let cid = btnCart.id;
     if(!cid){
         Swal.fire({
             icon: 'error',

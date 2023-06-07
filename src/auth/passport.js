@@ -6,6 +6,7 @@ import { cartModel } from "../dao/models/cart.model.js";
 import { creatHash, isValidPassword } from "../utils.js";
 import GithubStrategy from "passport-github2";
 import config from "../config.js";
+import InputUserDto from "../dao/dto/inputUser.dto.js";
 
 const { clientID, clientSecret, callbackurl, jwtSecret } = config;
 
@@ -50,7 +51,8 @@ const initializePassport = () => {
             password: creatHash(password),
             cart: cart._id,
           };
-          const result = await userModel.create(newUser);
+          const userToCreate = new InputUserDto(newUser)
+          const result = await userModel.create(userToCreate);
           return done(null, result);
         } catch (error) {
           return done("Error al intentar encontrar usuario" + error);

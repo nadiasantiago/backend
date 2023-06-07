@@ -46,4 +46,4 @@ class CartRepository {
     }
 }
 
-export const cartReposistory = new CartRepository();
+export const cartRepository = new CartRepository();

@@ -3,13 +3,14 @@
     <p>rol:{{user.rol}}</p>
 
     <button class="logout-button">Cerrar Session</button>
+    <p class="{{#compare user.rol '==' 'admin'}} disable {{/compare}}">Carrito Id: {{user.cart}}</p>    
+    <button class="cart-button {{#compare user.rol '==' 'admin'}} disable {{/compare}}" id={{user.cart}}>Ver carrito</button>
+
+    {{#compare user.rol '==' 'admin'}}
+    <a href="/realTimeProducts"><button>Administrar productos</button></a>
+    {{/compare}}
+
     <h2>Productos</h2>
-    <p>Carrito Id:
-        <input class='cart-id' type="radio" name="option" value={{user.cart}}>{{user.cart}}</input>
-    </p>    
-    <button class="cart-button">Ver carrito</button>
-
-
     <div class="products-conteiner">
     {{#each products}}
     <div class="product-conteiner">
@@ -23,14 +24,14 @@
             <p>Precio:${{this.price}}</p>
             <p>stock:{{this.stock}}</p>
         </div>
-        <button class="product-button" id="{{_id}}">Agregar al carrito</button>
+        
+        <button class="product-button {{#compare ../user.rol '==' 'admin'}} disable {{/compare}}" id="{{_id}}">Agregar al carrito</button>
         <a href="/products/{{_id}}"><button class="detalle-button">Ver detalle</button></a>
     </div>
     {{/each}}
     </div>
     <div class="pages-conteiner">
     {{#if hasPrevPage}}
-        
         <a prevPage='{{prevPage}}' id="prevLink"><button>Anterior</button></a>
     {{/if}}
     <p class="pageNumber">{{page}}</p>

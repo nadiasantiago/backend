@@ -1,4 +1,5 @@
 import { cartModel } from "../models/cart.model.js"
+import { ticketModel } from "../models/ticket.model.js";
 
 export default class CartManager {
     constructor (){
@@ -84,6 +85,15 @@ export default class CartManager {
             return cartUpdated
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    createTicket = async (ticket) =>{
+        try {
+            const ticketCreated = await ticketModel.create(ticket);
+            return ticketCreated
+        } catch (error) {
+            console.log(error);
         }
     }
     
