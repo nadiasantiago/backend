@@ -3,7 +3,7 @@ export default class createTicketDto{
         this.products = ticket.products;
         this.code = Date.now() + Math.floor(Math.random() + 1000 + 1);
         this.purchase_datetime = Date.now();
-        this.amount = ticket.total;
-        this.purchase = ticket.user.email;
+        this.amount = ticket.amount;
+        this.purchaser = ticket.purchaser;
     }
 }

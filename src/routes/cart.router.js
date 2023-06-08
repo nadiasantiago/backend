@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { addCart, addToCart, createTicket, deleteAllFromCart, deleteFromCart, getCartById, getCarts, updateCart, updateProductFromCart } from "../controllers/carts.controller.js";
 import { checkAuthorization } from "../middlewares/auth.js";
+import passport from "passport";
 
 const router = Router();
 
@@ -20,9 +21,9 @@ router.put('/:cid', updateCart)
 
 router.put('/:cid/products/:pid', updateProductFromCart)
 
-router.post('/:cid/purchase', createTicket)
+router.get('/:cid/purchase', passport.authenticate('jwt', {session:false}), createTicket)
 
-// router.get('/:cid/purchase/:tid', getTicketById)
+// router.get('/:cid/purchase/', getTicketById)
 
 export default router
 

@@ -46,23 +46,25 @@ class CartService {
     async purchase(cid){
         const cart = await cartRepository.getCartById(cid);
         const products = [];
+        const productsDeleted = []
+        let amount = 0
         cart.products.forEach(({pid:{_id, price, stock}, quantity:qty}) => {
             if(qty > stock){
-                const productUpdate = cartRepository.updateProductFromCart(cid,_id,stock);
-                if(!productUpdate) throw new Error (`Error al actualizar el producto ${_id} del carrito ${cid}`);
-                return
-            }else if(qty == 0){
-                const removeProduct = cartRepository.deleteFromCart(cid, _id);
-                return
+                const productUpdate = cartRepository.deleteFromCart(cid,_id);
+                if(!productUpdate) throw new Error (`Error al eliminar el producto ${_id} del carrito ${cid}`);
+                productsDeleted.push(productUpdate)
+                return productsDeleted
             }else{
+                let subtotal = qty*price
                 products.push({
                     pid: _id,
                     quantity: qty,
-                    subtotal: qty * price
+                    subtotal: subtotal
                 })
+                amount += subtotal
             }
         });
-        return products
+        return {products, amount, productsDeleted}
     }
 }
 

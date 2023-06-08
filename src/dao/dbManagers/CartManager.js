@@ -91,6 +91,7 @@ export default class CartManager {
     createTicket = async (ticket) =>{
         try {
             const ticketCreated = await ticketModel.create(ticket);
+            console.log(ticketCreated)
             return ticketCreated
         } catch (error) {
             console.log(error);

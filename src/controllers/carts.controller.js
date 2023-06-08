@@ -72,10 +72,12 @@ export const updateProductFromCart = async(req, res)=>{
 export const createTicket = async (req, res)=>{
     try {
         const {cid} = req.params
+        const user = req.user
+        console.log(user)
         if (!cid)
         return res.status(400).send({status: 'error', payload: {error: 'no existe el carrito' },
         });
-        const ticketCreated = await ticketService.createTicket(cid);
+        const ticketCreated = await ticketService.createTicket(cid, user);
 
         if(!ticketCreated) res.status(404).send({status:'error', error:'No se pudo crear el ticket'})
 

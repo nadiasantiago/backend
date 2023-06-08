@@ -1,11 +1,20 @@
+import createTicketDto from "../dao/dto/createTicket.dto.js";
 import { ticketRepository } from "../repositories/tickets.repository.js";
 import { cartService } from "./carts.service.js";
 
 class TicketService{
     constructor(){}
-    async createTicket(cid){
+    async createTicket(cid, user){
+        console.log(user.email)
         const purchase = await cartService.purchase(cid);
-        const ticketCreated = await ticketRepository.createTicket(purchase)
+        const ticket = {
+            products: purchase.products,
+            amount: purchase.amount,
+            purchaser: user.email
+        }
+        
+        const ticketDto = new createTicketDto(ticket)
+        const ticketCreated = await ticketRepository.createTicket(ticketDto)
         return ticketCreated
     }
 }
