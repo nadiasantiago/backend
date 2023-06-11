@@ -18,7 +18,6 @@ export const login = async(req, res)=>{
 
     const userDto = new outputUserDto(user);
     const jwtUser = JSON.parse(JSON.stringify(userDto))
-    console.log(jwtUser);
     const token = jwt.sign(jwtUser, config.jwtSecret, {expiresIn: '24h'})
     
     return res
@@ -30,7 +29,16 @@ export const login = async(req, res)=>{
 }
 
 export const githubcallback = (req, res)=>{
-    res.redirect('/products')
+    const user = req.user;
+    const userToken = {
+       id: user._id,
+       rol: user.rol
+    }
+    const token = jwt.sign(userToken, config.jwtSecret, {expiresIn: '24h'});
+    
+    res    
+    .cookie('jwtCookie', token, {httpOnly:true})
+    .redirect('/products')
 }
 
 export const register = async (req, res)=>{
@@ -42,7 +50,8 @@ export const failRegister = (req, res)=>{
 }
 
 export const current = (req, res)=>{
-    return res.send({payload: req.user});
+    const user = sessionService.getUser(req.user)
+    return res.send({payload: user});
 }
 
 export const logout = async(req, res)=>{

@@ -19,6 +19,7 @@ export const getProductById = async(req, res)=>{
 export const createProduct = async (req, res)=>{
     const product = req.body;
     const productCreated = await productService.createProduct(product);
+    console.log(productCreated)
     if(!productCreated){
         return res.status(400).send({status:'error', error:'Error al cargar el producto'})
     }

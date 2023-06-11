@@ -5,7 +5,6 @@ import { cartService } from "./carts.service.js";
 class TicketService{
     constructor(){}
     async createTicket(cid, user){
-        console.log(user.email)
         const purchase = await cartService.purchase(cid);
         const ticket = {
             products: purchase.products,

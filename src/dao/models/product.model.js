@@ -12,24 +12,24 @@ const productSchema = new mongoose.Schema({
         require:true
     },
     code:{
-        type:String,
-        require:true
+        type: String,
+        unique: true,
+        require:true,
     },
     price:{
-        type:Number,
-        require:true
+        type: Number,
+        require: true
     },
     status:{
-        type:Boolean,
-        default:true
+        type: Boolean,
+        default: true
     },
     stock:{
-        type:Number,
-        require:true
+        type: Number,
+        require: true
     },
     category: {
         type: String,
-        enum: ["comestibles", "bebidas","perfumeria","bazar"],
         default: "comestibles",
     },
     thumbnails:{

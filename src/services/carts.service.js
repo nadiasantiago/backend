@@ -45,6 +45,8 @@ class CartService {
 
     async purchase(cid){
         const cart = await cartRepository.getCartById(cid);
+        const cartProductsId = cart.map(item => {return item.pid})
+
         const products = [];
         const productsDeleted = []
         let amount = 0
@@ -64,6 +66,9 @@ class CartService {
                 amount += subtotal
             }
         });
+
+        if(products.length ==0) throw new Error('todos los productos se encuentran sin stock');
+
         return {products, amount, productsDeleted}
     }
 }

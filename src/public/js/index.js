@@ -1,4 +1,4 @@
-const socket = io();
+// const socket = io();
 
 const addProd = document.getElementById('addProductForm')
 const productsList = document.getElementById('productsList');
@@ -20,7 +20,7 @@ addProd.addEventListener('submit', async(e) => {
         price: parseInt(price.value),
         code: code.value,
         stock: parseInt(stock.value),
-        category: category.value,
+        category: category.value||undefined,
         thumbnails: thumbnailsTotal
     }
 
@@ -32,7 +32,7 @@ addProd.addEventListener('submit', async(e) => {
         })
     }
 
-    await fetch('/api/products', {
+    let response = await fetch('/api/products', {
         method:'POST', 
         headers: {
             'Content-Type': 'application/json'
@@ -40,7 +40,22 @@ addProd.addEventListener('submit', async(e) => {
         body: JSON.stringify(newProd)
     })
 
-    socket.emit('upload', fileData)
+
+    let result = await response.json();
+    console.log(result)
+    if(result.status == 'success'){
+        Swal.fire({
+            icon: 'success',
+            text: 'Productp creado con éxito!',
+            allowOutsideClick: true,
+            confirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            willClose: () => {
+            }
+        });
+    }
+    // socket.emit('upload', fileData)
     addProd.reset();
 })
 
@@ -57,12 +72,12 @@ productDelete.addEventListener('submit', (e)=>{
     })
 })
 
-socket.on('products', (products)=>{
-    let productsVisible = '';
-    products.forEach(e => {
-        productsVisible += `
-        <p>${e.title}</p>
-        <p>precio:$${e.price}</p>`
-    });
-    productsList.innerHTML = productsVisible
-})
+// socket.on('products', (products)=>{
+//     let productsVisible = '';
+//     products.forEach(e => {
+//         productsVisible += `
+//         <p>${e.title}</p>
+//         <p>precio:$${e.price}</p>`
+//     });
+//     productsList.innerHTML = productsVisible
+// })

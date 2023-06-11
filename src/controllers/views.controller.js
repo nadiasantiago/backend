@@ -1,6 +1,9 @@
 import { cartService } from "../services/carts.service.js";
 import { messageService } from "../services/messages.service.js";
 import { productService } from "../services/products.service.js";
+import { generateProduct } from "../utils.js";
+
+let productsMock = [];
 
 export const register = (req,res)=>{
     res.render('register',{title: 'Registro'});
@@ -65,4 +68,11 @@ export const message = async (req, res) => {
 export const realTimeProducts = async (req, res) => {
     let products = await productService.getProducts()
     res.render("realTimeProducts", {products});
+}
+
+export const viewMoking = (req, res)=>{
+    for (let i = 0; i<100 ; i++){
+        productsMock.push(generateProduct())
+    }
+    res.send({status:'succes', payload: productsMock})
 }

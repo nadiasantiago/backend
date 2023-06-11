@@ -3,8 +3,8 @@
     <p>rol:{{user.rol}}</p>
 
     <button class="logout-button">Cerrar Session</button>
-    <p class="{{#compare user.rol '==' 'admin'}} disable {{/compare}}">Carrito Id: {{user.cart}}</p>    
-    <button class="cart-button {{#compare user.rol '==' 'admin'}} disable {{/compare}}" id={{user.cart}}>Ver carrito</button>
+    <p {{#compare user.rol '==' 'admin'}} disabled {{/compare}}>Carrito Id: {{user.cart}}</p>    
+    <button class="cart-button"{{#compare user.rol '==' 'admin'}} disabled {{/compare}} id={{user.cart}}>Ver carrito</button>
 
     {{#compare user.rol '==' 'admin'}}
     <a href="/realTimeProducts"><button>Administrar productos</button></a>
@@ -25,7 +25,7 @@
             <p>stock:{{this.stock}}</p>
         </div>
         
-        <button class="product-button {{#compare ../user.rol '==' 'admin'}} disable {{/compare}}" id="{{_id}}">Agregar al carrito</button>
+        <button class="product-button" {{#compare ../user.rol '==' 'admin'}} disabled {{/compare}} id="{{_id}}">Agregar al carrito</button>
         <a href="/products/{{_id}}"><button class="detalle-button">Ver detalle</button></a>
     </div>
     {{/each}}

@@ -3,9 +3,6 @@
     {{#each products}}
     <div class="product-conteiner">
         <div class="product">
-            {{!-- {{#each this.thumbnails}}
-            <img src={{this}} alt={{this.title}}>
-            {{/each}} --}}
             <p>{{this.pid.category}}</p>
             <p>{{this.pid.title}}</p>
             <p>{{this.pid.code}}</p>
@@ -17,4 +14,7 @@
     </div>
     {{/each}}
     <a href="/products"><button class="home-button">Home</button></a>
+    <button class="purchase-button">Finalizar Compra</button>
 </div>
+
+<script src="/js/carts.js"></script>

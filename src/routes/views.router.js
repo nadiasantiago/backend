@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-import { cart, login, message, product, products, realTimeProducts, register } from "../controllers/views.controller.js";
+import { cart, login, message, product, products, realTimeProducts, register, viewMoking } from "../controllers/views.controller.js";
 import { checkAuthorization } from "../middlewares/auth.js";
 
 const router = Router();
@@ -18,6 +18,8 @@ router.get('/carts/:cid', (req, res, next)=>checkAuthorization(req, res, next, '
 router.get("/messages", (req, res, next)=>checkAuthorization(req, res, next, 'USER'), message)
 
 router.get("/realTimeProducts", (req, res, next)=>checkAuthorization(req, res, next, 'ADMIN'), realTimeProducts);
+
+router.get('/mockingproducts', viewMoking)
 
 
 
