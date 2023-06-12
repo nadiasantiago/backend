@@ -4,6 +4,7 @@ const addProd = document.getElementById('addProductForm')
 const productsList = document.getElementById('productsList');
 const productDelete = document.getElementById('deleteProductForm');
 const thumbnailsName = document.getElementById('thumbnails').files[0]
+const errorCargaProduct = document.getElementById('errorCargaProducto');
 
 
 addProd.addEventListener('submit', async(e) => {
@@ -55,10 +56,11 @@ addProd.addEventListener('submit', async(e) => {
             }
         });
     }else{
+        // errorCargaProduct.innerHTML = result.error.map(err => `<p>${err}</p>`)
         Swal.fire({
             icon: 'error',
             title: 'Error al crear el producto',
-            text: result.error,
+            text: result.error.map(err => `<p>${err}</p>`),
             allowOutsideClick: true,
             confirmButton: false,
         });
