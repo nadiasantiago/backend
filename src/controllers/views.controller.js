@@ -66,8 +66,7 @@ export const message = async (req, res) => {
 };
 
 export const realTimeProducts = async (req, res) => {
-    let products = await productService.getProducts()
-    res.render("realTimeProducts", {products});
+    res.render("realTimeProducts");
 }
 
 export const viewMoking = (req, res)=>{

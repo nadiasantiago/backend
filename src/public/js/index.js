@@ -46,13 +46,21 @@ addProd.addEventListener('submit', async(e) => {
     if(result.status == 'success'){
         Swal.fire({
             icon: 'success',
-            text: 'Productp creado con éxito!',
+            text: 'Producto creado con éxito!',
             allowOutsideClick: true,
             confirmButton: false,
             timer: 1500,
             timerProgressBar: true,
             willClose: () => {
             }
+        });
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Error al crear el producto',
+            text: result.error,
+            allowOutsideClick: true,
+            confirmButton: false,
         });
     }
     // socket.emit('upload', fileData)

@@ -16,7 +16,7 @@ import morgan from "morgan";
 import config from "./config.js";
 import passport from "passport";
 import initializePassport from "./auth/passport.js";
-
+import errorHandler from './middlewares/errors/error.js';
 const app = express();
 
 
@@ -37,7 +37,7 @@ app.use('/api/carts', cartRouter);
 app.use('/api/sessions', sessionsRouter)
 app.use('/api/messages', messageRouter)
 
-
+app.use(errorHandler);
 
 //configuracion handlebars
 

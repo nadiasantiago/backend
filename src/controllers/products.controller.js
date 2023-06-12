@@ -1,3 +1,6 @@
+import CustomError from "../services/errors/CustomErrors.js";
+import EErrors from "../services/errors/enum.js";
+import { generateProductErrorInfo } from "../services/errors/info.js";
 import { productService } from "../services/products.service.js";
 
 export const getProducts = async(req, res)=>{
@@ -17,13 +20,34 @@ export const getProductById = async(req, res)=>{
 }
 
 export const createProduct = async (req, res)=>{
-    const product = req.body;
-    const productCreated = await productService.createProduct(product);
-    console.log(productCreated)
-    if(!productCreated){
-        return res.status(400).send({status:'error', error:'Error al cargar el producto'})
+    try {
+        const product = req.body;
+        if(!product.title || !product.description || !product.price || !product.code || !product.stock || !product.category){
+            throw new CustomError({
+                name: 'ProductError',
+                cause: generateProductErrorInfo(product),
+                message: "Error trying to create a new product",
+                code: EErrors.INVALID_TYPES_ERROR,
+            });
+        }
+        const productCreated = await productService.createProduct(product);
+        if(!productCreated){
+            return res.status(400).send({status:'error', error:'Error al cargar el producto'})
+        }
+        return res.send({status:'success', payload:productCreated})
+    } catch (error) {
+        if(error instanceof CustomError){
+            let status=400
+            if(error.code == EErrors.DATABASE_ERROR){
+                status = 400
+            }else(error.code == (EErrors.INVALID_TYPES_ERROR || EErrors.ROUTING_ERROR))
+                status = 500
+            
+            res.status(status).json({status:error.message, error:error.cause})
+        }else{
+            res.status(error.status).json({status:error.message, error:error.cause})
+        }
     }
-    return res.send({status:'success', payload:productCreated})
 }
 
 export const deleteProduct = async (req, res)=>{
