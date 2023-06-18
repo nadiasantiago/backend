@@ -1,4 +1,4 @@
-import EErrors from "../../services/errors/enum.js";
+import EErrors from "../../errors/enum.js";
 
 export default (error, req, res, next) => {
   switch (error.code) {
@@ -8,7 +8,6 @@ export default (error, req, res, next) => {
         error: error.name,
         message: error.message,
       });
-      console.log('se ejecuta esto')
       break;
     default:
       res.send({

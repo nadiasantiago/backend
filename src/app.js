@@ -17,6 +17,7 @@ import config from "./config.js";
 import passport from "passport";
 import initializePassport from "./auth/passport.js";
 import errorHandler from './middlewares/errors/error.js';
+import { addLogger } from "../utils/logger.js";
 const app = express();
 
 
@@ -26,12 +27,12 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
 app.use(morgan('dev'));
+// app.use(addLogger)
+
 
 initializePassport();
 app.use(passport.initialize());
 // app.use(passport.session());
-app.use(errorHandler);
-
 
 app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
@@ -50,6 +51,8 @@ app.engine('handlebars', handlebars.engine({
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'handlebars' );
 app.use('/', viewsRouter);
+
+app.use(errorHandler);
 
 const httpServer = app.listen(8080, ()=>{
     console.log('servidor arriba en el puerto 8080')
