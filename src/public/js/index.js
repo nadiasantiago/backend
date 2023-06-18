@@ -9,6 +9,7 @@ const errorCargaProduct = document.getElementById('errorCargaProducto');
 
 addProd.addEventListener('submit', async(e) => {
     e.preventDefault()
+    errorCargaProduct.innerHTML = ''
 
     const files = document.getElementById('thumbnails').files
     const thumbnailsTotal = [];
@@ -56,14 +57,14 @@ addProd.addEventListener('submit', async(e) => {
             }
         });
     }else{
-        // errorCargaProduct.innerHTML = result.error.map(err => `<p>${err}</p>`)
-        Swal.fire({
-            icon: 'error',
-            title: 'Error al crear el producto',
-            text: result.error.map(err => `<p>${err}</p>`),
-            allowOutsideClick: true,
-            confirmButton: false,
-        });
+        errorCargaProduct.innerHTML = result.error
+        // Swal.fire({
+        //     icon: 'error',
+        //     title: 'Error al crear el producto',
+        //     text: result.error.map(err => `<p>${err}</p>`),
+        //     allowOutsideClick: true,
+        //     confirmButton: false,
+        // });
     }
     // socket.emit('upload', fileData)
     addProd.reset();

@@ -30,6 +30,7 @@ app.use(morgan('dev'));
 initializePassport();
 app.use(passport.initialize());
 // app.use(passport.session());
+app.use(errorHandler);
 
 
 app.use('/api/products', productRouter);
@@ -37,7 +38,6 @@ app.use('/api/carts', cartRouter);
 app.use('/api/sessions', sessionsRouter)
 app.use('/api/messages', messageRouter)
 
-app.use(errorHandler);
 
 //configuracion handlebars
 

@@ -1,5 +1,5 @@
 import { productsRepository } from "../repositories/products.repository.js";
-import CustomError from "./errors/CustomErrors.js";
+import CustomError from "../errors/CustomErrors.js";
 
 class ProductService{
     constructor(){}

@@ -1,6 +1,6 @@
-import CustomError from "../services/errors/CustomErrors.js";
-import EErrors from "../services/errors/enum.js";
-import { generateProductErrorInfo } from "../services/errors/info.js";
+import CustomError from "../errors/CustomErrors.js";
+import EErrors from "../errors/enum.js";
+import { generateProductErrorInfo } from "../errors/info.js";
 import { productService } from "../services/products.service.js";
 
 export const getProducts = async(req, res)=>{
