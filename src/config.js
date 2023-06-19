@@ -8,6 +8,7 @@ const config={
     callbackurl: process.env.CALLBACK_URL,
     jwtSecret : process.env.JWT_SECRET,
     adminEmail: process.env.ADMIN_EMAIL,
+    loggerType: process.env.LOGGER,
 };
 
 export default config;

@@ -5,73 +5,80 @@ import { generateProduct } from "../utils.js";
 
 let productsMock = [];
 
-export const register = (req,res)=>{
-    res.render('register',{title: 'Registro'});
-}
+export const register = (req, res) => {
+  res.render("register", { title: "Registro" });
+};
 
-export const login = (req,res)=>{
-    res.render('login', {title:'Iniciar sesion'});
-}
+export const login = (req, res) => {
+  req.logger.warning("¡Alerta!");
+  res.render("login", { title: "Iniciar sesion" });
+};
 
 export const products = async (req, res) => {
-    const {limit=10, page=1, category=null, status=null, sort=null} =req.query;
+  const {
+    limit = 10,
+    page = 1,
+    category = null,
+    status = null,
+    sort = null,
+  } = req.query;
 
-    const {
-        docs: 
-        products,
-        totalPages,
-        hasPrevPage,
-        hasNextPage,
-        nextPage,
-        prevPage,    
+  const {
+    docs: products,
+    totalPages,
+    hasPrevPage,
+    hasNextPage,
+    nextPage,
+    prevPage,
+  } = await productService.getProducts(limit, page, category, status, sort);
 
-    } = await productService.getProducts(limit, page, category, status, sort);
-    
-    if (isNaN(page) || page>totalPages) {
-        return res.status(400).send({status: "error", error: `Page ${page} is not a valid value`});
-    }
+  if (isNaN(page) || page > totalPages) {
+    return res
+      .status(400)
+      .send({ status: "error", error: `Page ${page} is not a valid value` });
+  }
 
-    res.render("home", {
-        products,
-        page,
-        hasPrevPage,
-        hasNextPage,
-        prevPage,
-        nextPage,
-        user: req.user,
-        title:'Productos',
-        style:"/css/style.css",
-    });
-}
+  res.render("home", {
+    products,
+    page,
+    hasPrevPage,
+    hasNextPage,
+    prevPage,
+    nextPage,
+    user: req.user,
+    title: "Productos",
+    style: "/css/style.css",
+  });
+};
 
-export const product = async(req,res)=>{
-    const {pid}= req.params;
-    const product = await productService.getProductById(pid);
-    console.log(req.user)
-    res.render('product', {
-        product, 
-        user: req.user,
-    })
-}
+export const product = async (req, res) => {
+  const { pid } = req.params;
+  const product = await productService.getProductById(pid);
+  console.log(req.user);
+  res.render("product", {
+    product,
+    user: req.user,
+  });
+};
 
-export const cart = async(req,res)=>{
-    const {cid}=req.params;
-    const cart = await cartService.getCartById(cid)
-    res.render('cart', cart)
-}
+export const cart = async (req, res) => {
+  const { cid } = req.params;
+  const cart = await cartService.getCartById(cid);
+  res.render("cart", cart);
+};
 
 export const message = async (req, res) => {
-    let messages = await messageService.getMessages();
-    res.render("messages", {messages});
+  let messages = await messageService.getMessages();
+  res.render("messages", { messages });
 };
 
 export const realTimeProducts = async (req, res) => {
-    res.render("realTimeProducts");
-}
+  res.render("realTimeProducts");
+};
 
-export const viewMoking = (req, res)=>{
-    for (let i = 0; i<100 ; i++){
-        productsMock.push(generateProduct())
-    }
-    res.send({status:'succes', payload: productsMock})
-}
+export const viewMoking = (req, res) => {
+  for (let i = 0; i < 100; i++) {
+    productsMock.push(generateProduct());
+  }
+  res.send({ status: "succes", payload: productsMock });
+};

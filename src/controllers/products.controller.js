@@ -42,8 +42,8 @@ export const createProduct = async (req, res)=>{
                 status = 400
             }else(error.code == (EErrors.INVALID_TYPES_ERROR || EErrors.ROUTING_ERROR))
                 status = 500
-            
             res.status(status).json({status:error.message, error:error.cause})
+            req.logger.error(`${status} - ${error.message}`);
         }else{
             res.status(error.status).json({status:error.message, error:error.cause})
         }
