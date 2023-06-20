@@ -1,7 +1,7 @@
 import { cartService } from "../services/carts.service.js";
 import { messageService } from "../services/messages.service.js";
 import { productService } from "../services/products.service.js";
-import { generateProduct } from "../utils.js";
+import { generateProduct } from "../utils/utils.js";
 
 let productsMock = [];
 
@@ -10,7 +10,6 @@ export const register = (req, res) => {
 };
 
 export const login = (req, res) => {
-  req.logger.warning("¡Alerta!");
   res.render("login", { title: "Iniciar sesion" });
 };
 

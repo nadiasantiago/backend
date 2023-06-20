@@ -10,7 +10,7 @@ import sessionsRouter from "./routes/session.router.js";
 import messageRouter from "./routes/messages.router.js";
 import loggerTestRouter from "./routes/logger.router.js";
 import { compare } from "./views/helper.js";
-import __dirname from "./utils.js";
+import __dirname from "./utils/utils.js";
 import socket from "./socket.js";
 import database from "./db.js";
 import morgan from "morgan";

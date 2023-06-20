@@ -34,6 +34,7 @@ export const createProduct = async (req, res)=>{
         if(!productCreated){
             return res.status(400).send({status:'error', error:'Error al cargar el producto'})
         }
+        req.logger.debug(`Producto creado con exito: ${productCreated}`)
         return res.send({status:'success', payload:productCreated})
     } catch (error) {
         if(error instanceof CustomError){
@@ -54,9 +55,10 @@ export const deleteProduct = async (req, res)=>{
     try {
         const {pid} = req.params;
         const deletedProduct = await productService.deleteProduct(pid);
+        req.logger.debug(deletedProduct)
         return res.send({status:'success', payload:deletedProduct})
     } catch (error) {
-        console.log(error);
+        req.logger.error(error);
     }
 }
 
@@ -72,6 +74,6 @@ export const updateProduct = async(req, res)=>{
         return res.send({status:'Success', payload: updatedProduct})
 
     } catch (error) {
-        console.log(error);
+        req.logger.error(error);
     }
 }

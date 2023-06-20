@@ -1,5 +1,5 @@
-import { isValidPassword, creatHash } from "../utils.js";
-import config from "../config.js";
+import { isValidPassword, creatHash } from "../utils/utils.js";
+import config from "../config/config.js";
 import jwt from "jsonwebtoken";
 import { sessionService } from "../services/sessions.service.js";
 import outputUserDto from "../dao/dto/outputUser.dto.js";

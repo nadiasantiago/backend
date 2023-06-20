@@ -3,9 +3,9 @@ import local from "passport-local";
 import jwt from "passport-jwt";
 import userModel from "../dao/models/user.model.js";
 import { cartModel } from "../dao/models/cart.model.js";
-import { creatHash, isValidPassword } from "../utils.js";
+import { creatHash, isValidPassword } from "../utils/utils.js";
 import GithubStrategy from "passport-github2";
-import config from "../config.js";
+import config from "../config/config.js";
 import InputUserDto from "../dao/dto/inputUser.dto.js";
 
 const { clientID, clientSecret, callbackurl, jwtSecret } = config;

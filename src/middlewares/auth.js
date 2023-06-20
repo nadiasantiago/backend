@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import config from "../config.js";
+import config from "../config/config.js";
 
 const checkLogin = (req, res, next) => {
     if (!req.session.user) return res.redirect("/");
