@@ -81,3 +81,7 @@ export const viewMoking = (req, res) => {
   }
   res.send({ status: "succes", payload: productsMock });
 };
+
+export const restorePassword = (req, res) =>{
+  res.render('restorePassword');
+}

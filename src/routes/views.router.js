@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-import { cart, login, message, product, products, realTimeProducts, register, viewMoking } from "../controllers/views.controller.js";
+import { cart, login, message, product, products, realTimeProducts, register, restorePassword, viewMoking } from "../controllers/views.controller.js";
 import { checkAuthorization } from "../middlewares/auth.js";
 
 const router = Router();
@@ -20,6 +20,8 @@ router.get("/messages", (req, res, next)=>checkAuthorization(req, res, next, 'US
 router.get("/realTimeProducts", (req, res, next)=>checkAuthorization(req, res, next, 'ADMIN'), realTimeProducts);
 
 router.get('/mockingproducts', viewMoking)
+
+router.get('/restorePassword', restorePassword)
 
 
 

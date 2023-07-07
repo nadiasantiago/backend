@@ -8,6 +8,12 @@ const config={
     callbackurl: process.env.CALLBACK_URL,
     jwtSecret : process.env.JWT_SECRET,
     adminEmail: process.env.ADMIN_EMAIL,
+    nodemailerConfig:{
+        SERVICE: process.env.MAILING_SERVICE,
+        PORT: process.env.MAILING_PORT,
+        USER: process.env.MAILING_USER,
+        PASSWORD: process.env.MAILING_PASSWORD,
+    }
 };
 
 export default config;
