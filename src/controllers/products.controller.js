@@ -71,9 +71,10 @@ export const deleteProduct = async (req, res)=>{
         const tokenPayload = jwt.verify(token, config.jwtSecret, {ignoreExpiration: true})
         const user = tokenPayload.email
 
-        user !== config.adminEmail ?? 
-        user !== product.owner ?? 
-            res.status(400).send({status:'error', error:'Error al eliminar el producto'})
+        const checkIfUserIsAllowed = user === config.email || user === product.owner
+
+        if(!checkIfUserIsAllowed)
+            return res.status(400).send({status:'error', error:'Error al eliminar el producto'})
 
         const deletedProduct = await productService.deleteProduct(pid);
         req.logger.debug(deletedProduct)
