@@ -1,5 +1,7 @@
+import config from "../config/config.js";
 import CustomError from "../errors/CustomErrors.js";
 import EErrors from "../errors/enum.js";
+import jwt from 'jsonwebtoken'
 import { generateProductErrorInfo } from "../errors/info.js";
 import { productService } from "../services/products.service.js";
 
@@ -30,6 +32,13 @@ export const createProduct = async (req, res)=>{
                 code: EErrors.INVALID_TYPES_ERROR,
             });
         }
+
+        const {jwtCookie: token} = req.cookies
+        const tokenPayload = jwt.verify(token, config.jwtSecret, {ignoreExpiration: true})
+        const user = tokenPayload.email
+
+        if(user !== config.adminEmail) product.owner = user
+        
         const productCreated = await productService.createProduct(product);
         if(!productCreated){
             return res.status(400).send({status:'error', error:'Error al cargar el producto'})

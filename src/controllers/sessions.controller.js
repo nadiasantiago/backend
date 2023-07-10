@@ -17,7 +17,6 @@ export const login = async (req, res) => {
     return res
       .status(401)
       .send({ status: "error", error: "credenciales erroneass" });
-
   const userDto = new outputUserDto(user);
   const jwtUser = JSON.parse(JSON.stringify(userDto));
   const token = jwt.sign(jwtUser, config.jwtSecret, { expiresIn: "24h" });
@@ -84,3 +83,29 @@ export const emailToRestorePassword = async (req, res) => {
     console.log(error)
   }
 };
+
+export const resetPassword = async (req, res)=>{
+  try {
+    const {newPassword, token} = req.body
+    const tokenPayload = jwt.verify(token, config.jwtSecret, {ignoreExpiration: true})
+    if (Date.now()/1000 > tokenPayload.exp){
+      return res.redirect('/restorePassword')
+    }
+    const {email} = tokenPayload
+    const user = await sessionService.getUser({email})
+
+    if (isValidPassword(user, newPassword))
+    return res
+      .status(401)
+      .send({ status: "error", error: "La contraseña debe ser distinta a la anterior" });
+
+    const hashedPassword = creatHash(newPassword);
+    const updatedPassword = await sessionService.updatePassword({email}, {password:hashedPassword})
+    if(!updatedPassword)
+      return res.status(500).send({status:'error', error:'Error al actualizar la contraseña'})
+
+    res.status(200).send({status:'success', message:'contraseña cambiada con exito'})
+  } catch (error) {
+    console.log(error)
+  }
+}

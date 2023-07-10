@@ -8,24 +8,24 @@ const {
 class MailingService {
   constructor(){
     this.transport = nodemailer.createTransport({
-      SERVICE,
-      PORT,
+      service:SERVICE,
+      port:PORT,
       auth: {
-        USER,
-        PASSWORD,
+        user:USER,
+        pass:PASSWORD,
       },
     });
   }
   async sendEmail(token, user){
     await this.transport.sendMail({
-      from: USER,
+      from: `Equipo Ecommerce ${USER}`,
       to: user.email,
       subject: "Restablecer Contraseña",
       html: `
       <div>
         <h1>Hola ${user.name}!</h1>
         <p>Hemos recibido una solicitud para restablecer su contraseña. Haz click en el siguiente link: </p>
-        <a href="http://localhost:8080/resetPassword?token=${token}> Reset Password </a>
+        <a href="http://localhost:8080/resetPassword?token=${token}"> Restablecer Contraseña</a>
         <br>
         <p>Saludos</p>
       </div>

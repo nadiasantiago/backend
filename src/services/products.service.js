@@ -11,8 +11,8 @@ class ProductService{
         const product = await productsRepository.getProductById(pid);
         return product;
     }
-    async createProduct(product){
-        const productCreated = await productsRepository.createProduct(product);
+    async createProduct(product, user){
+        const productCreated = await productsRepository.createProduct(product, user);
         return productCreated
     }
     async deleteProduct(pid){

@@ -21,4 +21,16 @@ const checkAuthorization = (req, res, next, rolAuthentication) => {
     next();
 }
 
-export { checkLogged, checkLogin, checkAuthorization };
+const checkTokenResetPassword = (req, res, next) =>{
+    const {token} = req.query;
+    if (!token) {
+        return res.status(401).send({error:'error', message:'invalid token'})
+    }
+    const tokenPayload = jwt.verify(token, config.jwtSecret, {ignoreExpiration: true})
+    if (Date.now()/1000 > tokenPayload.exp){
+        return res.redirect('/restorePassword')
+    }
+    next();
+}
+
+export { checkLogged, checkLogin, checkAuthorization, checkTokenResetPassword };

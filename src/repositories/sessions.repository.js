@@ -8,6 +8,12 @@ class SessionRepository{
         const user = await sessionManager.getUser(email);
         return user
     }
+
+    updatePassword = async (email, hashedPassword)=> {
+        const updatedPassword = await sessionManager.updatePassword(email, hashedPassword)
+        return updatedPassword
+    }
+
 }
 
 export const sessionRepository = new SessionRepository();

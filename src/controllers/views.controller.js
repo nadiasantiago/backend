@@ -85,3 +85,7 @@ export const viewMoking = (req, res) => {
 export const restorePassword = (req, res) =>{
   res.render('restorePassword');
 }
+
+export const resetPassword = (req, res)=>{
+  res.render('resetPassword')
+}
