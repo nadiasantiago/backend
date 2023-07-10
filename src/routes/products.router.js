@@ -10,10 +10,10 @@ router.get('/', getProducts);
 
 router.get('/:pid', getProductById);
 
-router.post('/', (req, res, next)=>checkAuthorization(req, res, next, 'ADMIN'), createProduct);
+router.post('/', (req, res, next)=>checkAuthorization(req, res, next, ['ADMIN', 'PREMIUM']), createProduct);
 
-router.delete('/:pid', (req, res, next)=>checkAuthorization(req, res, next, 'ADMIN'), deleteProduct);
+router.delete('/:pid', (req, res, next)=>checkAuthorization(req, res, next, ['ADMIN', 'PREMIUM']), deleteProduct);
 
-router.put('/:pid', (req, res, next)=>checkAuthorization(req, res, next, 'ADMIN'), updateProduct);
+router.put('/:pid', (req, res, next)=>checkAuthorization(req, res, next, ['ADMIN', 'PREMIUM']), updateProduct);
 
 export default router

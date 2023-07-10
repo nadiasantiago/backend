@@ -11,7 +11,7 @@ router.get('/', getCarts)
 
 router.get('/:cid', getCartById)
 
-router.post('/:cid/products/:pid', (req, res, next)=>checkAuthorization(req, res, next, 'USER'), addToCart)
+router.post('/:cid/products/:pid', (req, res, next)=>checkAuthorization(req, res, next, ['USER', 'PREMIUM']), addToCart)
 
 router.delete('/:cid/products/:pid', deleteFromCart)
 

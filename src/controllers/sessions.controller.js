@@ -109,3 +109,25 @@ export const resetPassword = async (req, res)=>{
     console.log(error)
   }
 }
+
+export const changeRole = async (req, res)=>{
+  try {
+      const {uid} = req.params;
+      if (!uid) return res.status(400).send({status:'error', error:'campo incompleto'})
+      const user = await sessionService.getUser({_id:uid})
+      if(user.rol == 'user'){
+        user.rol = 'premium'
+      }else{
+        user.rol = 'user'
+      }
+      console.log(user.rol)
+      const changeRole = await sessionService.changeRole(uid, user.rol);
+      if(!changeRole)
+        return res.status(500).send({status:'error', error:'Error al actualizar el rol'})
+      console.log(user)
+      res.status(200).send({status:'success', message:'Rol cambiado con exito'})
+    
+  } catch (error) {
+    console.log(error)
+  }  
+}

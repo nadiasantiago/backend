@@ -37,7 +37,8 @@ export const createProduct = async (req, res)=>{
         const tokenPayload = jwt.verify(token, config.jwtSecret, {ignoreExpiration: true})
         const user = tokenPayload.email
 
-        if(user !== config.adminEmail) product.owner = user
+        // if(user !== config.adminEmail) product.owner = user
+        product.owner = user !== config.adminEmail ? user : 'admin'
         
         const productCreated = await productService.createProduct(product);
         if(!productCreated){
@@ -63,6 +64,17 @@ export const createProduct = async (req, res)=>{
 export const deleteProduct = async (req, res)=>{
     try {
         const {pid} = req.params;
+
+        const product = await productService.getProductById(pid)
+        console.log(product)
+        const {jwtCookie: token} = req.cookies
+        const tokenPayload = jwt.verify(token, config.jwtSecret, {ignoreExpiration: true})
+        const user = tokenPayload.email
+
+        user !== config.adminEmail ?? 
+        user !== product.owner ?? 
+            res.status(400).send({status:'error', error:'Error al eliminar el producto'})
+
         const deletedProduct = await productService.deleteProduct(pid);
         req.logger.debug(deletedProduct)
         return res.send({status:'success', payload:deletedProduct})
@@ -74,6 +86,16 @@ export const deleteProduct = async (req, res)=>{
 export const updateProduct = async(req, res)=>{
     try {
         const {pid} = req.params;
+        const product = await productService.getProductById(pid)
+        console.log(product)
+        const {jwtCookie: token} = req.cookies
+        const tokenPayload = jwt.verify(token, config.jwtSecret, {ignoreExpiration: true})
+        const user = tokenPayload.email
+
+        user !== config.adminEmail ?? 
+        user !== product.owner ?? 
+            res.status(400).send({status:'error', error:'Error al eliminar el producto'})
+        
         const update = req.body;
         if(!update) {
             return res.send(400).send({status:'error', error:'missing information'})

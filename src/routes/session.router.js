@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-import { current, emailToRestorePassword, failRegister, githubcallback, login, logout, register, resetPassword } from "../controllers/sessions.controller.js";
+import { changeRole, current, emailToRestorePassword, failRegister, githubcallback, login, logout, register, resetPassword } from "../controllers/sessions.controller.js";
 
 const router = Router();
 
@@ -30,5 +30,7 @@ router.get('/logout', logout);
 router.post('/restorePassword', emailToRestorePassword)
 
 router.put('/resetPassword', resetPassword)
+
+router.put('/premium/:uid', changeRole)
 
 export default router

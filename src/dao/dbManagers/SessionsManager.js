@@ -25,6 +25,17 @@ export default class SessionManager {
     try {
       const updatedPassword = await userModel.updateOne(email,hashedPassword);
       return updatedPassword;
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   };
+
+  changeRole = async(uid, rol)=>{
+    try {
+      const changeRole = await userModel.updateOne({_id: uid, rol})
+      return changeRole
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }

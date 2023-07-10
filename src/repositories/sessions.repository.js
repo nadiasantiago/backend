@@ -13,6 +13,11 @@ class SessionRepository{
         const updatedPassword = await sessionManager.updatePassword(email, hashedPassword)
         return updatedPassword
     }
+    
+    changeRole = async (uid, rol)=>{
+        const changeRole = await sessionManager.changeRole(uid, rol);
+        return changeRole
+    }
 
 }
 
