@@ -1,4 +1,4 @@
-<p {{#compare user.rol '==' 'admin'}} disable {{/compare}}>Carrito Id: {{user.cart}}</p>    
+<p {{#compare user.rol '!==' 'user'}} disable {{/compare}}>Carrito Id: {{user.cart}}</p>    
 
 
 <div class="product-conteiner">
@@ -9,9 +9,9 @@
         <p>Precio:${{product.price}}</p>
         <p>stock:{{product.stock}}</p>
     </div>
-    <button class="product-button {{#compare ../user.rol '==' 'admin'}}disable {{/compare}}" id="{{product._id}}">Agregar al carrito</button>
+    <button class="product-button {{#compare ../user.rol '!==' 'user'}}disable {{/compare}}" id="{{product._id}}">Agregar al carrito</button>
     <a href="/products"><button class="home-button">Home</button></a>
-    <button class="cart-button {{#compare user.rol '==' 'admin'}} disable {{/compare}}" id={{user.cart}}>Ver carrito</button>
+    <button class="cart-button" {{#compare user.rol '!==' 'user'}} disable {{/compare}} id={{user.cart}}>Ver carrito</button>
 </div>
 
 
