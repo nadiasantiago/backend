@@ -1,0 +1,436 @@
+paths:
+  /api/products/:
+    get:
+      summary: Obtiene todos los productos
+      tags:
+        - Products
+      parameters:
+        - name: limit
+          in: query
+          description: cantidad de productos por pagina, por defecto es 10
+          schema:
+            $type: number
+        - name: page
+          in: query
+          description: numero de pagina que deseas ver, por defecto es 1 
+          schema:
+            $type: number
+        - name: categoty
+          in: query
+          description: filtrado de productos por categoria, por defecto es null
+          schema:
+            $type: string
+        - name: status
+          in: query
+          description: filtrado de productos segun disponibilidad, por defecto es null
+          schema:
+            $type: boolean
+        - name: sort
+          in: query
+          description: orden de los productos segun el precio, por defecto es null
+          schema:
+            $type: number
+      responses: 
+        '200':
+          description: Los productos fueron obtenidos con exitosamente desde la base de datos
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Productos obtenido exitosamente
+                  payload:
+                    type: array
+                    description: Productos obtenidos
+                    items:
+                      $ref: '#components/schemas/Products'
+        '500':
+          description: No se pudieron obtener los productos debido a un error en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se han podido obtener los productos por un error en el servidor
+    post:
+      summary: Crea un producto
+      tags:
+        - Products
+      requestBody:
+        description: producto a crear
+        required: true
+        content:
+          applicatio/json:
+              schema:
+                type: objet
+                $ref: '#components/schemas/Products'
+      responses:
+        '200':
+          description: El producto fue creado exitosamente en la base de datos
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Producto creado exitosamente
+                  payload:
+                    type: objet
+                    description: Producto creado
+                    items:
+                      $ref: '#components/schemas/Products'
+        '500':
+          description: No se pudo crear el producto debido a un error en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se ha podido crear el producto por un error en el servidor
+        '403':
+          description: No tiene permiso para obtener la ruta
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: Es necesario tener permiso para acceder a la ruta
+  /api/products/{pid}:
+    get:
+      summary: Obtiene el producto a partir del id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto que se desea obtener
+          schema:
+            $type: string
+      responses:
+        '200':
+          description: El producto con el id solicitado fue obtenido exitosamente en la base de datos
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Producto obtenido exitosamente
+                  payload:
+                    type: objet
+                    description: Producto obtenido
+                    items:
+                      $ref: '#components/schemas/Products'
+        '500':
+          description: No se ha encontrado el producto con el id en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se ha podido encontrar el producto con el id en el servidor
+    delete:
+      summary: Eliminar el producto a partir del id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto que se desea eliminar
+          schema:
+            $type: string
+      responses:
+        '200':
+          description: El producto con el id solicitado fue eliminado exitosamente en la base de datos
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Producto eliminado exitosamente
+                  payload:
+                    type: objet
+                    description: Producto eliminado
+                    items:
+                      $ref: '#components/schemas/Products'
+        '500':
+          description: No se ha podido eliminar el producto con el id debido a un error en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se ha podido eliminar el producto con el id en el servidor
+        '403':
+          description: No tiene permiso para obtener la ruta
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: Es necesario tener permiso para acceder a la ruta
+    put:
+      summary: Actualiza el producto a partir del id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto que se desea obtener
+          schema:
+            $type: string
+      requestBody:
+        description: producto a actualizar
+        required: true
+        content:
+          applicatio/json:
+              schema:
+                type: objet
+                $ref: '#components/schemas/Products'
+      responses:
+        '200':
+          description: El producto con el id fue actualizado exitosamente en la base de datos
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Producto actualizado exitosamente
+                  payload:
+                    type: objet
+                    description: Producto actualizado
+                    items:
+                      $ref: '#components/schemas/Products'
+        '400':
+          description: No se ha podido actualizar el producto con el id por falta de informacion
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: Falta de informacion
+        '403':
+          description: No se ha podido actualizar el producto con el id debido a un error de autorizacion
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: Error al eliminar el producto por falta de autorizacion
+        '500':
+          description: No se ha podido actualizar el producto con el id debido a un error en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se ha podido actualizar el producto con el id en el servidor
+components:
+  schemas:
+    Products:
+      type: objet
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado con mongo
+        title:
+          type: string
+          description: Título del producto
+          required: true
+        description:
+          type: string
+          description: descripcion del producto
+          required: true
+        code:
+          type: string
+          description: descripcion del producto
+          required: true
+        price:
+          type: number
+          description: precio del producto
+          required: true
+        status:
+          type: boolean
+          description: estado del producto, por defecto true
+        stock:
+          type: number
+          description: stock del producto
+          required: true
+        category:
+          type: string
+          description: categoria del producto, por defecto comestible
+        thumbanils:
+          type: array
+          description: imagen del producto
+        owner:
+          type: string
+          description: indica quien cargo el producto
+          required: true
+      example:
+        _id: ObjectId("643c4347baf02214a41e8c1c")
+        title: "Kaffir Lime Leaves"
+        description: "Chicken - Diced, Cooked"
+        code: "0PR93JZ"
+        price: 7
+        status: true
+        stock: 7
+        category: "perfumeria"
+        thumbanails: ['img/001258', 'img/0001551']
+        owner: "admin"
+    RequestBodies:
+      addProduct:
+        type: object
+        properties:
+          title:
+            type: string
+            description: Título del producto
+            required: true
+          description:
+            type: string
+            description: descripcion del producto
+            required: true
+          code:
+            type: string
+            description: descripcion del producto
+            required: true
+          price:
+            type: number
+            description: precio del producto
+            required: true
+          status:
+            type: boolean
+            description: estado del producto, por defecto true
+          stock:
+            type: number
+            description: stock del producto
+            required: true
+          category:
+            type: string
+            description: categoria del producto, por defecto comestible
+          thumbanils:
+          type: array
+          description: imagen del producto
+      example:
+        title: "Kaffir Lime Leaves"
+        description: "Chicken - Diced, Cooked"
+        code: "0PR93JZ"
+        price: 7
+        status: true
+        stock: 7
+        category: "perfumeria"
+        thumbanails: ['img/001258', 'img/0001551']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

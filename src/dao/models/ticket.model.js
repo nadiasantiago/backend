@@ -10,29 +10,29 @@ const ticketSchema = new mongoose.Schema({
         },
         quantity:{
             type:Number,
-            require:true
+            required:true
         },
         subtotal:{
             type:Number,
-            require:true
+            required:true
         }
     }],
     code:{
         type:String,
         unique:true,
-        require:true
+        required:true
     },
     purchase_datetime:{
         type:Date,
-        require:true
+        required:true
     },
     amount:{
         type:Number,
-        require:true
+        required:true
     },
     purchaser:{
         type:String,
-        require:true
+        required:true
     }
 })
 

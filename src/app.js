@@ -1,6 +1,8 @@
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUiExpress from 'swagger-ui-express';
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import productRouter from "./routes/products.router.js";
@@ -20,6 +22,18 @@ import errorHandler from "./middlewares/errors/error.js";
 import { addLogger } from "./utils/logger.js";
 const app = express();
 
+const swaggerOptions = {
+  definition:{
+    openapi: '3.0.1',
+    info:{
+      title: 'Eccommerce Backend API',
+      description: 'Documentacion que soporta el sistema Eccommerce Backend'
+    }
+  },
+  apis: [`${__dirname}/docs/**/*.yaml`],
+};
+
+const specs = swaggerJSDoc(swaggerOptions)
 //middlewares
 app.use(express.json()); //leer en formato json
 app.use(express.urlencoded({ extended: true }));
@@ -31,7 +45,7 @@ app.use(addLogger);
 initializePassport();
 app.use(passport.initialize());
 // app.use(passport.session());
-
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/sessions", sessionsRouter);
