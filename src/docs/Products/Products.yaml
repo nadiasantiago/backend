@@ -77,7 +77,7 @@ paths:
           applicatio/json:
               schema:
                 type: objet
-                $ref: '#components/schemas/Products'
+                $ref: '#components/requestBodies/addProducts'
       responses:
         '200':
           description: El producto fue creado exitosamente en la base de datos
@@ -257,7 +257,7 @@ paths:
           applicatio/json:
               schema:
                 type: objet
-                $ref: '#components/schemas/Products'
+                $ref: '#components/requestBodies/addProducts'
       responses:
         '200':
           description: El producto con el id fue actualizado exitosamente en la base de datos
@@ -376,48 +376,48 @@ components:
         category: "perfumeria"
         thumbanails: ['img/001258', 'img/0001551']
         owner: "admin"
-    RequestBodies:
-      addProduct:
-        type: object
-        properties:
-          title:
-            type: string
-            description: Título del producto
-            required: true
-          description:
-            type: string
-            description: descripcion del producto
-            required: true
-          code:
-            type: string
-            description: descripcion del producto
-            required: true
-          price:
-            type: number
-            description: precio del producto
-            required: true
-          status:
-            type: boolean
-            description: estado del producto, por defecto true
-          stock:
-            type: number
-            description: stock del producto
-            required: true
-          category:
-            type: string
-            description: categoria del producto, por defecto comestible
-          thumbanils:
-          type: array
-          description: imagen del producto
-      example:
-        title: "Kaffir Lime Leaves"
-        description: "Chicken - Diced, Cooked"
-        code: "0PR93JZ"
-        price: 7
-        status: true
-        stock: 7
-        category: "perfumeria"
-        thumbanails: ['img/001258', 'img/0001551']
+  requestBodies:
+    addProduct:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Título del producto
+          required: true
+        description:
+          type: string
+          description: descripcion del producto
+          required: true
+        code:
+          type: string
+          description: descripcion del producto
+          required: true
+        price:
+          type: number
+          description: precio del producto
+          required: true
+        status:
+          type: boolean
+          description: estado del producto, por defecto true
+        stock:
+          type: number
+          description: stock del producto
+          required: true
+        category:
+          type: string
+          description: categoria del producto, por defecto comestible
+        thumbanils:
+        type: array
+        description: imagen del producto
+    example:
+      title: "Kaffir Lime Leaves"
+      description: "Chicken - Diced, Cooked"
+      code: "0PR93JZ"
+      price: 7
+      status: true
+      stock: 7
+      category: "perfumeria"
+      thumbanails: ['img/001258', 'img/0001551']
 
 
 

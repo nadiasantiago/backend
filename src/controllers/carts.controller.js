@@ -3,21 +3,27 @@ import { ticketService } from "../services/tickets.service.js";
 
 export const addCart = async (req, res)=>{
     let cart = await cartService.addCart();
-    res.status(201).send({status:'OK', payload: cart});
+    if (!cart){
+        return res.status(500).send({status:'error', error: 'Error al crear el carrito'});
+    }
+    return res.status(201).send({status:'success', message:'Carrito creado con exito',payload: cart});
 }
 
 export const getCarts = async (req, res)=>{
     const carts = await cartService.getCarts();
-    return res.send({status:'success', payload:carts})
+    if (!carts){
+        return res.status(500).send({status:'error', error: 'Error al obtener los carritos'});
+    }
+    return res.status(200).send({status:'success', message:'Carritos obtenidos existosamente',payload:carts})
 }
 
 export const getCartById = async (req, res)=>{
     const cartId = req.params.cid;
     const cartSearch = await cartService.getCartById(cartId);
     if (cartSearch) {
-        res.status(200).send({status:'OK', payload:cartSearch})
+        return res.status(200).send({status:'success', message:'carrito obtenido exitosamente', payload:cartSearch})
     }else{
-        res.status(404).send({status:'Error', payload: `No se ha encontrado carrito con el id:${cartId}`})
+        return res.status(500).send({status:'Error', error: `No se ha encontrado carrito con el id:${cartId}`})
     }
 }
 
@@ -42,14 +48,20 @@ export const deleteFromCart = async(req,res)=>{
 export const deleteAllFromCart = async(req,res)=>{
     const cartId = req.params.cid;
     const cartUpdate = await cartService.deleteAllFromCart(cartId);
-    res.status(201).send({status:'OK', payload: cartUpdate})
+    if(!cartUpdate){
+        return res.status(500).send({status:'error', error:'Error al eliminar el carrito'})
+    } 
+    return res.status(201).send({status:'success', message:'Carrito vaciado exitosamente', payload: cartUpdate})
 }
 
 export const updateCart = async(req, res)=>{
     const cartId = req.params.cid;
     const products = req.body;
     const cartUpdate = await cartService.updateCart(cartId, products);
-    res.status(201).send({status:'OK', payload: cartUpdate});
+    if(!cartUpdate){
+        return res.status(500).send({status:'error', error:'Error al actualizar el carrito'})
+    }
+    return res.status(201).send({status:'success',message:'Carrito actualizado exitosamente', payload: cartUpdate});
 }
 
 export const updateProductFromCart = async(req, res)=>{

@@ -1,0 +1,221 @@
+paths:
+  /api/carts/:
+    post:
+      summary: Crea un carrito
+      tags:
+        - Carts
+      responses:
+        '201':
+          description: El carrito fue creado exitosamente en la base de datos
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Carrito creado exitosamente
+                  payload:
+                    type: objet
+                    description: Carrito creado
+                    items:
+                      $ref: '#components/schemas/Carts'
+        '500':
+          description: No se pudo crear el carrito debido a un error en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se ha podido crear el carrito por un error en el servidor
+  /api/carts/{cid}:
+    get:
+      summary: Obtiene el carrito a partir del id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito que se desea obtener
+          schema:
+            $type: string
+      responses:
+        '200':
+          description: El carrito con el id solicitado fue obtenido exitosamente en la base de datos
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Carrito obtenido exitosamente
+                  payload:
+                    type: objet
+                    description: Carrito obtenido
+                    items:
+                      $ref: '#components/schemas/Carts'
+        '500':
+          description: No se ha encontrado el carrito con el id en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se ha podido encontrar el carrito con el id en el servidor
+    delete:
+      summary: Eliminar el carrito a partir del id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito que se desea eliminar
+          schema:
+            $type: string
+      responses:
+        '201':
+          description: El carrito con el id solicitado fue eliminado exitosamente en la base de datos
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Carrito vaciado exitosamente
+                  payload:
+                    type: objet
+                    description: carrito eliminado
+                    items:
+                      $ref: '#components/schemas/Carts'
+        '500':
+          description: No se ha podido eliminar el carrito con el id debido a un error en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se ha podido eliminar el producto con el id en el servidor
+    put:
+      summary: Actualiza el carrito a partir del id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito que se desea obtener
+          schema:
+            $type: string
+      requestBody:
+        description: carrito a actualizar
+        required: true
+        content:
+          applicatio/json:
+              schema:
+                type: objet
+                $ref: '#components/schemas/updateCart'
+      responses:
+        '201':
+          description: El carrito con el id fue actualizado exitosamente en la base de datos
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Carrito actualizado exitosamente
+                  payload:
+                    type: objet
+                    description: Carrito actualizado
+                    items:
+                      ref: '#components/schemas/updateCart'
+        '500':
+          description: No se ha podido actualizar el carrito con el id debido a un error en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se ha podido actualizar el carrito con el id en el servidor
+  /api/carts/{cid}/products/{pid}:
+  
+components:
+  schemas:
+    Carts:
+      type: objet
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado con mongo
+        products:
+          type: array
+          description: Va a contener todos los productos agregados al carrito
+      example:
+        _id: ObjectId("643ca4ed9bc1ad74c25270c5")
+        products: []
+  requestBodies:
+    updateCart:
+      type: array
+      properties:
+        pid:
+          type: objectId
+          description: id del producto a actualizar
+        quantity:
+          type: number
+          description: cantidad que desea modificar
+    example:
+      pid: ObjectId("643c4347baf02214a41e8c1c")
+      quantity: 7
