@@ -191,7 +191,241 @@ paths:
                     desption: Mensaje de error
                     example: No se ha podido actualizar el carrito con el id en el servidor
   /api/carts/{cid}/products/{pid}:
-  
+    post:
+      summary: Agrega el producto con el pid al carrito con el cid indicado
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito donde se desea agregar el producto
+          schema:
+            $type: string
+        - name: pid
+          in: path
+          required: true
+          description: id del producto que se desea agregar al carrito
+          schema:
+            $type: string
+      responses:
+        '201':
+          description: El producto fue agregado exitosamente al carrito
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Producto agregado exitosamente
+                  payload:
+                    type: objet
+                    description: producto agregado
+                    items:
+                      $ref: '#components/schemas/Carts'
+        '403':
+          description: No tiene permiso para obtener la ruta
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: Es necesario tener permiso para acceder a la ruta        
+        '500':
+          description: No se pudo agregar el producto al carrito debido a un error en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se ha podido agregar el producto al carrito por un error en el servidor
+    delete:
+      summary: Eliminar el producto con el pid al carrito con el cid indicado
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito donde se desea eliminar el producto
+          schema:
+            $type: string
+        - name: pid
+          in: path
+          required: true
+          description: id del producto que se desea eliminar del carrito
+          schema:
+            $type: string
+      responses:
+        '201':
+          description: El producto fue eliminado exitosamente del carrito
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Producto eliminado exitosamente
+                  payload:
+                    type: objet
+                    description: producto eliminado
+                    items:
+                      $ref: '#components/schemas/Carts'
+        '500':
+          description: No se pudo eliminar el producto del carrito debido a un error en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se ha podido eliminar el producto del carrito por un error en el servidor
+    put:
+      summary: Actualizar el producto con el pid al carrito con el cid indicado
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito donde se desea actualizar el producto
+          schema:
+            $type: string
+        - name: pid
+          in: path
+          required: true
+          description: id del producto que se desea actualizar al carrito
+          schema:
+            $type: string
+      requestBody:
+        description: Cantidad del producto que se desea actualizar
+        required: true
+        content:
+          applicatio/json:
+              schema:
+                type: objet
+                properties:
+                  quantity:
+                    type: number
+                    decription: cantidad del producto a actualizar
+                    example:
+                      quantity: 5
+      responses:
+        '201':
+          description: El producto fue actualizado exitosamente en el carrito
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Producto actualizado exitosamente
+                  payload:
+                    type: objet
+                    description: producto actualizado
+                    items:
+                      $ref: '#components/requestBodies/updateCarts'
+        '500':
+          description: No se pudo actualizar el producto del carrito debido a un error en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se ha podido actualizar el producto del carrito por un error en el servidor
+  /api/carts/{cid}/purchase:
+    get:
+      summary: Crea orden de compra
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito de compra
+          schema:
+            $type: string
+      responses:
+        '201':
+          description: Orden de compra generada exitosamente en la base de datos
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: success
+                  message:
+                    type: string
+                    description: Mensaje de la peticion
+                    example: Orden de compra generada exitosamente
+                  payload:
+                    type: objet
+                    description: Orden de compra generada
+                    items:
+                      $ref: '#components/schemas/Ticket'
+        '500':
+          description: No se ha podido generar la orden de compra por un error en el servidor
+          content:
+            applicatio/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la peticion
+                    example: Error
+                  message: 
+                    type: string
+                    desption: Mensaje de error
+                    example: No se ha podido generar la orden de compra debido a un error en el servidor
 components:
   schemas:
     Carts:
@@ -203,9 +437,52 @@ components:
         products:
           type: array
           description: Va a contener todos los productos agregados al carrito
+          properties:
+            pid:
+              type: ObjectId
+              description: Id autogenerado con mongo
+            quantity:
+              type: number
+              description: cantidad del producto agregado al carrito
       example:
         _id: ObjectId("643ca4ed9bc1ad74c25270c5")
         products: []
+    Ticket:
+      type: ObjectId
+      properties:
+        products:
+          type: array
+          description: Va a contener todos los productos agregados al carrito
+          properties:
+            pid:
+              type: ObjectId
+              description: Id autogenerado con mongo
+            quantity:
+              type: number
+              description: cantidad del producto
+            subtotal:
+              type: number
+              description: subtotal del producto
+        code:
+          type: string
+          description: Codigo de la orden de compra generada
+          required: true
+          example: '1686248737638'
+        purchase_datetime:
+          type: date
+          description: Fecha que se genero la orden de compra
+          required: true
+          example: 2023-06-08T18:25:36.637+00:00
+        amount:
+          type: number
+          description: Monto total de la orden de compra
+          required: true
+          example: 34
+        purchaser:
+          type: string
+          description: correo electronico del comprador
+          required: true
+          example: 'comprador@correo.com'
   requestBodies:
     updateCart:
       type: array
