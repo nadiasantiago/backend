@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/nadiasantiago/backend#readme",
   "devDependencies": {
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.21"
   },
   "dependencies": {

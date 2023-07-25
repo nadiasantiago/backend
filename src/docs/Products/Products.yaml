@@ -407,17 +407,17 @@ components:
           type: string
           description: categoria del producto, por defecto comestible
         thumbanils:
-        type: array
-        description: imagen del producto
-      example:
-        title: "Kaffir Lime Leaves"
-        description: "Chicken - Diced, Cooked"
-        code: "0PR93JZ"
-        price: 7
-        status: true
-        stock: 7
-        category: "perfumeria"
-        thumbanails: ['img/001258', 'img/0001551']
+          type: array
+          description: imagen del producto
+    example:
+      title: "Kaffir Lime Leaves"
+      description: "Chicken - Diced, Cooked"
+      code: "0PR93JZ"
+      price: 7
+      status: true
+      stock: 7
+      category: "perfumeria"
+      thumbanails: ['img/001258', 'img/0001551']
 
 
 
