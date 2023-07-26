@@ -3,6 +3,7 @@ dotenv.config()
 
 const config={
     dbUrl: process.env.DB_URL,
+    dbUrlTest: process.env.DB_URL_TEST,
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     callbackurl: process.env.CALLBACK_URL,

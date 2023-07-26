@@ -7,7 +7,7 @@
   "scripts": {
     "start:dev": "nodemon ./src/app.js",
     "start": "node ./src/app.js -e production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/units/*.test.js --timeout 10000"
   },
   "engines": {
     "node": "16.x"
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/nadiasantiago/backend#readme",
   "devDependencies": {
+    "chai": "^4.3.7",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.21"
   },
