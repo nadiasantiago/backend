@@ -16,14 +16,22 @@ describe("set de pruebas productDao", function () {
     this.productDao = new Products();
   });
 
-  after(function () {
-    mongoose.connection.collections.products.drop();
-  });
   it("Crea un producto con exito", async function () {
+
+    const generarCodigoAleatorio = (longitud) => {
+      const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let codigo = '';
+      for (let i = 0; i < longitud; i++) {
+        const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
+        codigo += caracteres.charAt(indiceAleatorio);
+      }
+      return codigo;
+    }
+
     const productMock = {
       title: "producto de prueba",
       description: "este es un producto de prueba",
-      code: "prueba123",
+      code: generarCodigoAleatorio(8),
       price: 50,
       stock: 10,
       category: "comestibles",
@@ -38,4 +46,12 @@ describe("set de pruebas productDao", function () {
     const {docs} = await this.productDao.getProducts()
     expect(docs).to.be.a('array')
   })
+  it('se actualiza el producto con exito', async function(){
+    const result = await this.productDao.update({_id: this.prodId},{price: 10})
+    const product = await this.productDao.getProductById(this.prodId)
+
+    expect(product.price).to.be.eq(10)
+    expect(result).to.have.property('modifiedCount').eq(1)
+  })
+
 });
