@@ -1,10 +1,9 @@
 import { Command } from "commander";
 
-const program = new Command()
+const program = new Command();
 
-program
-    .option('-e, --enviroment <enviroment>', 'enviroment', 'development')
+program.option("-e, --enviroment <enviroment>", "enviroment", "development");
 
 program.parse(process.argv);
 
-export default program
+export default program;
