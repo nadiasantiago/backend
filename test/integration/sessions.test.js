@@ -59,14 +59,14 @@ describe("Set de pruebas de integracion para modulo de sesiones", function () {
     expect(cookie.value).to.be.ok;
   });
 
-  // it('PUT /api/sessions/premium/:uid : Debe poder cambiar el rol user a premium', async function(){
-  //   const adminUser = {
-  //     email: config.adminEmail,
-  //     password: config.adminPassword
-  //   }
-  //   const email = this.userEmail
-  //   const user = await this.sessionService.getUser(this.userEmail)
-  //   console.log(user)
+  it('PUT /api/sessions/premium/:uid : Debe poder cambiar el rol user a premium', async function(){
+    const adminUser = {
+      email: config.adminEmail,
+      password: config.adminPassword
+    }
+    const email = this.userEmail
+    const user = await this.sessionService.getUser(this.userEmail)
+    console.log(user)
     // this.userId = userId
     // this.cartId = cartId
 
@@ -85,5 +85,5 @@ describe("Set de pruebas de integracion para modulo de sesiones", function () {
     // expect(statusCode).to.be.ok.and.eq(200)
     // expect(ok).to.be.ok
 
-  // });
+  });
 });
