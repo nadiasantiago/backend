@@ -44,12 +44,26 @@ describe("Set de pruebas de integracion para modulo de productos", function () {
       .post('/api/products/')
       .set('Cookie', [`${cookie.name} = ${cookie.value}`])
       .send(productMock)
-    this.prodId = _body.payload._id
+    this.prodId = _body.payload._id.toString()
+    expect(statusCode).to.be.ok.and.eq(200)
+    expect(_body.payload).to.have.property('_id')
+    expect(ok).to.be.ok
+  })
 
-    console.log(this.prodId)
+  it('GET /api/products/ : Debe devolver un array de productos', async function(){
+    const { statusCode, ok, _body } = await requester.get('/api/products')
 
-    // expect(statusCode).to.be.ok.and.eq(201)
-    // expect(_body.payload).to.have.property('_id')
-    // expect(ok).to.be.ok
+    expect(statusCode).to.be.ok.and.eq(200)
+    expect(_body.payload).to.have.property('docs')
+    expect(ok).to.be.ok
+  })
+
+  it('GET /api/products/:pid : Debe devolver un producto con ID indicado', async function () {
+    const { statusCode, ok, _body } = await requester.get(
+      `/api/products/${this.prodId}`
+    )
+    expect(statusCode).to.be.ok.and.eq(200)
+    expect(_body.payload._id).to.be.eq(this.prodId)
+    expect(ok).to.be.ok
   })
 });

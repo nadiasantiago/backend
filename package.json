@@ -8,7 +8,9 @@
     "start:dev": "nodemon ./src/app.js",
     "start": "node ./src/app.js -e production",
     "test:units": "mocha test/units/*.test.js --timeout 10000",
-    "test:integration": "mocha test/integration/*.test.js --timeout 10000"
+    "test:integration": "mocha test/integration/*.test.js --timeout 10000",
+    "test:integration:products": "mocha test/integration/products.test.js --timeout 10000",
+    "test:integration:carts": "mocha test/integration/carts.test.js --timeout 10000"
   },
   "engines": {
     "node": "16.x"
