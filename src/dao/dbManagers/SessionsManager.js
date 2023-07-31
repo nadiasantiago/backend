@@ -5,6 +5,7 @@ export default class SessionManager {
 
   getUser = async (user) => {
     try {
+      console.log(user)
       const foundUser = await userModel.findOne(user);
       return foundUser;
     } catch (error) {
@@ -34,6 +35,15 @@ export default class SessionManager {
     try {
       const changeRole = await userModel.updateOne({_id: uid, rol})
       return changeRole
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  deleteUser = async (uid)=>{
+    try {
+      const deleteUser = await userModel.deleteOne({_id: uid});
+      return deleteUser
     } catch (error) {
       console.log(error)
     }

@@ -19,6 +19,10 @@ class SessionRepository{
         return changeRole
     }
 
+    deleteUser = async(uid)=>{
+        const deleteUser = await sessionManager.deleteUser(uid);
+        return deleteUser
+    }
 }
 
 export const sessionRepository = new SessionRepository();

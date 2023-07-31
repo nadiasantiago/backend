@@ -9,6 +9,7 @@ const config={
     callbackurl: process.env.CALLBACK_URL,
     jwtSecret : process.env.JWT_SECRET,
     adminEmail: process.env.ADMIN_EMAIL,
+    adminPassword: process.env.ADMIN_PASSWORD,
     nodemailerConfig:{
         SERVICE: process.env.MAILING_SERVICE,
         PORT: process.env.MAILING_PORT,

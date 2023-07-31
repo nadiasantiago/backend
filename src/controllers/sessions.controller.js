@@ -7,7 +7,7 @@ import { mailingService } from "../services/mailing.service.js";
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  const user = await sessionService.getUser({ email });
+  const user = await sessionService.getUser(email);
   if (!user)
     return res
       .status(401)
@@ -39,7 +39,7 @@ export const githubcallback = (req, res) => {
 };
 
 export const register = async (req, res) => {
-  return res.send({ status: "success", message: "Usuario registrado" });
+  return res.status(201).send({ status: "success", message: "Usuario registrado" });
 };
 
 export const failRegister = (req, res) => {
@@ -124,7 +124,6 @@ export const changeRole = async (req, res)=>{
       const changeRole = await sessionService.changeRole(uid, user.rol);
       if(!changeRole)
         return res.status(500).send({status:'error', error:'Error al actualizar el rol'})
-      console.log(user)
       res.status(200).send({status:'success', message:'Rol cambiado con exito'})
     
   } catch (error) {
