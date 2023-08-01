@@ -16,14 +16,12 @@ const router = Router();
 
 router.post("/login", login);
 
-router.get(
-  "/github",
+router.get("/github",
   passport.authenticate("githublogin", { scope: ["user:email"] }),
   (req, res) => {}
 );
 
-router.get(
-  "/githubcallback",
+router.get("/githubcallback",
   passport.authenticate("githublogin", {
     session: false,
     failureRedirect: "/",
@@ -31,8 +29,7 @@ router.get(
   githubcallback
 );
 
-router.post(
-  "/register",
+router.post("/register",
   passport.authenticate("register", {
     session: false,
     failureRedirect: "/api/sessions/failRegister",

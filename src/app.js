@@ -11,6 +11,7 @@ import viewsRouter from "./routes/views.router.js";
 import sessionsRouter from "./routes/session.router.js";
 import messageRouter from "./routes/messages.router.js";
 import loggerTestRouter from "./routes/logger.router.js";
+import userRouter from './routes/user.router.js';
 import { compare } from "./views/helper.js";
 import __dirname from "./utils/utils.js";
 import socket from "./socket.js";
@@ -50,6 +51,7 @@ app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/sessions", sessionsRouter);
 app.use("/api/messages", messageRouter);
+app.use('/api/user', userRouter)
 
 //configuracion handlebars
 

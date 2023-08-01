@@ -20,6 +20,15 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "carts",
   },
+  documents: [
+    {
+      _id: false,
+      name: {type: String},
+      reference: {type: String}
+    }
+  ],
+  last_connection: Date,
+  status: Array
 });
 
 const userModel = mongoose.model(userCollection, userSchema);

@@ -120,7 +120,6 @@ export const changeRole = async (req, res)=>{
       }else{
         user.rol = 'user'
       }
-      console.log(user.rol)
       const changeRole = await sessionService.changeRole(uid, user.rol);
       if(!changeRole)
         return res.status(500).send({status:'error', error:'Error al actualizar el rol'})

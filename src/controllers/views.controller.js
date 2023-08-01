@@ -1,6 +1,7 @@
 import { cartService } from "../services/carts.service.js";
 import { messageService } from "../services/messages.service.js";
 import { productService } from "../services/products.service.js";
+import { sessionService } from "../services/sessions.service.js";
 import { generateProduct } from "../utils/utils.js";
 
 let productsMock = [];
@@ -88,4 +89,20 @@ export const restorePassword = (req, res) =>{
 
 export const resetPassword = (req, res)=>{
   res.render('resetPassword')
+}
+
+export const profileView = async (req, res)=>{
+  try {
+    const { email } = req.user
+    const user = await sessionService.getUser(email)
+    const profilePicture = user?.documents?.[0]?.reference
+
+    res.render('profile', {
+      user: req.user,
+      profilePicture,
+    })
+
+  }catch(error){
+    console.log(error)
+  }
 }
