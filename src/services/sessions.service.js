@@ -10,9 +10,9 @@ class SessionService {
     return user;
   }
   async updatePassword(email, hashedPassword) {
-    const updatedPassword = await this.sessionRepository.updatePassword(
-      email,
-      hashedPassword
+    const updatedPassword = await this.sessionRepository.updateUser(
+      {email},
+      {password: hashedPassword}
     );
     return updatedPassword;
   }

@@ -9,12 +9,12 @@ class SessionRepository {
     return user;
   };
 
-  updatePassword = async (email, hashedPassword) => {
-    const updatedPassword = await sessionManager.updatePassword(
-      email,
-      hashedPassword
+  updateUser = async (query, update) => {
+    const updatedUser = await sessionManager.updateUser(
+      query,
+      update
     );
-    return updatedPassword;
+    return updatedUser;
   };
 
   changeRole = async (uid, rol) => {

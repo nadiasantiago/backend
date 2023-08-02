@@ -54,7 +54,6 @@ export const products = async (req, res) => {
 export const product = async (req, res) => {
   const { pid } = req.params;
   const product = await productService.getProductById(pid);
-  console.log(req.user);
   res.render("product", {
     product,
     user: req.user,
@@ -96,8 +95,8 @@ export const profileView = async (req, res)=>{
     const { email } = req.user
     const user = await sessionService.getUser(email)
     const profilePicture = user?.documents?.[0]?.reference
-
     res.render('profile', {
+      userId: user._id,
       user: req.user,
       profilePicture,
     })

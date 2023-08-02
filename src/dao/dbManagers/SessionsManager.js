@@ -5,7 +5,6 @@ export default class SessionManager {
 
   getUser = async (user) => {
     try {
-      console.log(user)
       const foundUser = await userModel.findOne(user);
       return foundUser;
     } catch (error) {
@@ -22,10 +21,10 @@ export default class SessionManager {
     }
   };
 
-  updatePassword = async (email, hashedPassword) => {
+  updateUser = async (query, update) => {
     try {
-      const updatedPassword = await userModel.updateOne(email,hashedPassword);
-      return updatedPassword;
+      const updatedUser = await userModel.updateOne(query,update);
+      return updatedUser;
     } catch (error) {
       console.log(error)
     }

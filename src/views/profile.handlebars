@@ -1,0 +1,35 @@
+<div>
+  <div>
+    <h2>Tu perfil</h2>
+    {{#if profilePicture}}
+      <img
+        src="http://localhost:8080/{{profilePicture}}"
+        alt="foto de perfil"
+      />
+    {{/if}}
+    <h3>{{user.name}}</h3>
+    <p>Rol: {{user.rol}} </p>
+    <p>Email: {{user.email}} </p>
+    <p>Edad: {{user.age}} </p>
+    <p>CartId: {{user.cart}} </p>
+    <p id="uid" hidden>{{userId}}</p>
+  </div>
+  <div>
+    <form id="addDocumentForm" enctype="multipart/form-data">
+    <label for="identificacion">Identificacion: </label>
+    <input type="file" name="identificacion" id="identificacion">
+    <br/>
+    <label for="direccion">Comprobante de direccion: </label>
+    <input type="file" name="direccion" id="direccion">
+    <br/>
+    <label for="resumen">Resumen de cuenta:</label>
+    <input type="file" name="resumen" id="resumen">
+    <br/>
+    <button type="submit">Cargar </button>
+    <button type="reset">Reset</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/profile.js"></script>

@@ -5,7 +5,7 @@
     <button class="logout-button">Cerrar Session</button>
     <p {{#compare user.rol '==' 'admin'}} disabled {{/compare}}>Carrito Id: {{user.cart}}</p>    
     <button class="cart-button"{{#compare user.rol '==' 'admin'}} disabled {{/compare}} id={{user.cart}}>Ver carrito</button>
-
+    <a href="/profile"><button>Mi perfil</button></a>
     {{#compare user.rol '!==' 'user'}}
     <a href="/realTimeProducts"><button>Administrar productos</button></a>
     {{/compare}}
