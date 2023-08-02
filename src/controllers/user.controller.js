@@ -6,7 +6,6 @@ import config from '../config/config.js';
 export const updateUserDocuments = async (req, res) => {
   try {
     const newDocuments = req.files;
-    console.log(req.files)
     const token = req.cookies.jwtCookie;
     const { email } = jwt.verify(token, config.jwtSecret);
       if (!email || !newDocuments)

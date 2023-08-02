@@ -21,6 +21,8 @@ export const login = async (req, res) => {
   const jwtUser = JSON.parse(JSON.stringify(userDto));
   const token = jwt.sign(jwtUser, config.jwtSecret, { expiresIn: "24h" });
 
+  await sessionService.updateUser({email:jwtUser.email}, {last_connection: new Date()})
+
   return res.cookie("jwtCookie", token, { httpOnly: true }).send({
     status: "success",
     payload: req.user,
@@ -52,6 +54,10 @@ export const current = (req, res) => {
 };
 
 export const logout = async (req, res) => {
+  const token = req.cookies.jwtCookie;
+  const { email } = jwt.verify(token, config.jwtSecret);
+  await sessionService.updateUser({email}, {last_connection: new Date()})
+
   return res
     .clearCookie("jwtCookie")
     .send({ status: "success", message: "log out successful" });
@@ -100,7 +106,7 @@ export const resetPassword = async (req, res)=>{
       .send({ status: "error", error: "La contraseña debe ser distinta a la anterior" });
 
     const hashedPassword = creatHash(newPassword);
-    const updatedPassword = await sessionService.updatePassword({email}, {password:hashedPassword})
+    const updatedPassword = await sessionService.updateUser({email}, {password:hashedPassword})
     if(!updatedPassword)
       return res.status(500).send({status:'error', error:'Error al actualizar la contraseña'})
 

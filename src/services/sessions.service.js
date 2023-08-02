@@ -9,10 +9,10 @@ class SessionService {
     const user = await this.sessionRepository.getUser({ email });
     return user;
   }
-  async updatePassword(email, hashedPassword) {
+  async updateUser(query, update) {
     const updatedPassword = await this.sessionRepository.updateUser(
-      {email},
-      {password: hashedPassword}
+      query,
+      update
     );
     return updatedPassword;
   }
