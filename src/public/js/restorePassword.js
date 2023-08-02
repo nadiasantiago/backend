@@ -27,7 +27,7 @@ form.addEventListener("submit", async (e) => {
   } else {
     Swal.fire({
       icon: "error",
-      text: "Algo salio mal!",
+      text: result.error,
     });
   }
 });

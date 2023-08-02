@@ -7,7 +7,7 @@ import { mailingService } from "../services/mailing.service.js";
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  const user = await sessionService.getUser(email);
+  const user = await sessionService.getUser({email});
   if (!user)
     return res
       .status(401)
@@ -66,7 +66,8 @@ export const logout = async (req, res) => {
 export const emailToRestorePassword = async (req, res) => {
   try {
     const { email } = req.body;
-    const user = await sessionService.getUser({ email });
+    console.log(email)
+    const user = await sessionService.getUser({email});
     if (!user)
       return res
         .status(401)
@@ -76,7 +77,6 @@ export const emailToRestorePassword = async (req, res) => {
     const jwtUser = JSON.parse(JSON.stringify(userDto));
     const token = jwt.sign(jwtUser, config.jwtSecret, { expiresIn: "1h" });
 
-    console.log(userDto.email)
     await mailingService.sendEmail(token, userDto)
 
     return res.status(200).send({
@@ -121,6 +121,7 @@ export const changeRole = async (req, res)=>{
       const {uid} = req.params;
       if (!uid) return res.status(400).send({status:'error', error:'campo incompleto'})
       const user = await sessionService.getUser({_id:uid})
+      console.log(user)
       if(user.rol == 'user'){
         user.rol = 'premium'
       }else{

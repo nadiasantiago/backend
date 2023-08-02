@@ -5,7 +5,7 @@ form.addEventListener("submit", async (e) => {
   const data = new FormData(form);
   const obj = {};
   data.forEach((value, key) => (obj[key] = value));
-
+  console.log(obj)
   if (obj.newPassword === obj.newPassword2) {
     const urlParams = new URLSearchParams(window.location.search)
     const token = urlParams.get('token')

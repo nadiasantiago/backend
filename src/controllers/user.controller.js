@@ -1,18 +1,16 @@
 import jwt from 'jsonwebtoken'
 import { sessionService } from "../services/sessions.service.js";
 import { userService } from "../services/user.service.js";
-import config from '../config/config.js';
 
 export const updateUserDocuments = async (req, res) => {
   try {
+    const {uid} = req.params;
     const newDocuments = req.files;
-    const token = req.cookies.jwtCookie;
-    const { email } = jwt.verify(token, config.jwtSecret);
-      if (!email || !newDocuments)
-      return res
-        .status(400)
-        .send({ status: "error", error: "campo incompleto" });
-    const user = await sessionService.getUser(email);
+    if (!newDocuments)
+    return res
+    .status(400)
+    .send({ status: "error", error: "campo incompleto" });
+    const user = await sessionService.getUser({_id:uid});
     if (!user)
       return res
         .status(400)

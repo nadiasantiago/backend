@@ -5,8 +5,8 @@ class SessionService {
     this.sessionRepository = sessionRepository;
   }
 
-  async getUser(email) {
-    const user = await this.sessionRepository.getUser({ email });
+  async getUser(query) {
+    const user = await this.sessionRepository.getUser(query);
     return user;
   }
   async updateUser(query, update) {

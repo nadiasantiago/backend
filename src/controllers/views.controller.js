@@ -93,7 +93,7 @@ export const resetPassword = (req, res)=>{
 export const profileView = async (req, res)=>{
   try {
     const { email } = req.user
-    const user = await sessionService.getUser(email)
+    const user = await sessionService.getUser({email})
     const profilePicture = user?.documents?.[0]?.reference
     res.render('profile', {
       userId: user._id,
