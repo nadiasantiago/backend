@@ -7,7 +7,6 @@ class UserService {
       const userDocuments = user.documents;
       const newUserStatus = [];
       const newUserDocuments = [];
-
       Object.values(newDocuments).forEach((e) => {
         e.forEach((el) => {
           const doc = {
@@ -37,12 +36,10 @@ class UserService {
         userDocuments,
         status: newUserStatus,
       };
-
       const updatedUserDocuments = await sessionRepository.updateUser(
         { email: user.email },
         updates
       );
-      console.log(updatedUserDocuments)
       return updatedUserDocuments;
     } catch (error) {
       console.log(error);

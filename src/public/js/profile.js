@@ -10,7 +10,6 @@ form.addEventListener("submit", async (e) => {
   for (let i = 0; i<identificacion.length; i++){
     data.append('identifiacion', identificacion[i])
   }
-  console.log(data)
   for (let i = 0; i<direccion.length; i++){
     data.append('direccion', direccion[i])
   }
@@ -22,7 +21,6 @@ form.addEventListener("submit", async (e) => {
     body: data,
   });
   let result = await response.json();
-
   if (result.status == "success") {
     Swal.fire({
       icon: "success",

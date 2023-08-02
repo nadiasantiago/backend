@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
     if (
       file.fieldname === "identificacion" ||
       file.fieldname === "direccion" ||
-      file.fieldname === "estado"
+      file.fieldname === "resumen"
     ){
       subfolder = '/documents'
     }
