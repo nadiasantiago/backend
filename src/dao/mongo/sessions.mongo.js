@@ -1,6 +1,6 @@
-import userModel from "../models/user.model.js";
+import userModel from "./models/user.model.js";
 
-export default class SessionManager {
+class Session {
   constructor() {}
 
   getUser = async (user) => {
@@ -48,3 +48,5 @@ export default class SessionManager {
     }
   }
 }
+
+export const sessionMongo = new Session()

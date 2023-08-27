@@ -1,7 +1,7 @@
 import fs from "fs";
 import socket from "../../socket.js";
 
-export default class ProductManager {
+export default class Product {
   constructor() {
     this.path = "./files/Products.json";
   }

@@ -21,8 +21,9 @@ describe("Set de pruebas de integracion para modulo de sesiones", function () {
   })
 
   // after(async function () {
-  //   await this.sessionService.deleteUser(this.userId)
-  //   await this.cartService.deleteAllFromCart(this.cartId)
+  //   console.log(this.userId)
+  //   // this.sessionService.deleteUser(this.userId)
+  //   // await this.cartService.deleteAllFromCart(this.cartId)
   // })
 
   it('POST /api/sessions/register: Debe crear correctamente un usuario', async function(){
@@ -37,7 +38,7 @@ describe("Set de pruebas de integracion para modulo de sesiones", function () {
     const {statusCode, ok, _body} = await requester.post('/api/sessions/register').send(userMock)
     expect(statusCode).to.be.ok.and.eq(201)
     expect(_body).to.have.property('message').eq('Usuario registrado')
-    expect(ok).to.be.ok
+    expect(ok).to.be.ok 
   })
 
   it('POST /api/sessions/login: Debe loguear correctamente al usuario y devolver una cookie', async function () {
@@ -49,7 +50,6 @@ describe("Set de pruebas de integracion para modulo de sesiones", function () {
 
     const result = await requester.post("/api/sessions/login").send(userMock);
     const cookieResult = result.headers["set-cookie"][0];
-
     cookie = {
       name: cookieResult.split("=")[0],
       value: cookieResult.split("=")[1],
@@ -65,25 +65,25 @@ describe("Set de pruebas de integracion para modulo de sesiones", function () {
       password: config.adminPassword
     }
     const email = this.userEmail
-    const user = await this.sessionService.getUser(this.userEmail)
+    const user = await sessionService.getUser({email})
     console.log(user)
-    // this.userId = userId
-    // this.cartId = cartId
+    this.userId = user._id
+    this.cartId = user.cart
 
-    // const result = await requester.post('/api/sessions/login').send(adminUser)
-    // const cookieResult = result.headers["set-cookie"][0];
+    const result = await requester.post('/api/sessions/login').send(adminUser)
+    const cookieResult = result.headers["set-cookie"][0];
 
-    // cookie = {
-    //   name: cookieResult.split("=")[0],
-    //   value: cookieResult.split("=")[1],
-    // };
+    cookie = {
+      name: cookieResult.split("=")[0],
+      value: cookieResult.split("=")[1],
+    };
 
-    // const {statusCode, ok} = await requester
-    //   .post(`/api/sessions/premium/${userId}`)
-    //   .set('Cookie', [`${cookie.name} = ${cookie.value}`])
+    const {statusCode, ok} = await requester
+      .post(`/api/sessions/premium/${this.userId}`)
+      .set('Cookie', [`${cookie.name} = ${cookie.value}`])
 
-    // expect(statusCode).to.be.ok.and.eq(200)
-    // expect(ok).to.be.ok
+    expect(statusCode).to.be.ok.and.eq(200)
+    expect(ok).to.be.ok
 
   });
 });

@@ -15,12 +15,10 @@ export const updateUserDocuments = async (req, res) => {
       return res
         .status(400)
         .send({ status: "error", error: "No se encontró el user con el id" });
-    console.log('HOLA ESTOY ACA')
     const updatedUserDocuments = await userService.updatedUserDocuments(
       user,
       newDocuments
     );
-    console.log(updatedUserDocuments);
 
     if (!updatedUserDocuments) {
       return res

@@ -8,6 +8,7 @@ const config = {
   clientSecret: process.env.CLIENT_SECRET,
   callbackurl: process.env.CALLBACK_URL,
   jwtSecret: process.env.JWT_SECRET,
+  persistance: process.env.PERSISTANCE,
   adminEmail: process.env.ADMIN_EMAIL,
   adminPassword: process.env.ADMIN_PASSWORD,
   nodemailerConfig: {

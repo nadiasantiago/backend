@@ -82,7 +82,7 @@ export const emailToRestorePassword = async (req, res) => {
     const jwtUser = JSON.parse(JSON.stringify(userDto));
     const token = jwt.sign(jwtUser, config.jwtSecret, { expiresIn: "1h" });
 
-    await mailingService.sendEmail(token, userDto);
+    await mailingService.emailToRestorePassword(token, userDto);
 
     return res.status(200).send({
       status: "success",

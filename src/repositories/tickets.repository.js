@@ -1,13 +1,9 @@
-import CartManager from "../dao/dbManagers/CartManager.js";
-
-const cartManager = new CartManager();
-
-class TicketRepository {
-  constructor(cartManager) {}
+export default class TicketRepository {
+  constructor(dao) {
+    this.dao = dao
+  }
   createTicket = async (ticket) => {
-    const ticketCreated = await cartManager.createTicket(ticket);
+    const ticketCreated = await this.dao.createTicket(ticket);
     return ticketCreated;
   };
 }
-
-export const ticketRepository = new TicketRepository();

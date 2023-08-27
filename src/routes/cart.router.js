@@ -5,23 +5,23 @@ import passport from "passport";
 
 const router = Router();
 
-router.post('/', addCart)
+router.post('/', (req, res, next)=>checkAuthorization(req, res, next, ['USER', 'PREMIUM']), addCart)
 
-router.get('/', getCarts)
+router.get('/', (req, res, next)=>checkAuthorization(req, res, next, ['USER', 'PREMIUM']), getCarts)
 
-router.get('/:cid', getCartById)
+router.get('/:cid', (req, res, next)=>checkAuthorization(req, res, next, ['USER', 'PREMIUM']), getCartById)
 
 router.post('/:cid/products/:pid', (req, res, next)=>checkAuthorization(req, res, next, ['USER', 'PREMIUM']), addToCart)
 
-router.delete('/:cid/products/:pid', deleteFromCart)
+router.delete('/:cid/products/:pid',(req, res, next)=>checkAuthorization(req, res, next, ['USER', 'PREMIUM']), deleteFromCart)
 
-router.delete('/:cid', deleteAllFromCart)
+router.delete('/:cid', (req, res, next)=>checkAuthorization(req, res, next, ['USER', 'PREMIUM']),deleteAllFromCart)
 
-router.put('/:cid', updateCart)
+router.put('/:cid',(req, res, next)=>checkAuthorization(req, res, next, ['USER', 'PREMIUM']), updateCart)
 
-router.put('/:cid/products/:pid', updateProductFromCart)
+router.put('/:cid/products/:pid', (req, res, next)=>checkAuthorization(req, res, next, ['USER', 'PREMIUM']),updateProductFromCart)
 
-router.get('/:cid/purchase', passport.authenticate('jwt', {session:false}), createTicket)
+router.post('/:cid/purchase', passport.authenticate('jwt', {session:false}), createTicket)
 
 // router.get('/:cid/purchase/', getTicketById)
 

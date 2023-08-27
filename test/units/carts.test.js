@@ -2,22 +2,23 @@ import mongoose from "mongoose";
 import config from "../../src/config/config.js";
 import chai from "chai";
 
-import Carts from "../../src/dao/dbManagers/CartManager.js";
-import Products from "../../src/dao/dbManagers/ProductManager.js";
-
+import { cartMongo } from "../../src/dao/mongo/cart.mongo.js";
+import { productMongo } from "../../src/dao/mongo/product.mongo.js";
 const { dbUrlTest } = config;
 
 const expect = chai.expect;
 
 describe("set de pruebas cartDao", function () {
   this.timeout(10000);
+  this.cartDao = null;
+  this.productDao = null;
   this.cartId = "";
   this.prodId  = '';
 
-  before(function () {
-    mongoose.connect(dbUrlTest);
-    this.cartDao = new Carts();
-    this.productDao = new Products();
+  before(async function () {
+    await mongoose.connect(dbUrlTest);
+    this.cartDao = cartMongo;
+    this.productDao = productMongo;
   });
 
   after(function () {

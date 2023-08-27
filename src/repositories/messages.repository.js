@@ -1,18 +1,16 @@
-import MessagesManager from "../dao/dbManagers/MessagesManager.js";
-
-const messagesManager = new MessagesManager();
-class MessageRepository {
-  constructor(messagesManager) {}
+export default class MessageRepository {
+  constructor(dao) {
+    this.dao = dao
+  }
 
   getMessages = async () => {
-    const messages = await messagesManager.getMessages();
+    const messages = await this.dao.getMessages();
     return messages;
   };
 
   createMessages = async (message) => {
-    let createdMessage = await messagesManager.createMessages(message);
+    let createdMessage = await this.dao.createMessages(message);
     return createdMessage;
   };
 }
 
-export const messageReposistory = new MessageRepository();

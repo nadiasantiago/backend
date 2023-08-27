@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer'
+import nodemailer from "nodemailer";
 import config from "../config/config.js";
 
 const {
@@ -6,17 +6,17 @@ const {
 } = config;
 
 class MailingService {
-  constructor(){
+  constructor() {
     this.transport = nodemailer.createTransport({
-      service:SERVICE,
-      port:PORT,
+      service: SERVICE,
+      port: PORT,
       auth: {
-        user:USER,
-        pass:PASSWORD,
+        user: USER,
+        pass: PASSWORD,
       },
     });
   }
-  async sendEmail(token, user){
+  async emailToRestorePassword(token, user) {
     await this.transport.sendMail({
       from: `Equipo Ecommerce ${USER}`,
       to: user.email,
@@ -30,8 +30,66 @@ class MailingService {
         <p>Saludos</p>
       </div>
       `,
-    })
+    });
+  }
+  async ticketEmail(ticket) {
+    console.log(ticket.products)
+    await this.transport.sendMail({
+      from: `Equipo Ecommerce ${USER}`,
+      to: ticket.purchaser,
+      subject: "Pedido confirmado",
+      html: `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <style>
+            table {
+              border-collapse: collapse;
+              width: 100%;
+              max-width: 600px;
+              margin: 0 auto;
+            }
+            th, td {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+            th {
+              background-color: #f2f2f2;
+            }
+          </style>
+        </head>
+        <body>
+          <h1>Pedido confirmado</h1>
+          <p>¡Gracias por tu compra! Aquí tienes los detalles de tu pedido:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${ticket.products.map(
+                (product) => `
+                <tr>
+                  <td>${product.title}</td>
+                  <td>${product.quantity}</td>
+                  <td>$${product.subtotal}</td>
+                </tr>
+              `
+              )}
+            </tbody>
+          </table>
+          
+          <p>Total a pagar: $${ticket.amount}</p>
+          
+          <p>¡Gracias por tu compra!</p>
+        </body>
+      </html>`,
+    });
   }
 }
 
-export const mailingService = new MailingService()
+export const mailingService = new MailingService();

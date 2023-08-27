@@ -1,7 +1,7 @@
-import { cartModel } from "../models/cart.model.js";
-import { ticketModel } from "../models/ticket.model.js";
+import { cartModel } from "./models/cart.model.js";
+import { ticketModel } from "./models/ticket.model.js";
 
-export default class CartManager {
+class Cart {
   constructor() {}
 
   getCarts = async () => {
@@ -107,14 +107,6 @@ export default class CartManager {
       console.log(error);
     }
   };
-
-  createTicket = async (ticket) => {
-    try {
-      const ticketCreated = await ticketModel.create(ticket);
-      console.log(ticketCreated);
-      return ticketCreated;
-    } catch (error) {
-      console.log(error);
-    }
-  };
 }
+
+export const cartMongo = new Cart()

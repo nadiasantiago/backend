@@ -1,13 +1,10 @@
-import ProductManager from "../dao/dbManagers/ProductManager.js";
-const productManager = new ProductManager();
-
-class ProductsRepository {
-  constructor(productManager) {
-    this.productManager = productManager;
+export default class ProductsRepository {
+  constructor(dao) {
+    this.dao = dao;
   }
 
   getProducts = async (limit, page, category, status, sort) => {
-    const products = this.productManager.getProducts(
+    const products = this.dao.getProducts(
       limit,
       page,
       category,
@@ -18,7 +15,7 @@ class ProductsRepository {
   };
   getProductById = async (pid) => {
     try {
-      const product = await this.productManager.getProductById(pid);
+      const product = await this.dao.getProductById(pid);
       return product;
     } catch (error) {
       console.log(error);
@@ -26,7 +23,7 @@ class ProductsRepository {
   };
   createProduct = async (product) => {
     try {
-      const productCreated = await this.productManager.create(product);
+      const productCreated = await this.dao.create(product);
       return productCreated;
     } catch (error) {
       console.log(error);
@@ -34,7 +31,7 @@ class ProductsRepository {
   };
   deleteProduct = async (pid) => {
     try {
-      const deletedProduct = await this.productManager.delete(pid);
+      const deletedProduct = await this.dao.delete(pid);
       return deletedProduct;
     } catch (error) {
       console.log(error);
@@ -42,12 +39,10 @@ class ProductsRepository {
   };
   updateProduct = async (pid, update) => {
     try {
-      const updatedProduct = await this.productManager.update(pid, update);
+      const updatedProduct = await this.dao.update(pid, update);
       return updatedProduct;
     } catch (error) {
       console.log(error);
     }
   };
 }
-
-export const productsRepository = new ProductsRepository(productManager);

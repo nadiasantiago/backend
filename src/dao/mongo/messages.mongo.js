@@ -1,6 +1,6 @@
-import { messageModel } from "../models/messages.model.js";
+import { messageModel } from "./models/messages.model.js";
 
-export default class MessagesManager {
+class Messages {
   constructor() {}
   getMessages = async () => {
     try {
@@ -20,3 +20,5 @@ export default class MessagesManager {
     }
   };
 }
+
+export const messageMongo = new Messages()

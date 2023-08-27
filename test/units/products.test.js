@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import config from "../../src/config/config.js";
 import chai from "chai";
 
-import Products from "../../src/dao/dbManagers/ProductManager.js";
+import { productMongo } from "../../src/dao/mongo/product.mongo.js";
 const { dbUrlTest } = config;
 
 const expect = chai.expect;
@@ -13,7 +13,7 @@ describe("set de pruebas productDao", function () {
 
   before(function () {
     mongoose.connect(dbUrlTest);
-    this.productDao = new Products();
+    this.productDao = productMongo;
   });
 
   it("Crea un producto con exito", async function () {

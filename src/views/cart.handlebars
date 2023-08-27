@@ -1,20 +1,26 @@
 <div>
-    <h1>Carrito id: {{_id}}</h1>
-    {{#each products}}
+  <div class="productsDeleted" id="productsDeletedList"></div>
+  <h1>Carrito id: <span id="cid">{{_id}}</span></h1>
+  {{#each products}}
     <div class="product-conteiner">
-        <div class="product">
-            <p>{{this.pid.category}}</p>
-            <p>{{this.pid.title}}</p>
-            <p>{{this.pid.code}}</p>
-            <p>Precio:${{this.pid.price}}</p>
-            <p>Cantidad: {{this.quantity}}</p>
-            <p>stock:{{this.pid.stock}}</p>
-        </div>
-    <a href="/products/{{this.pid._id}}"><button class="detalle-button">Ver detalle</button></a>
+      <div class="product">
+        <p>{{this.pid.category}}</p>
+        <p>{{this.pid.title}}</p>
+        <p>{{this.pid.code}}</p>
+        <p>Precio:${{this.pid.price}}</p>
+        <p>Cantidad: {{this.quantity}}</p>
+        <p>stock:{{this.pid.stock}}</p>
+      <div class="btn-conteiner">
+        <a href="/products/{{this.pid._id}}"><button class="detalle-button">Ver
+            detalle</button></a>
+        <button class="delete-button" id={{this.pid._id}}>🗑️</button>
+      </div>
+      </div>
     </div>
-    {{/each}}
-    <a href="/products"><button class="home-button">Home</button></a>
-    <button class="purchase-button">Finalizar Compra</button>
+  {{/each}}
+  <a href="/products"><button class="home-button">Home</button></a>
+  <button class="purchase-button">Finalizar Compra</button>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/carts.js"></script>

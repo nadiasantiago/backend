@@ -1,9 +1,9 @@
 import { Server } from "socket.io";
 // import ProductManager from "./dao/fileManagers/ProductManager.js";
-import ProductManager from "./dao/dbManagers/ProductManager.js";
 import __dirname from "./utils/utils.js";
 import { writeFileSync } from 'fs'
 import path from "path";
+import { productMongo } from "./dao/mongo/product.mongo.js";
 
 const socket = {}
 
@@ -11,11 +11,10 @@ const socket = {}
 
 socket.connect = (server)=>{
     socket.io = new Server (server);
-    const productManager = new ProductManager();
 
     socket.io.on('connection', async (socket)=>{
         console.log(`client connected`);
-        const products = await productManager.findAll();
+        const products = await productMongo.findAll();
         
 
         socket.on('upload', async(file)=>{

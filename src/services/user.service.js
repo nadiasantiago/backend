@@ -1,4 +1,4 @@
-import { sessionRepository } from "../repositories/sessions.repository.js";
+import { sessionRepository } from "../repositories/index.js";
 
 class UserService {
   constructor() {}
@@ -7,6 +7,7 @@ class UserService {
       const userDocuments = user.documents;
       const newUserStatus = [];
       const newUserDocuments = [];
+
       Object.values(newDocuments).forEach((e) => {
         e.forEach((el) => {
           const doc = {
@@ -33,7 +34,7 @@ class UserService {
       });
 
       const updates = {
-        userDocuments,
+        documents: userDocuments,
         status: newUserStatus,
       };
       const updatedUserDocuments = await sessionRepository.updateUser(

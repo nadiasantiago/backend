@@ -44,6 +44,7 @@ describe("Set de pruebas de integracion para modulo de productos", function () {
       .post('/api/products/')
       .set('Cookie', [`${cookie.name} = ${cookie.value}`])
       .send(productMock)
+    console.log(_body.payload)
     this.prodId = _body.payload._id.toString()
     expect(statusCode).to.be.ok.and.eq(200)
     expect(_body.payload).to.have.property('_id')

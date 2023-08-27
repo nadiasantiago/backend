@@ -9,6 +9,10 @@ const ticketSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "products",
       },
+      title:{
+        type:String,
+        require:true
+      },
       quantity: {
         type: Number,
         required: true,
@@ -48,4 +52,4 @@ ticketSchema.pre("find", function () {
 
 const ticketModel = mongoose.model(ticketCollection, ticketSchema);
 
-export { ticketModel };
+export {ticketModel};

@@ -1,14 +1,14 @@
-import { messageReposistory } from "../repositories/messages.repository.js";
+import {messageRepository} from "../repositories/index.js";
 
 class MessageService {
   constructor() {}
   async getMessages() {
-    const messages = await messageReposistory.getMessages();
+    const messages = await messageRepository.getMessages();
     return messages;
   }
 
   async createMessages(message) {
-    let createdMessage = await messageReposistory.createMessages(message);
+    let createdMessage = await messageRepository.createMessages(message);
     return createdMessage;
   }
 }
