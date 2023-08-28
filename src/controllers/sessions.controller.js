@@ -71,7 +71,6 @@ export const logout = async (req, res) => {
 export const emailToRestorePassword = async (req, res) => {
   try {
     const { email } = req.body;
-    console.log(email);
     const user = await sessionService.getUser({ email });
     if (!user)
       return res

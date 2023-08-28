@@ -17,6 +17,9 @@ const config = {
     USER: process.env.MAILING_USER,
     PASSWORD: process.env.MAILING_PASSWORD,
   },
+  stripe:{
+    STRIPE_SECRET: process.env.STRIPE_SECRET
+  }
 };
 
 export default config;

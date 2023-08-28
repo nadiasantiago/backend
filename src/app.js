@@ -3,8 +3,7 @@ import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUiExpress from 'swagger-ui-express';
-import session from "express-session";
-import MongoStore from "connect-mongo";
+import cors from 'cors'
 import productRouter from "./routes/products.router.js";
 import cartRouter from "./routes/cart.router.js";
 import viewsRouter from "./routes/views.router.js";
@@ -12,6 +11,7 @@ import sessionsRouter from "./routes/session.router.js";
 import messageRouter from "./routes/messages.router.js";
 import loggerTestRouter from "./routes/logger.router.js";
 import userRouter from './routes/user.router.js';
+import paymentsRouter from './routes/payments.router.js'
 import { compare } from "./views/helper.js";
 import __dirname from "./utils/utils.js";
 import socket from "./socket.js";
@@ -42,6 +42,7 @@ app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
 app.use(morgan("dev"));
 app.use(addLogger);
+app.use(cors())
 
 initializePassport();
 app.use(passport.initialize());
@@ -52,6 +53,7 @@ app.use("/api/carts", cartRouter);
 app.use("/api/sessions", sessionsRouter);
 app.use("/api/messages", messageRouter);
 app.use('/api/user', userRouter)
+app.use('/api/payments', paymentsRouter)
 
 //configuracion handlebars
 
