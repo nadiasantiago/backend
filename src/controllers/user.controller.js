@@ -1,7 +1,32 @@
-import jwt from "jsonwebtoken";
 import { sessionService } from "../services/sessions.service.js";
 import { userService } from "../services/user.service.js";
 
+export const getUsers = async (req, res) => {
+  try {
+    const users = await userService.getUsers();
+    if (!users){
+      return res
+        .status(404)
+        .send({ status: "error", message: "error al encontrar los usuarios" });
+    }
+    return res.status(200).send({ status: "success", payload: users });
+  } catch (error) {
+    return res.status(error.statusCode).send(error.message);
+  }
+};
+
+export const deleteInactiveUsers = async (req, res) => {
+  try {
+    const usersDeleted = await userService.deleteInactiveUsers();
+    if (!usersDeleted)
+      return res
+        .status(404)
+        .send({ status: "error", message: "error al eliminar los usuarios inactivos" });
+    return res.status(200).send({ status: "success", payload: usersDeleted });
+  } catch (error) {
+    return res.status(error.statusCode).send(error.message);
+  }
+};
 export const updateUserDocuments = async (req, res) => {
   try {
     const { uid } = req.params;

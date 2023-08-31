@@ -4,7 +4,7 @@ import { createPaymentIntent } from "../controllers/payments.controller.js";
 
 const router = Router();
 
-router.get(
+router.post(
   "/create-payment-intent",
   (req, res, next) => checkAuthorization(req, res, next, ["USER", "PREMIUM"]),
   createPaymentIntent

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-import { cart, login, message, product, products, profileView, realTimeProducts, register, resetPassword, restorePassword, viewMoking } from "../controllers/views.controller.js";
+import { cart, login, message, payment, product, products, profileView, realTimeProducts, register, resetPassword, restorePassword, viewMoking } from "../controllers/views.controller.js";
 import { checkAuthorization, checkTokenResetPassword } from "../middlewares/auth.js";
 
 const router = Router();
@@ -27,5 +27,6 @@ router.get('/resetPassword', (req, res, next)=>checkTokenResetPassword(req, res,
 
 router.get('/profile', passport.authenticate('jwt', {session:false}), profileView)
 
-
+// router.get('/admin', (req, res, next)=>checkAuthorization(req, res, next, 'ADMIN'), adminView )
+router.get('/payment', payment)
 export default router

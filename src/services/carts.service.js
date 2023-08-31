@@ -50,8 +50,8 @@ class CartService {
     );
     return cartUpdated;
   }
-
-  async purchase(cid, user) {
+  
+  async checkCartStock(cid) {
     try {
       const cart = await cartRepository.getCartById(cid);
       const cartProducts = cart.products;
@@ -105,6 +105,16 @@ class CartService {
           status: "error",
           message: "todos los productos se encuentran sin stock",
         });
+      return { products, productsDeleted, amount };
+    } catch (error) {
+      throw error;
+    }
+  }
+  async purchase(cid, user) {
+    try {
+      const cart = await cartRepository.getCartById(cid);
+      const cartProducts = cart.products;
+      const { products, amount } = this.checkCartStock(cid)
 
       const ticketData = {
         products: products,
@@ -120,13 +130,13 @@ class CartService {
         });
 
       for (const {
-        pid: { _id, stock},
+        pid: { _id, stock },
         quantity: qty,
       } of cartProducts) {
-        const newStock = { stock: stock - qty }
-        await productService.updateProduct(_id, newStock)
+        const newStock = { stock: stock - qty };
+        await productService.updateProduct(_id, newStock);
       }
-      
+
       await cartRepository.deleteAllFromCart(cid);
       await mailingService.ticketEmail(newTicket);
       return newTicket;

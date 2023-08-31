@@ -3,17 +3,20 @@ const btnDeleteProduct = document.querySelectorAll('.delete-button')
 const cid = document.getElementById("cid").textContent;
 const productsDeletedList = document.getElementById("productsDeletedList");
 
+
+
 btnFinalizarCompra.addEventListener("click", async (e) => {
   e.preventDefault();
   try {
+
     const response = await fetch(`/api/carts/${cid}/purchase`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     });
+
     const result = await response.json();
-    console.log(result)
     if (result.statusCode == 400) {
       const productsDeleted = result.payload;
       productsDeletedList.innerHTML = `
@@ -38,8 +41,6 @@ btnFinalizarCompra.addEventListener("click", async (e) => {
         confirmButton: false,
         timer: 3000,
         timerProgressBar: true,
-      }).then(()=>{
-        window.focus()
       })
       
     }else if(result.statusCode == 500){
@@ -68,7 +69,6 @@ btnFinalizarCompra.addEventListener("click", async (e) => {
     console.log(error);
   }
 });
-
 
 btnDeleteProduct.forEach(function(btn){
   btn.addEventListener('click', async(e)=>{

@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { updateUserDocuments } from "../controllers/user.controller.js";
+import { deleteInactiveUsers, getUsers, updateUserDocuments } from "../controllers/user.controller.js";
 import { uploader } from "../utils/utils.js";
 
 const router = Router();
+
+router.get('/', getUsers)
+
+router.delete('/', deleteInactiveUsers)
 
 router.post(
   "/:uid/documents",
@@ -13,4 +17,5 @@ router.post(
   ]),
   updateUserDocuments
 );
+
 export default router;

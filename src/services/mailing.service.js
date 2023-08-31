@@ -33,7 +33,7 @@ class MailingService {
     });
   }
   async ticketEmail(ticket) {
-    console.log(ticket.products)
+    console.log(ticket.products);
     await this.transport.sendMail({
       from: `Equipo Ecommerce ${USER}`,
       to: ticket.purchaser,
@@ -88,6 +88,18 @@ class MailingService {
           <p>¡Gracias por tu compra!</p>
         </body>
       </html>`,
+    });
+  }
+  async userDeleted(user) {
+    await this.transport.sendMail({
+      from: `Equipo Ecommerce ${USER}`,
+      to: user.email,
+      subject: "Usuario eliminado",
+      html: `
+        <div>
+          <h1>Ecommerce</h1>
+          <p>El usuario ha sido eliminado por inactividad</p>
+        </div>`,
     });
   }
 }

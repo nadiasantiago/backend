@@ -105,3 +105,15 @@ export const profileView = async (req, res)=>{
     console.log(error)
   }
 }
+
+export const adminView = async (req, res)=>{
+  try {
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const payment = (req, res)=>{
+  res.render('payment')
+}

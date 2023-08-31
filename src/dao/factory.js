@@ -8,14 +8,14 @@ switch (config.persistance) {
     mongoose.connect(config.dbUrl);
     const {cartMongo} = await import ("../dao/mongo/cart.mongo.js");
     const {productMongo} = await import("../dao/mongo/product.mongo.js");
-    const {sessionMongo} = await import("../dao/mongo/sessions.mongo.js");
+    const {userMongo} = await import("./mongo/users.mongo.js");
     const {messageMongo} = await import ("../dao/mongo/messages.mongo.js");
     const {ticketMongo} = await import ("../dao/mongo/ticket.mongo.js");
 
     persistance = {
         cartDAO: cartMongo,
         productDAO: productMongo,
-        sessionDAO: sessionMongo,
+        userDAO: userMongo,
         messageDAO: messageMongo,
         ticketDAO: ticketMongo
     };
