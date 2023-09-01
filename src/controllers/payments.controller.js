@@ -9,14 +9,12 @@ export const createPaymentIntent = async (req, res) => {
     const { cart } = jwt.verify(token, config.jwtSecret, {
       ignoreExpiration: true,
     });
-    const {amount } = await cartService.checkCartStock(cart);
+    const { amount } = await cartService.checkCartStock(cart);
     if (!amount) {
-      return res
-        .status(404)
-        .send({
-          status: "error",
-          message: "Error al obtener el total del carrito",
-        });
+      return res.status(404).send({
+        status: "error",
+        message: "Error al obtener el total del carrito",
+      });
     }
 
     const paymentIntent = await paymentService.createPaymentIntent(amount);
@@ -28,8 +26,8 @@ export const createPaymentIntent = async (req, res) => {
 
     return res
       .status(200)
-      .send({ status: "success", clientSecret:paymentIntent.client_secret});
+      .send({ status: "success", clientSecret: paymentIntent.client_secret });
   } catch (error) {
-    console.log(error);
+    res.status(error.statusCode).send(error);
   }
 };

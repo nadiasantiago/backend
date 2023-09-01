@@ -50,7 +50,7 @@ class CartService {
     );
     return cartUpdated;
   }
-  
+
   async checkCartStock(cid) {
     try {
       const cart = await cartRepository.getCartById(cid);
@@ -85,7 +85,7 @@ class CartService {
             pid: _id,
             title: title,
             quantity: qty,
-            subtotal: subtotal,
+            subtotal: subtotal*1000,
           });
           amount += subtotal;
         }
@@ -105,7 +105,7 @@ class CartService {
           status: "error",
           message: "todos los productos se encuentran sin stock",
         });
-      return { products, productsDeleted, amount };
+      return { products, amount };
     } catch (error) {
       throw error;
     }
@@ -114,7 +114,7 @@ class CartService {
     try {
       const cart = await cartRepository.getCartById(cid);
       const cartProducts = cart.products;
-      const { products, amount } = this.checkCartStock(cid)
+      const {products, amount} = await this.checkCartStock(cid)
 
       const ticketData = {
         products: products,

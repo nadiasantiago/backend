@@ -168,6 +168,7 @@ export const createTicket = async (req, res) => {
         payload: completedPurchase,
       });
   } catch (error) {
-    res.status(error.statusCode).send(error);
+    console.log(error)
+    // res.status(error.statusCode).send(error);
   }
 };

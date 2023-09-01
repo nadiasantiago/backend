@@ -44,27 +44,32 @@ async function initialize() {
 }
 
 async function handleSubmit(e) {
+
   e.preventDefault();
   setLoading(true);
 
   const { error } = await stripe.confirmPayment({
-    elements,
-    confirmParams: {
-      // Make sure to change this to your payment completion page
-      return_url: "http://localhost:4242/checkout.html",
-      receipt_email: emailAddress,
-    },
+      elements,
+      redirect: 'if_required',
+      confirmParams: {
+          receipt_email: emailAddress,
+      },
   });
 
-  if (error.type === "card_error" || error.type === "validation_error") {
-    showMessage(error.message);
-  } else {
-    showMessage("An unexpected error occurred.");
-  }
+  if (error?.type === "card_error" || error?.type === "validation_error")
+      Swal.fire({
+          icon: "error",
+          title: "No se pudo realizar el pago",
+          text: `${error.message}`,
+      });
+      Swal.fire({
+        icon: "success",
+        title: "No se pudo realizar el pago",
+        text: `${error.message}`,
+    });
 
   setLoading(false);
 }
-
 // Fetches the payment intent status after payment submission
 async function checkStatus() {
   const clientSecret = new URLSearchParams(window.location.search).get(
@@ -111,11 +116,11 @@ function showMessage(messageText) {
 function setLoading(isLoading) {
   if (isLoading) {
     // Disable the button and show a spinner
-    document.querySelector("#submit").disabled = true;
+    document.querySelector("#payment-submit").disabled = true;
     document.querySelector("#spinner").classList.remove("hidden");
     document.querySelector("#button-text").classList.add("hidden");
   } else {
-    document.querySelector("#submit").disabled = false;
+    document.querySelector("#payment-submit").disabled = false;
     document.querySelector("#spinner").classList.add("hidden");
     document.querySelector("#button-text").classList.remove("hidden");
   }

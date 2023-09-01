@@ -11,7 +11,7 @@ class PaymentService {
   }
   createPaymentIntent = async (amount) => {
     const paymentIntentInfo = {
-      amount: amount * 1000,
+      amount: amount,
       currency: "usd",
       payment_method_types: ["card"],
     };
