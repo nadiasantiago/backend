@@ -26,17 +26,15 @@ class Ticket {
         }
     }
 
-    async getTicketByID(cid) {
+    async getTicketById(tid) {
         try {
-            const ticketFromID = await ticketModel
-                .findById(cid)
-                .populate("products.product")
-                .lean();
-            return ticketFromID;
+            const ticket = await ticketModel
+                .findOne({_id:tid})
+            return ticket;
         } catch (error) {
             throw new Exception(404, {
                 status: "error",
-                message: `Error al obtener el ticket ${cid}`,
+                message: `Error al obtener el ticket ${tid}`,
             });
         }
     }

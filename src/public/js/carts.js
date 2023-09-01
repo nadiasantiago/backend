@@ -23,8 +23,6 @@ async function initialize() {
   const result = await response.json();
   if (result.statusCode == 400) {
     const productsDeleted = result.payload;
-
-    window.location.reload();
     productsDeletedList.innerHTML = `
       <h2>Productos Eliminados </h2>
       <ul>`;
@@ -173,6 +171,10 @@ async function createTicket() {
     },
   });
   const result = await response.json();
+  console.log(result)
+  if(result.status == 'success'){
+    window.location.href = `/ticket/${result.payload._id}`
+  }
   if(result.status == 'error'){
     Swal.fire({
       icon: "error",
@@ -181,9 +183,8 @@ async function createTicket() {
       confirmButton: false,
       timer: 3000,
       timerProgressBar: true,
-    });  
+    });
   }
-
 }
 btnFinalizarCompra.addEventListener("click", async (e) => {
   e.preventDefault();

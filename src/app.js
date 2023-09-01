@@ -62,6 +62,9 @@ app.engine(
   handlebars.engine({
     helpers: {
       compare: compare,
+      lookup: function (obj, key) {
+        return obj[key];
+      }
     },
     defaultLayout: "main",
   })

@@ -10,6 +10,7 @@ export const createPaymentIntent = async (req, res) => {
       ignoreExpiration: true,
     });
     const { amount } = await cartService.checkCartStock(cart);
+    console.log(amount)
     if (!amount) {
       return res.status(404).send({
         status: "error",

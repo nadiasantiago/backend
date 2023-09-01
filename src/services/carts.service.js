@@ -80,12 +80,12 @@ class CartService {
           const productWithoutStock = await productService.getProductById(_id);
           productsDeleted.push(productWithoutStock);
         } else {
-          let subtotal = qty * price;
+          let subtotal = qty * price *1000;
           products.push({
             pid: _id,
             title: title,
             quantity: qty,
-            subtotal: subtotal*1000,
+            subtotal: subtotal,
           });
           amount += subtotal;
         }

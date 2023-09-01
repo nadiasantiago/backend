@@ -10,11 +10,12 @@
         <p>Precio:${{this.pid.price}}</p>
         <p>Cantidad: {{this.quantity}}</p>
         <p>stock:{{this.pid.stock}}</p>
-      <div class="btn-conteiner">
-        <a href="/products/{{this.pid._id}}"><button class="detalle-button">Ver
-            detalle</button></a>
-        <button class="delete-button" id={{this.pid._id}}>🗑️</button>
-      </div>
+        <div class="btn-conteiner">
+          <a href="/products/{{this.pid._id}}"><button
+              class="detalle-button"
+            >Ver detalle</button></a>
+          <button class="delete-button" id={{this.pid._id}}>🗑️</button>
+        </div>
       </div>
     </div>
   {{/each}}
@@ -23,8 +24,8 @@
 </div>
 
 <div id="payment-body">
-  <h1></h1>
   <form id="payment-form">
+    <h1>Realizar pago</h1>
     <div id="link-authentication-element">
       <!--Stripe.js injects the Link Authentication Element-->
     </div>
@@ -41,5 +42,5 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://js.stripe.com/v3/"></script>
-{{!-- <script src="/js/payment.js"></script> --}}
+{{! <script src="/js/payment.js"></script> }}
 <script src="/js/carts.js"></script>

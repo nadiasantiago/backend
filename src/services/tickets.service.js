@@ -8,6 +8,10 @@ class TicketService {
     const ticketCreated = await ticketRepository.createTicket(ticketDto);
     return ticketCreated;
   }
+  async getTicketById (tid){
+    const ticket = await ticketRepository.getTicketById(tid)
+    return ticket
+  }
 }
 
 export const ticketService = new TicketService();

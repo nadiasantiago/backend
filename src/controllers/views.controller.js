@@ -2,6 +2,7 @@ import { cartService } from "../services/carts.service.js";
 import { messageService } from "../services/messages.service.js";
 import { productService } from "../services/products.service.js";
 import { sessionService } from "../services/sessions.service.js";
+import { ticketService } from "../services/tickets.service.js";
 import { generateProduct } from "../utils/utils.js";
 
 let productsMock = [];
@@ -82,38 +83,43 @@ export const viewMoking = (req, res) => {
   res.send({ status: "succes", payload: productsMock });
 };
 
-export const restorePassword = (req, res) =>{
-  res.render('restorePassword');
-}
+export const restorePassword = (req, res) => {
+  res.render("restorePassword");
+};
 
-export const resetPassword = (req, res)=>{
-  res.render('resetPassword')
-}
+export const resetPassword = (req, res) => {
+  res.render("resetPassword");
+};
 
-export const profileView = async (req, res)=>{
+export const profileView = async (req, res) => {
   try {
-    const { email } = req.user
-    const user = await sessionService.getUser({email})
-    const profilePicture = user?.documents?.[0]?.reference
-    res.render('profile', {
+    const { email } = req.user;
+    const user = await sessionService.getUser({ email });
+    const profilePicture = user?.documents?.[0]?.reference;
+    res.render("profile", {
       userId: user._id,
       user: req.user,
       profilePicture,
-    })
-
-  }catch(error){
-    console.log(error)
-  }
-}
-
-export const adminView = async (req, res)=>{
-  try {
-    
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
-export const payment = (req, res)=>{
-  res.render('payment')
-}
+export const adminView = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const payment = (req, res) => {
+  res.render("payment");
+};
+
+export const ticketView = async (req, res) => {
+  const { tid } = req.params;
+  const ticket = await ticketService.getTicketById(tid);
+  const products = ticket.products;
+  res.render("ticket", { ticket, products, title: "Ticket" });
+};
