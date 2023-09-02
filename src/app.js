@@ -21,8 +21,10 @@ import passport from "passport";
 import initializePassport from "./auth/passport.js";
 import errorHandler from "./middlewares/errors/error.js";
 import { addLogger } from "./utils/logger.js";
+import config from "./config/config.js";
 const app = express();
 
+const {port} = config
 const swaggerOptions = {
   definition:{
     openapi: '3.0.1',
@@ -75,8 +77,8 @@ app.use("/", viewsRouter);
 app.use("/loggerTest", loggerTestRouter);
 app.use(errorHandler);
 
-const httpServer = app.listen(8080, () => {
-  console.log("servidor arriba en el puerto 8080");
+const httpServer = app.listen(port, () => {
+  console.log(`servidor arriba en el puerto ${port}`);
 });
 
 database.connect();
