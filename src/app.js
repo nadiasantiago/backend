@@ -22,6 +22,7 @@ import initializePassport from "./auth/passport.js";
 import errorHandler from "./middlewares/errors/error.js";
 import { addLogger } from "./utils/logger.js";
 import config from "./config/config.js";
+import path from 'path'
 const app = express();
 
 const {port} = config
@@ -71,7 +72,7 @@ app.engine(
     defaultLayout: "main",
   })
 );
-app.set("views", `${__dirname}/views/`);
+app.set("views", path.join(__dirname, '/views'))
 app.set("view engine", "handlebars");
 app.use("/", viewsRouter);
 app.use("/loggerTest", loggerTestRouter);
