@@ -27,24 +27,28 @@ btnAddToCart.forEach((boton) => {
     const prodId = e.target.id;
     let cid = btnCart.id;
 
-    fetch(`/api/carts/${cid}/products/${prodId}`, {
+    const response = await fetch(`/api/carts/${cid}/products/${prodId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(() => {
-      if (!cid || !prodId) {
-        Swal.fire({
-          icon: "error",
-          text: "No se pudo añadir el producto! por favor verificar los campos",
-        });
-      } else {
-        Swal.fire({
-          icon: "success",
-          text: "se añadio un producto con exito",
-        });
-      }
     });
+    const result = await response.json();
+    if (result.status == "success") {
+      Swal.fire({
+        icon: "success",
+        text: result.message,
+        timer: 1500,
+        timerProgressBar: true,  
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        text: result.error,
+        timer: 2000,
+        timerProgressBar: true,  
+      });
+    }
   });
 });
 

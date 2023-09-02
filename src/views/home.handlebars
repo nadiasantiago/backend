@@ -25,7 +25,7 @@
             <p>stock:{{this.stock}}</p>
         </div>
         
-        <button class="product-button" {{#compare ../user.rol '==' 'admin'}} disabled {{/compare}}{{#compare this.stock '==' 0}} disabled {{/compare}} id="{{_id}}">Agregar al carrito</button>
+        <button class="product-button" {{#compare ../user.rol '==' 'admin'}} disabled {{/compare}}{{#compare this.stock '==' 0}} disabled {{/compare}}{{#compare ../user.email '==' this.owner}} disabled {{/compare}} id="{{_id}}">Agregar al carrito</button>
         <a href="/products/{{_id}}"><button class="detalle-button">Ver detalle</button></a>
     </div>
     {{/each}}

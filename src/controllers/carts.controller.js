@@ -1,4 +1,7 @@
+import config from "../config/config.js";
+import jwt from "jsonwebtoken";
 import { cartService } from "../services/carts.service.js";
+import { productService } from "../services/products.service.js";
 
 export const addCart = async (req, res) => {
   let cart = await cartService.addCart();
@@ -53,6 +56,21 @@ export const addToCart = async (req, res) => {
       .status(500)
       .send({ status: "Error", message: "Error al cargar los datos" });
   }
+  const product = await productService.getProductById(prodId);
+  const { jwtCookie: token } = req.cookies;
+  const tokenPayload = jwt.verify(token, config.jwtSecret, {
+    ignoreExpiration: true,
+  });
+  const user = tokenPayload.email;
+
+  const checkIfUserIsAllowed =
+    user === config.email || user === product.owner;
+
+  if (checkIfUserIsAllowed)
+    return res
+      .status(500)
+      .send({ status: "error", error: "Error al añadir el producto al carrito" });
+
   const cartUpdate = await cartService.addToCart(cartId, prodId);
   if (!cartUpdate) {
     return res
