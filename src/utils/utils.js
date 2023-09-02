@@ -5,7 +5,9 @@ import bcrypt from "bcrypt";
 import { faker } from "@faker-js/faker/locale/es";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename)
+const currentDirectory = dirname(__filename)
+const __dirname = path.join(currentDirectory, '..')
+
 // let partes = __filename.split("\\");
 // let rutaSinUltimaCarpeta = partes.slice(0, -1).join("\\");
 // const __dirname = dirname(rutaSinUltimaCarpeta);
