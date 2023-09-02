@@ -10,6 +10,7 @@ export default (error, req, res, next) => {
       });
       break;
     default:
+      console.log(error)
       res.send({
         status: "error",
         error: "unhandled error",

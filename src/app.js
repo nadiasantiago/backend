@@ -22,7 +22,6 @@ import initializePassport from "./auth/passport.js";
 import errorHandler from "./middlewares/errors/error.js";
 import { addLogger } from "./utils/logger.js";
 import config from "./config/config.js";
-import path from 'path'
 const app = express();
 
 const {port} = config
@@ -72,11 +71,11 @@ app.engine(
     defaultLayout: "main",
   })
 );
-app.set("views", './views')
+app.set("views", `${__dirname}/views`);
 app.set("view engine", "handlebars");
 app.use("/", viewsRouter);
 app.use("/loggerTest", loggerTestRouter);
-// app.use(errorHandler);
+app.use(errorHandler);
 
 const httpServer = app.listen(port, () => {
   console.log(`servidor arriba en el puerto ${port}`);
