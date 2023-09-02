@@ -30,5 +30,4 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), profileVie
 router.get('/ticket/:tid', ticketView)
 
 // router.get('/admin', (req, res, next)=>checkAuthorization(req, res, next, 'ADMIN'), adminView )
-router.get('/payment', payment)
 export default router

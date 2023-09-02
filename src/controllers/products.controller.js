@@ -104,7 +104,6 @@ export const deleteProduct = async (req, res) => {
     const { pid } = req.params;
 
     const product = await productService.getProductById(pid);
-    console.log(product);
     const { jwtCookie: token } = req.cookies;
     const tokenPayload = jwt.verify(token, config.jwtSecret, {
       ignoreExpiration: true,

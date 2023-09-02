@@ -56,7 +56,7 @@ async function initialize() {
       timerProgressBar: true,
     });
   }
-  const { clientSecret} = result;
+  const { clientSecret } = result;
   const appearance = {
     theme: "night",
   };
@@ -171,11 +171,10 @@ async function createTicket() {
     },
   });
   const result = await response.json();
-  console.log(result)
-  if(result.status == 'success'){
-    window.location.href = `/ticket/${result.payload._id}`
+  if (result.status == "success") {
+    window.location.href = `/ticket/${result.payload._id}`;
   }
-  if(result.status == 'error'){
+  if (result.status == "error") {
     Swal.fire({
       icon: "error",
       text: result.message,

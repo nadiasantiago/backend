@@ -33,7 +33,6 @@ class MailingService {
     });
   }
   async ticketEmail(ticket) {
-    console.log(ticket.products);
     await this.transport.sendMail({
       from: `Equipo Ecommerce ${USER}`,
       to: ticket.purchaser,
