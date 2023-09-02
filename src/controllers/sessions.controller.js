@@ -34,11 +34,9 @@ export const login = async (req, res) => {
 
 export const githubcallback = (req, res) => {
   const user = req.user;
-  const userToken = {
-    id: user._id,
-    rol: user.rol,
-  };
-  const token = jwt.sign(userToken, config.jwtSecret, { expiresIn: "24h" });
+  const userDto = new outputUserDto(user);
+  const githubUser = JSON.parse(JSON.stringify(userDto));
+  const token = jwt.sign(githubUser, config.jwtSecret, { expiresIn: "24h" });
 
   res.cookie("jwtCookie", token, { httpOnly: true }).redirect("/products");
 };

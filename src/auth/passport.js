@@ -94,6 +94,7 @@ const initializePassport = () => {
       async (accessToke, refreshToke, profile, done) => {
         try {
           let user = await userModel.findOne({ email: profile._json.email });
+          const cart = await cartModel.create({});
           if (!user) {
             let newUser = {
               first_name: profile._json.name,
@@ -101,6 +102,7 @@ const initializePassport = () => {
               age: "",
               email: profile._json.email,
               password: "",
+              cart: cart._id
             };
             let result = await userModel.create(newUser);
             return done(null, result);
