@@ -5,10 +5,10 @@ import bcrypt from "bcrypt";
 import { faker } from "@faker-js/faker/locale/es";
 
 const __filename = fileURLToPath(import.meta.url);
-
-let partes = __filename.split("\\");
-let rutaSinUltimaCarpeta = partes.slice(0, -1).join("\\");
-const __dirname = dirname(rutaSinUltimaCarpeta);
+const __dirname = dirname(__filename)
+// let partes = __filename.split("\\");
+// let rutaSinUltimaCarpeta = partes.slice(0, -1).join("\\");
+// const __dirname = dirname(rutaSinUltimaCarpeta);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
