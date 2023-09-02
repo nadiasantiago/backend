@@ -75,7 +75,7 @@ app.set("views", `${__dirname}/views`);
 app.set("view engine", "handlebars");
 app.use("/", viewsRouter);
 app.use("/loggerTest", loggerTestRouter);
-app.use(errorHandler);
+// app.use(errorHandler);
 
 const httpServer = app.listen(port, () => {
   console.log(`servidor arriba en el puerto ${port}`);
