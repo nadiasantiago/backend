@@ -68,10 +68,10 @@ app.engine(
         return obj[key];
       }
     },
-    defaultLayout: "login",
+    defaultLayout: "main",
   })
 );
-app.set("views", __dirname + 'views');
+app.set("views", __dirname + '/views');
 app.set("view engine", "handlebars");
 app.use("/", viewsRouter);
 app.use("/loggerTest", loggerTestRouter);
