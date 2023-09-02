@@ -80,8 +80,6 @@ app.use(errorHandler);
 
 const httpServer = app.listen(port, () => {
   console.log(`servidor arriba en el puerto ${port}`);
-  console.log(__dirname)
-
 });
 
 database.connect();

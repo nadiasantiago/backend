@@ -8,10 +8,6 @@ const __filename = fileURLToPath(import.meta.url);
 const currentDirectory = path.dirname(__filename)
 const __dirname = path.join(currentDirectory, '..')
 
-// let partes = __filename.split("\\");
-// let rutaSinUltimaCarpeta = partes.slice(0, -1).join("\\");
-// const __dirname = dirname(rutaSinUltimaCarpeta);
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     let subfolder = "";

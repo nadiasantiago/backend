@@ -15,6 +15,8 @@ export const login = (req, res) => {
   res.render("login", { title: "Iniciar sesion" });
 };
 
+
+
 export const products = async (req, res) => {
   const {
     limit = 10,
