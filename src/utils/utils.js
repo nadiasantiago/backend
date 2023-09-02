@@ -1,11 +1,11 @@
 import multer from "multer";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
+import path from "path";
 import bcrypt from "bcrypt";
 import { faker } from "@faker-js/faker/locale/es";
 
 const __filename = fileURLToPath(import.meta.url);
-const currentDirectory = dirname(__filename)
+const currentDirectory = path.dirname(__filename)
 const __dirname = path.join(currentDirectory, '..')
 
 // let partes = __filename.split("\\");
