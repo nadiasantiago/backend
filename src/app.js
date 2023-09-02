@@ -71,6 +71,8 @@ app.engine(
     defaultLayout: "main",
   })
 );
+console.log(__dirname)
+
 app.set("view engine", "handlebars");
 app.set("views", __dirname + '/views');
 app.use("/", viewsRouter);
