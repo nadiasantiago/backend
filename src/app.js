@@ -71,7 +71,7 @@ app.engine(
     defaultLayout: "login",
   })
 );
-app.set("views", __dirname + '/views');
+app.set("views", __dirname + 'views');
 app.set("view engine", "handlebars");
 app.use("/", viewsRouter);
 app.use("/loggerTest", loggerTestRouter);
